@@ -20,6 +20,37 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\AnimatedImageView.cpp" />
+    <ClCompile Include="source\ButtonView.cpp" />
+    <ClCompile Include="source\Config.cpp" />
+    <ClCompile Include="source\EventService.cpp" />
+    <ClCompile Include="source\GameService.cpp" />
+    <ClCompile Include="source\GraphicService.cpp" />
+    <ClCompile Include="source\ImageView.cpp" />
+    <ClCompile Include="source\MainMenuUIController.cpp" />
+    <ClCompile Include="source\ServiceLocator.cpp" />
+    <ClCompile Include="source\SoundService.cpp" />
+    <ClCompile Include="source\SplashScreenUIController.cpp" />
+    <ClCompile Include="source\TextView.cpp" />
+    <ClCompile Include="source\UIService.cpp" />
+    <ClCompile Include="source\UIView.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\AnimatedImageView.h" />
+    <ClInclude Include="header\ButtonView.h" />
+    <ClInclude Include="header\Config.h" />
+    <ClInclude Include="header\EventService.h" />
+    <ClInclude Include="header\GameService.h" />
+    <ClInclude Include="header\GraphicService.h" />
+    <ClInclude Include="header\ImageView.h" />
+    <ClInclude Include="header\IUIController.h" />
+    <ClInclude Include="header\MainMenuUIController.h" />
+    <ClInclude Include="header\ServiceLocator.h" />
+    <ClInclude Include="header\SoundService.h" />
+    <ClInclude Include="header\SplashScreenUIController.h" />
+    <ClInclude Include="header\TextView.h" />
+    <ClInclude Include="header\UIService.h" />
+    <ClInclude Include="header\UIView.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

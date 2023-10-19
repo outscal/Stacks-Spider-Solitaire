@@ -18,5 +18,94 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\GraphicService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EventService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ServiceLocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SplashScreenUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MainMenuUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ButtonView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImageView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AnimatedImageView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TextView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\GraphicService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\EventService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\GameService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ServiceLocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SoundService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\IUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\SplashScreenUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\MainMenuUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ButtonView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\ImageView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\AnimatedImageView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UIView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\TextView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
 #include "../../header/Event/EventService.h"
 #include "../../header/UI/UIService.h"
 #include "../../header/Sound/SoundService.h"
+#include "../../header/Gameplay/GameplayService.h"
+#include "../../header/Card/CardService.h"
 
 namespace Global
 {
@@ -13,6 +15,8 @@ namespace Global
         Main::GraphicService* graphic_service;
         Sound::SoundService* sound_service;
         UI::UIService* ui_service;
+        Gameplay::GameplayService* gameplay_service;
+        Card::CardService* card_service;
 
         ServiceLocator();
         ~ServiceLocator();
@@ -31,6 +35,8 @@ namespace Global
         Main::GraphicService* getGraphicService();
         Sound::SoundService* getSoundService();
         UI::UIService* getUIService();
+        Gameplay::GameplayService* getGameplayService();
+        Card::CardService* getCardService();
         void deleteServiceLocator();
     };
 }

@@ -20,6 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\Card\CardController.cpp" />
+    <ClCompile Include="source\Card\CardModel.cpp" />
+    <ClCompile Include="source\Card\CardService.cpp" />
+    <ClCompile Include="source\Card\CardView.cpp" />
+    <ClCompile Include="source\Gameplay\LevelController.cpp" />
+    <ClCompile Include="source\Gameplay\LevelModel.cpp" />
+    <ClCompile Include="source\Gameplay\GameplayService.cpp" />
+    <ClCompile Include="source\Gameplay\LevelView.cpp" />
+    <ClCompile Include="source\Stack\ArrayStack.cpp" />
     <ClCompile Include="source\UI\UIElement\AnimatedImageView.cpp" />
     <ClCompile Include="source\UI\UIElement\ButtonView.cpp" />
     <ClCompile Include="source\Global\Config.cpp" />
@@ -36,6 +45,16 @@
     <ClCompile Include="source\UI\UIElement\UIView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\Card\CardConfig.h" />
+    <ClInclude Include="header\Card\CardController.h" />
+    <ClInclude Include="header\Card\CardModel.h" />
+    <ClInclude Include="header\Card\CardService.h" />
+    <ClInclude Include="header\Card\CardView.h" />
+    <ClInclude Include="header\Stack\ArrayStack.h" />
+    <ClInclude Include="header\Gameplay\LevelController.h" />
+    <ClInclude Include="header\Gameplay\LevelModel.h" />
+    <ClInclude Include="header\Gameplay\GameplayService.h" />
+    <ClInclude Include="header\Gameplay\LevelView.h" />
     <ClInclude Include="header\UI\UIElement\AnimatedImageView.h" />
     <ClInclude Include="header\UI\UIElement\ButtonView.h" />
     <ClInclude Include="header\Global\Config.h" />

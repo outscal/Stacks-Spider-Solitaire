@@ -27,7 +27,7 @@ namespace Gameplay
         float getCardWidth();
         float getCardHeight();
 
-        std::vector<ArrayStack::Stack<Card::CardController*>*> getPlayStacks();
+        std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
         std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();
         ArrayStack::Stack<Card::CardController*>* getDrawingStack();
     };

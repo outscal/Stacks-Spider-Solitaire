@@ -5,6 +5,7 @@
 namespace Gameplay
 {
 	using namespace ArrayStack;
+	using namespace LinkedListStack;
 	using namespace Card;
 	using namespace Global;
 
@@ -24,7 +25,7 @@ namespace Gameplay
 	{
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
-			play_stacks.push_back(new Stack<CardController*>());
+			play_stacks.push_back(new LinkedListStack::Stack<CardController*>());
 		}
 	}
 
@@ -32,13 +33,13 @@ namespace Gameplay
 	{
 		for (int i = 0; i < number_of_solution_stacks; i++)
 		{
-			solution_stacks.push_back(new Stack<CardController*>());
+			solution_stacks.push_back(new ArrayStack::Stack<CardController*>());
 		}
 	}
 
 	void LevelModel::createDrawingStack()
 	{
-		drawing_stack = new Stack<CardController*>();
+		drawing_stack = new ArrayStack::Stack<CardController*>();
 	}
 
 	void LevelModel::initialize() 
@@ -48,7 +49,7 @@ namespace Gameplay
 
 	void LevelModel::initializeStacks()
 	{
-		Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
+		ArrayStack::Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
 
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
@@ -89,12 +90,12 @@ namespace Gameplay
 		drawing_stack->push(card_controller);
 	}
 
-	std::vector<Stack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
+	std::vector<LinkedListStack::Stack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
 	{
 		return play_stacks;
 	}
 
-	std::vector<Stack<CardController*>*> Gameplay::LevelModel::getSolutionStacks()
+	std::vector<ArrayStack::Stack<CardController*>*> Gameplay::LevelModel::getSolutionStacks()
 	{
 		return solution_stacks;
 	}

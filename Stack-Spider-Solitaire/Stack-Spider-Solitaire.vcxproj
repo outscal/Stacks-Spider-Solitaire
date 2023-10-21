@@ -54,6 +54,7 @@
     <ClInclude Include="header\Gameplay\LevelModel.h" />
     <ClInclude Include="header\Gameplay\GameplayService.h" />
     <ClInclude Include="header\Gameplay\LevelView.h" />
+    <ClInclude Include="header\Stack\LinkedListStack.h" />
     <ClInclude Include="header\UI\UIElement\AnimatedImageView.h" />
     <ClInclude Include="header\UI\UIElement\ButtonView.h" />
     <ClInclude Include="header\Global\Config.h" />

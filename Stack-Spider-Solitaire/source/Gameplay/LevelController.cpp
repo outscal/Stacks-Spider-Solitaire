@@ -52,12 +52,12 @@ namespace Gameplay
 		return level_view->getCardHeight();
 	}
 
-	std::vector<Stack<CardController*>*> LevelController::getPlayStacks()
+	std::vector<LinkedListStack::Stack<CardController*>*> LevelController::getPlayStacks()
 	{
 		return level_model->getPlayStacks();
 	}
 
-	std::vector<Stack<CardController*>*> LevelController::getSolutionStacks()
+	std::vector<ArrayStack::Stack<CardController*>*> LevelController::getSolutionStacks()
 	{
 		return level_model->getSolutionStacks();
 	}

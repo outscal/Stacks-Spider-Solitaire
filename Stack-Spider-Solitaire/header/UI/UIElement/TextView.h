@@ -7,6 +7,8 @@ namespace UIElement
 	{
 		BUBBLE_BOBBLE,
 		DS_DIGIB,
+		HAND_WRITING,
+		ROBOTO,
 	};
 
 	class TextView : public UIView
@@ -16,6 +18,8 @@ namespace UIElement
 
 		static sf::Font font_bubble_bobble;
 		static sf::Font font_DS_DIGIB;
+		static sf::Font font_hand_writing;
+		static sf::Font font_roboto;
 
 		sf::Text text;
 

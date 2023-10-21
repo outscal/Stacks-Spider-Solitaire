@@ -18,6 +18,10 @@ namespace Global
 
 	const sf::String Config::DS_DIGIB_font_path = "assets/fonts/DS_DIGIB.ttf";
 
+	const sf::String Config::hand_writing_font_path = "assets/fonts/handwriting.ttf";
+
+	const sf::String Config::roboto_font_path = "assets/fonts/roboto.ttf";
+
 	const sf::String Config::background_music_path = "assets/sounds/background_music.mp3";
 
 	const sf::String Config::button_click_sound_path = "assets/sounds/button_click_sound.wav";

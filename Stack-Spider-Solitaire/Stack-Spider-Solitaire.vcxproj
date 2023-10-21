@@ -24,6 +24,7 @@
     <ClCompile Include="source\Card\CardModel.cpp" />
     <ClCompile Include="source\Card\CardService.cpp" />
     <ClCompile Include="source\Card\CardView.cpp" />
+    <ClCompile Include="source\Gameplay\GameplayUIController.cpp" />
     <ClCompile Include="source\Gameplay\LevelController.cpp" />
     <ClCompile Include="source\Gameplay\LevelModel.cpp" />
     <ClCompile Include="source\Gameplay\GameplayService.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="header\Card\CardService.h" />
     <ClInclude Include="header\Card\CardTexture.h" />
     <ClInclude Include="header\Card\CardView.h" />
+    <ClInclude Include="header\Gameplay\GameplayUIController.h" />
     <ClInclude Include="header\Stack\ArrayStack.h" />
     <ClInclude Include="header\Gameplay\LevelController.h" />
     <ClInclude Include="header\Gameplay\LevelModel.h" />

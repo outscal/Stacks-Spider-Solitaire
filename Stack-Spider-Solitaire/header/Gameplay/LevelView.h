@@ -11,11 +11,11 @@ namespace Gameplay
     class LevelView
     {
     private:
-        const float height_to_width_ratio = 1.37f;
-        const float cards_horrizontal_spacing = 30.f;
-        const float cards_vertical_spacing = 30.f;
+        const float height_to_width_ratio = 1.45f;
+        const float cards_horrizontal_spacing = 40.f;
+        const float cards_vertical_spacing = 25.f;
 
-        const float play_deck_top_offset = 40.f;
+        const float play_deck_top_offset = 90.f;
 
         const float drawing_deck_top_offset = 700.f;
         const float drawing_deck_left_offset = 1550.f;

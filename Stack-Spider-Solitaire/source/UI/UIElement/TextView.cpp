@@ -7,6 +7,8 @@ namespace UIElement
 
 	sf::Font TextView::font_bubble_bobble;
 	sf::Font TextView::font_DS_DIGIB;
+	sf::Font TextView::font_hand_writing;
+	sf::Font TextView::font_roboto;
 
 	TextView::TextView() = default;
 
@@ -47,6 +49,8 @@ namespace UIElement
 	{
 		font_bubble_bobble.loadFromFile(Config::bubble_bobble_font_path);
 		font_DS_DIGIB.loadFromFile(Config::DS_DIGIB_font_path);
+		font_hand_writing.loadFromFile(Config::hand_writing_font_path);
+		font_roboto.loadFromFile(Config::roboto_font_path);
 	}
 
 	void TextView::setText(sf::String text_value)
@@ -63,6 +67,12 @@ namespace UIElement
 			break;
 		case FontType::DS_DIGIB:
 			text.setFont(font_DS_DIGIB);
+			break;
+		case FontType::HAND_WRITING:
+			text.setFont(font_hand_writing);
+			break;
+		case FontType::ROBOTO:
+			text.setFont(font_roboto);
 			break;
 		}
 	}

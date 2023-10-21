@@ -17,6 +17,8 @@ namespace Global
 
 		static const sf::String bubble_bobble_font_path;
 		static const sf::String DS_DIGIB_font_path;
+		static const sf::String hand_writing_font_path;
+		static const sf::String roboto_font_path;
 
 		static const sf::String background_music_path;
 		static const sf::String button_click_sound_path;

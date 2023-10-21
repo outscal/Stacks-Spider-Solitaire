@@ -67,9 +67,9 @@ namespace Card
 			card_deck_to_shuffle.push_back(card_deck->pop());
 		}
 
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::shuffle(card_deck_to_shuffle.begin(), card_deck_to_shuffle.end(), gen);
+		std::random_device device;
+		std::mt19937 random_engine(device());
+		std::shuffle(card_deck_to_shuffle.begin(), card_deck_to_shuffle.end(), random_engine);
 
 		card_deck->clear();
 		for (CardController* card : card_deck_to_shuffle)

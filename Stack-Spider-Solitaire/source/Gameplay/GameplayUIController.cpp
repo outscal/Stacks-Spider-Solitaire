@@ -2,14 +2,19 @@
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Gameplay/GameplayService.h"
+#include "../../header/Sound/SoundService.h"
+#include "../../header/Main/GameService.h"
 
 namespace Gameplay
 {
+    using namespace Main;
+    using namespace Sound;
     using namespace UIElement;
     using namespace Global;
 
     GameplayUIController::GameplayUIController()
     {
+        createButton();
         createTexts();
     }
 
@@ -20,7 +25,13 @@ namespace Gameplay
 
     void GameplayUIController::initialize()
     {
+        initializeButton();
         initializeTexts();
+    }
+
+    void GameplayUIController::createButton()
+    {
+        menu_button = new ButtonView();
     }
 
     void GameplayUIController::createTexts()
@@ -29,10 +40,20 @@ namespace Gameplay
         time_text = new TextView();
     }
 
+    void GameplayUIController::initializeButton()
+    {
+        menu_button->initialize("Menu Button", 
+            Config::menu_button_texture_path, 
+            button_width, button_height, 
+            sf::Vector2f(menu_button_x_position, menu_button_y_position));
+
+        registerButtonCallback();
+    }
+
     void GameplayUIController::initializeTexts()
     {
         initializeScoreText();
-        initializeTimeComplexityText();
+        initializeTimeText();
     }
 
     void GameplayUIController::initializeScoreText()
@@ -40,25 +61,28 @@ namespace Gameplay
         score_text->initialize("Score : 0", sf::Vector2f(score_text_x_position, text_y_position), FontType::ROBOTO, font_size);
     }
 
-    void GameplayUIController::initializeTimeComplexityText()
+    void GameplayUIController::initializeTimeText()
     {
         time_text->initialize("Time : 01:00", sf::Vector2f(time_text_x_position, text_y_position), FontType::ROBOTO, font_size);
     }
 
     void GameplayUIController::update()
     {
+        menu_button->update();
         updateScoreText();
-        updateTimeComplexityText();
+        updateTimeText();
     }
 
     void GameplayUIController::render()
     {
+        menu_button->render();
         score_text->render();
         time_text->render();
     }
 
     void GameplayUIController::show()
     {
+        menu_button->show();
         score_text->show();
         time_text->show();
     }
@@ -68,13 +92,25 @@ namespace Gameplay
         score_text->update();
     }
 
-    void GameplayUIController::updateTimeComplexityText()
+    void GameplayUIController::updateTimeText()
     {
         time_text->update();
     }
 
+    void GameplayUIController::menuButtonCallback()
+    {
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+        GameService::setGameState(GameState::MAIN_MENU);
+    }
+
+    void GameplayUIController::registerButtonCallback()
+    {
+        menu_button->registerCallbackFuntion(std::bind(&GameplayUIController::menuButtonCallback, this));
+    }
+
     void GameplayUIController::destroy()
     {
+        delete (menu_button);
         delete (score_text);
         delete (time_text);
     }

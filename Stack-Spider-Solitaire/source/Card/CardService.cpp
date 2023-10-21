@@ -4,6 +4,7 @@
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include <ctime>
+#include <random>
 
 namespace Card
 {
@@ -25,30 +26,33 @@ namespace Card
 		return new CardController(rank, suit);
 	}
 
-	Stack<CardController*>* CardService::generateSequentialCardDeck()
+	Stack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
 		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
 		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
 
 		Stack<CardController*>* card_deck = new Stack<CardController*>();
 
-		for (int rank = 0; rank < static_cast<int>(number_of_ranks); rank++)
+		for (int i = 0; i < number_of_decks; i++)
 		{
-			for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
+			for (int rank = 1; rank <= static_cast<int>(number_of_ranks); rank++)
 			{
-				CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
-				
-				card->initialize(card_width, card_height);
-				card_deck->push(card);
+				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
+				{
+					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
+
+					card->initialize(card_width, card_height);
+					card_deck->push(card);
+				}
 			}
 		}
 
 		return card_deck;
 	}
 
-	Stack<CardController*>* CardService::generateRandomizedCardDeck()
+	Stack<CardController*>* CardService::generateRandomizedCardDeck(int number_of_decks)
 	{
-		Stack<CardController*>* card_deck = generateSequentialCardDeck();
+		Stack<CardController*>* card_deck = generateSequentialCardDeck(number_of_decks);
 
 		shuffleDeck(card_deck);
 		return card_deck;
@@ -56,7 +60,6 @@ namespace Card
 
 	void CardService::shuffleDeck(Stack<CardController*>* card_deck)
 	{
-		srand(static_cast<unsigned>(time(nullptr))); 
 		std::vector<CardController*> card_deck_to_shuffle;
 
 		while (!card_deck->empty())
@@ -64,11 +67,9 @@ namespace Card
 			card_deck_to_shuffle.push_back(card_deck->pop());
 		}
 
-		for (int i = card_deck->size() - 1; i > 0; i--)
-		{
-			int j = rand() % (i + 1);
-			std::swap(card_deck_to_shuffle[i], card_deck_to_shuffle[j]);
-		}
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::shuffle(card_deck_to_shuffle.begin(), card_deck_to_shuffle.end(), gen);
 
 		card_deck->clear();
 		for (CardController* card : card_deck_to_shuffle)

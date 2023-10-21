@@ -45,20 +45,20 @@ namespace Gameplay
 	void LevelModel::initialize() 
 	{
 		initializeStacks();
+		openPlayStacksTopCard();
 	}
 
 	void LevelModel::initializeStacks()
 	{
-		ArrayStack::Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
+		ArrayStack::Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
 
-		for (int i = 0; i < number_of_play_stacks; i++)
+		while (card_deck->size() > drawing_deck_stack_size)
 		{
-			addCardInPlayStack(i, card_deck->pop());
-		}
-
-		for (int i = 0; i < number_of_solution_stacks; i++)
-		{
-			addCardInSolutionStack(i, card_deck->pop());
+			for (int i = 0; i < number_of_play_stacks; i++)
+			{
+				if (card_deck->size() <= drawing_deck_stack_size) break;
+				addCardInPlayStack(i, card_deck->pop());
+			}
 		}
 
 		while (!card_deck->empty())
@@ -67,6 +67,14 @@ namespace Gameplay
 		}
 
 		delete (card_deck);
+	}
+
+	void LevelModel::openPlayStacksTopCard()
+	{
+		for (int i = 0; i < number_of_play_stacks; i++)
+		{
+			play_stacks[i]->peek()->setCardState(State::OPEN);
+		}
 	}
 
 	void LevelModel::addCardInPlayStack(int stack_index, CardController* card_controller)

@@ -9,6 +9,7 @@ namespace LinkedListStack
     {
     private:
         std::forward_list<T> linked_list_stack;
+        int stack_size;
 
     public:
         Stack();
@@ -26,7 +27,10 @@ namespace LinkedListStack
 namespace LinkedListStack
 {
     template <class T>
-    Stack<T>::Stack() { }
+    Stack<T>::Stack() 
+    {
+        stack_size = 0;
+    }
 
     template <class T>
     Stack<T>::~Stack()
@@ -38,6 +42,7 @@ namespace LinkedListStack
     void Stack<T>::push(T data)
     {
         linked_list_stack.push_front(data);
+        stack_size++;
     }
 
     template <class T>
@@ -47,6 +52,7 @@ namespace LinkedListStack
         {
             T data = linked_list_stack.front();
             linked_list_stack.pop_front();
+            --stack_size;
             return data;
         }
         else
@@ -79,7 +85,7 @@ namespace LinkedListStack
     template <class T>
     int Stack<T>::size()
     {
-        return linked_list_stack.size();
+        return stack_size;
     }
 
     template <class T>
@@ -89,5 +95,7 @@ namespace LinkedListStack
         {
             pop();
         }
+
+        stack_size = 0;
     }
 }

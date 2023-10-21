@@ -48,6 +48,7 @@
     <ClInclude Include="header\Card\CardController.h" />
     <ClInclude Include="header\Card\CardModel.h" />
     <ClInclude Include="header\Card\CardService.h" />
+    <ClInclude Include="header\Card\CardTexture.h" />
     <ClInclude Include="header\Card\CardView.h" />
     <ClInclude Include="header\Stack\ArrayStack.h" />
     <ClInclude Include="header\Gameplay\LevelController.h" />

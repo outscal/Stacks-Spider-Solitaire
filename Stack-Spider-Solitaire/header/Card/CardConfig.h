@@ -3,13 +3,11 @@
 namespace Card
 {
     static const int number_of_ranks = 13;
-    static const int number_of_suits = 4;
+    static const int number_of_suits = 2;
 
     enum class Suit
     {
         HEARTS,
-        DIAMONDS,
-        CLUBS,
         SPADES
     };
 

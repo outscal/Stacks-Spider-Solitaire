@@ -16,6 +16,9 @@ namespace Card
         UIElement::ButtonView* card_button_view;
 
         void updateCardView();
+        void registerButtonCallback();
+        void cardButtonCallback();
+        sf::String getCardTexturePath();
 
     public:
         CardView();
@@ -24,5 +27,7 @@ namespace Card
         void initialize(float width, float height, CardController* controller);
         void update();
         void render();
+
+        void updateCardTexture();
     };
 }

@@ -22,6 +22,11 @@ namespace Card
 		return position;
 	}
 
+	void CardModel::setCardState(State card_state)
+	{
+		card_type->state = card_state;
+	}
+
 	CardType* CardModel::getCardType()
 	{
 		return card_type;

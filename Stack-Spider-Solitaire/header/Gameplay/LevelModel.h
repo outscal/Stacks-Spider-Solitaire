@@ -9,6 +9,9 @@ namespace Gameplay
     class LevelModel
     {
     private:
+        const int number_of_decks = 4;
+        const int drawing_deck_stack_size = 50;
+
         std::vector<LinkedListStack::Stack<Card::CardController*>*> play_stacks;
         std::vector<ArrayStack::Stack<Card::CardController*>*> solution_stacks;
         ArrayStack::Stack<Card::CardController*>* drawing_stack;
@@ -17,6 +20,7 @@ namespace Gameplay
         void createSolutionStacks();
         void createDrawingStack();
         void initializeStacks();
+        void openPlayStacksTopCard();
         void destroy();
 
     public:

@@ -31,6 +31,7 @@ namespace Card
         void setPosition(sf::Vector2f card_position);
         sf::Vector2f getPosition();
 
+        void setCardState(State card_state);
         CardType* getCardType();
     };
 }

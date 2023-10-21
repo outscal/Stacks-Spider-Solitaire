@@ -1,11 +1,15 @@
 #include "../../header/Card/CardView.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Card/CardController.h"
+#include "../../header/Global/ServiceLocator.h"
+#include "../../header/Sound/SoundService.h"
+#include "../../header/Card/CardTexture.h"
 
 namespace Card
 {
 	using namespace UIElement;
 	using namespace Global;
+	using namespace Sound;
 
 	CardView::CardView()
 	{
@@ -23,7 +27,8 @@ namespace Card
 		card_width = width;
 		card_height = height;
 
-		card_button_view->initialize("Card", Config::closed_card_texture_path, card_width, card_height, sf::Vector2f(30,30));
+		card_button_view->initialize("Card", getCardTexturePath(), card_width, card_height, sf::Vector2f(30, 30));
+		registerButtonCallback();
 	}
 
 	void CardView::update()
@@ -40,5 +45,27 @@ namespace Card
 	void CardView::updateCardView()
 	{
 		card_button_view->setPosition(card_controller->getCardPosition());
+	}
+
+	void CardView::updateCardTexture()
+	{
+		card_button_view->setTexture(getCardTexturePath());
+	}
+
+	void CardView::registerButtonCallback()
+	{
+		card_button_view->registerCallbackFuntion(std::bind(&CardView::cardButtonCallback, this));
+	}
+
+	void CardView::cardButtonCallback()
+	{
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+	}
+
+	sf::String CardView::getCardTexturePath()
+	{
+		CardType* card = card_controller->getCardType();
+		sf::String texture_path = CardTexture::getCardTexturePath(card->rank, card->suit, card->state);
+		return texture_path;
 	}
 }

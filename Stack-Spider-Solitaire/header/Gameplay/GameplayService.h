@@ -21,5 +21,8 @@ namespace Gameplay
 		void render();
 
 		void createLevel();
+
+		float getCardWidth();
+		float getCardHeight();
 	};
 }

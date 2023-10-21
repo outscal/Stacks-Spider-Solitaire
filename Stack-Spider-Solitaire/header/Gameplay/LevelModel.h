@@ -12,6 +12,12 @@ namespace Gameplay
         std::vector<ArrayStack::Stack<Card::CardController*>*> solution_stacks;
         ArrayStack::Stack<Card::CardController*>* drawing_stack;
 
+        void createPlayStacks();
+        void createSolutionStacks();
+        void createDrawingStack();
+        void initializeStacks();
+        void destroy();
+
     public:
         static const int number_of_play_stacks = 10;
         static const int number_of_solution_stacks = 4;
@@ -21,9 +27,9 @@ namespace Gameplay
 
         void initialize();
 
-        void addPlayStack(ArrayStack::Stack<Card::CardController*>* stack);
-        void addSolutionStack(ArrayStack::Stack<Card::CardController*>* stack);
-        void setDrawingStack(ArrayStack::Stack<Card::CardController*>* stack);
+        void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
+        void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
+        void addCardInDrawingStack(Card::CardController* card_controller);
 
         std::vector<ArrayStack::Stack<Card::CardController*>*> getPlayStacks();
         std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();

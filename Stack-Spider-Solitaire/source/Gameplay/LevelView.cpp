@@ -4,12 +4,14 @@
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Main/GraphicService.h"
 #include "../../header/Gameplay/LevelController.h"
+#include "../../header/Card/CardController.h"
 #include <vector>
 
 namespace Gameplay
 {
 	using namespace UIElement;
 	using namespace Global;
+	using namespace Card;
 
 	LevelView::LevelView()
 	{
@@ -25,6 +27,7 @@ namespace Gameplay
 	{
 		level_controller = controller;
 		initializeImage();
+		calculateCardExtents();
 	}
 
 	void LevelView::createImage()
@@ -36,17 +39,105 @@ namespace Gameplay
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 
-		background_image->initialize(Config::level_background_texture_path, game_window->getSize().x, game_window->getSize().y, sf::Vector2f(0,0));
+		background_image->initialize(Config::level_background_texture_path, 
+									game_window->getSize().x, 
+									game_window->getSize().y, 
+									sf::Vector2f(0,0));
 	}
 
 	void LevelView::update()
 	{
 		background_image->update();
+		updatePlayStacksView();
+		updateSolutionStacksView();
+		updateDrawingStackView();
 	}
 
 	void LevelView::render()
 	{
 		background_image->render();
+		renderPlayStacks();
+		renderSolutionStacks();
+		renderDrawnigStack();
+	}
+
+	void LevelView::updatePlayStacksView() 
+	{ 
+		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
+		{
+			if (level_controller->getPlayStacks()[i]->empty()) continue;
+
+			float x_position = (i * card_width) + ((i + 1) * cards_horrizontal_spacing);
+			float y_position = play_deck_top_offset;
+
+			CardController* card_controller = level_controller->getPlayStacks()[i]->top();
+			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
+			card_controller->update();
+		}
+	}
+
+	void LevelView::updateSolutionStacksView() 
+	{
+		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
+		{
+			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+
+			float x_position = solution_deck_left_offset + (i * solution_deck_spacing);
+			float y_position = solution_deck_top_offset;
+
+			CardController* card_controller = level_controller->getSolutionStacks()[i]->top();
+			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
+			card_controller->update();
+		}
+	}
+
+	void LevelView::updateDrawingStackView() 
+	{ 
+		if (level_controller->getDrawingStack()->empty()) return;
+
+		CardController* card_controller = level_controller->getDrawingStack()->top();
+		card_controller->setCardPosition(sf::Vector2f(drawing_deck_left_offset, drawing_deck_top_offset));
+		card_controller->update();
+	}
+
+	void LevelView::renderPlayStacks()
+	{
+		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+		{
+			if (level_controller->getPlayStacks()[i]->empty()) continue;
+
+			CardController* card_controller = level_controller->getPlayStacks()[i]->top();
+			card_controller->render();
+		}
+	}
+
+	void LevelView::renderSolutionStacks()
+	{
+		for (int i = 0; i < LevelModel::number_of_solution_stacks; i++)
+		{
+			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+
+			CardController* card_controller = level_controller->getSolutionStacks()[i]->top();
+			card_controller->render();
+		}
+	}
+
+	void LevelView::renderDrawnigStack()
+	{
+		if (level_controller->getDrawingStack()->empty()) return;
+
+		CardController* card_controller = level_controller->getDrawingStack()->top();
+		card_controller->render();
+	}
+
+	float LevelView::getCardWidth()
+	{
+		return card_width;
+	}
+
+	float LevelView::getCardHeight()
+	{
+		return card_height;
 	}
 
 	void LevelView::calculateCardExtents()

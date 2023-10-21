@@ -28,7 +28,6 @@
     <ClCompile Include="source\Gameplay\LevelModel.cpp" />
     <ClCompile Include="source\Gameplay\GameplayService.cpp" />
     <ClCompile Include="source\Gameplay\LevelView.cpp" />
-    <ClCompile Include="source\Stack\ArrayStack.cpp" />
     <ClCompile Include="source\UI\UIElement\AnimatedImageView.cpp" />
     <ClCompile Include="source\UI\UIElement\ButtonView.cpp" />
     <ClCompile Include="source\Global\Config.cpp" />

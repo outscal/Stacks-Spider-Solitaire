@@ -23,7 +23,7 @@ namespace Card
 		card_width = width;
 		card_height = height;
 
-		card_button_view->initialize("Card", Config::closed_card_texture_path, card_width, card_height, sf::Vector2f(0,0));
+		card_button_view->initialize("Card", Config::closed_card_texture_path, card_width, card_height, sf::Vector2f(30,30));
 	}
 
 	void CardView::update()

@@ -37,6 +37,16 @@ namespace Gameplay
 	{
 	}
 
+	float GameplayService::getCardWidth()
+	{
+		return level_controller->getCardWidth();
+	}
+
+	float GameplayService::getCardHeight()
+	{
+		return level_controller->getCardHeight();
+	}
+
 	void GameplayService::destroy()
 	{
 		delete (level_controller);

@@ -72,9 +72,6 @@
     <ClCompile Include="source\Gameplay\LevelView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Stack\ArrayStack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\Card\CardService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

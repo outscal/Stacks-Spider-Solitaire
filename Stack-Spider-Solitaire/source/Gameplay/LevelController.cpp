@@ -1,11 +1,9 @@
 #include "../../header/Gameplay/LevelController.h"
-#include "../../header/Global/ServiceLocator.h"
-#include "../../header/Card/CardService.h"
 
 namespace Gameplay
 {
-	using namespace Global;
 	using namespace Card;
+	using namespace ArrayStack;
 
 	LevelController::LevelController()
 	{
@@ -23,17 +21,49 @@ namespace Gameplay
 	{
 		level_view->initialize(this);
 		level_model->initialize();
-
-		//level_model->addPlayStack(ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck());
 	}
 
 	void LevelController::update()
 	{
+		updatePlayStacks();
+		updateSolutionStacks();
+		updateDrawingStack();
 		level_view->update();
 	}
 
 	void LevelController::render()
 	{
 		level_view->render();
+	}
+
+	void LevelController::updatePlayStacks() { }
+
+	void LevelController::updateSolutionStacks() { }
+
+	void LevelController::updateDrawingStack() { }
+
+	float LevelController::getCardWidth()
+	{
+		return level_view->getCardWidth();
+	}
+
+	float LevelController::getCardHeight()
+	{
+		return level_view->getCardHeight();
+	}
+
+	std::vector<Stack<CardController*>*> LevelController::getPlayStacks()
+	{
+		return level_model->getPlayStacks();
+	}
+
+	std::vector<Stack<CardController*>*> LevelController::getSolutionStacks()
+	{
+		return level_model->getSolutionStacks();
+	}
+
+	ArrayStack::Stack<CardController*>* LevelController::getDrawingStack()
+	{
+		return level_model->getDrawingStack();
 	}
 }

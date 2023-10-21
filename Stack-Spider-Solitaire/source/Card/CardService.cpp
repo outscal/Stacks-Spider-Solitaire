@@ -1,11 +1,14 @@
 #include "../../header/Card/CardService.h"
 #include "../../header/Card/CardController.h"
 #include "../../header/Card/CardConfig.h"
+#include "../../header/Gameplay/GameplayService.h"
+#include "../../header/Global/ServiceLocator.h"
 #include <ctime>
 
 namespace Card
 {
 	using namespace ArrayStack;
+	using namespace Global;
 
 	CardService::CardService() = default;
 
@@ -24,25 +27,30 @@ namespace Card
 
 	Stack<CardController*>* CardService::generateSequentialCardDeck()
 	{
-		//Stack<CardController*>* card_deck = new Stack<CardController*>();
+		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
+		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
+
+		Stack<CardController*>* card_deck = new Stack<CardController*>();
 
 		for (int rank = 0; rank < static_cast<int>(number_of_ranks); rank++)
 		{
 			for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 			{
 				CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
-				//card_deck->push(card);
+				
+				card->initialize(card_width, card_height);
+				card_deck->push(card);
 			}
 		}
 
-		return nullptr;
+		return card_deck;
 	}
 
 	Stack<CardController*>* CardService::generateRandomizedCardDeck()
 	{
 		Stack<CardController*>* card_deck = generateSequentialCardDeck();
 
-		//shuffleDeck(card_deck);
+		shuffleDeck(card_deck);
 		return card_deck;
 	}
 
@@ -51,21 +59,21 @@ namespace Card
 		srand(static_cast<unsigned>(time(nullptr))); 
 		std::vector<CardController*> card_deck_to_shuffle;
 
-		//while (!card_deck->empty())
+		while (!card_deck->empty())
 		{
-			//card_deck_to_shuffle.push_back(card_deck->pop());
+			card_deck_to_shuffle.push_back(card_deck->pop());
 		}
 
-		//for (int i = card_deck->size() - 1; i > 0; i--)
+		for (int i = card_deck->size() - 1; i > 0; i--)
 		{
-			//int j = rand() % (i + 1);
-			//std::swap(card_deck_to_shuffle[i], card_deck_to_shuffle[j]);
+			int j = rand() % (i + 1);
+			std::swap(card_deck_to_shuffle[i], card_deck_to_shuffle[j]);
 		}
 
-		//card_deck->clear();
+		card_deck->clear();
 		for (CardController* card : card_deck_to_shuffle)
 		{
-			//card_deck->push(card);
+			card_deck->push(card);
 		}
 	}
 }

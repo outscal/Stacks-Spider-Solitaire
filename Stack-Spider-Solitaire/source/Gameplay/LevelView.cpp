@@ -70,7 +70,7 @@ namespace Gameplay
 			float x_position = (i * card_width) + ((i + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset;
 
-			CardController* card_controller = level_controller->getPlayStacks()[i]->top();
+			CardController* card_controller = level_controller->getPlayStacks()[i]->peek();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
 			card_controller->update();
 		}
@@ -85,7 +85,7 @@ namespace Gameplay
 			float x_position = solution_deck_left_offset + (i * solution_deck_spacing);
 			float y_position = solution_deck_top_offset;
 
-			CardController* card_controller = level_controller->getSolutionStacks()[i]->top();
+			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
 			card_controller->update();
 		}
@@ -95,7 +95,7 @@ namespace Gameplay
 	{ 
 		if (level_controller->getDrawingStack()->empty()) return;
 
-		CardController* card_controller = level_controller->getDrawingStack()->top();
+		CardController* card_controller = level_controller->getDrawingStack()->peek();
 		card_controller->setCardPosition(sf::Vector2f(drawing_deck_left_offset, drawing_deck_top_offset));
 		card_controller->update();
 	}
@@ -106,7 +106,7 @@ namespace Gameplay
 		{
 			if (level_controller->getPlayStacks()[i]->empty()) continue;
 
-			CardController* card_controller = level_controller->getPlayStacks()[i]->top();
+			CardController* card_controller = level_controller->getPlayStacks()[i]->peek();
 			card_controller->render();
 		}
 	}
@@ -117,7 +117,7 @@ namespace Gameplay
 		{
 			if (level_controller->getSolutionStacks()[i]->empty()) continue;
 
-			CardController* card_controller = level_controller->getSolutionStacks()[i]->top();
+			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->render();
 		}
 	}
@@ -126,7 +126,7 @@ namespace Gameplay
 	{
 		if (level_controller->getDrawingStack()->empty()) return;
 
-		CardController* card_controller = level_controller->getDrawingStack()->top();
+		CardController* card_controller = level_controller->getDrawingStack()->peek();
 		card_controller->render();
 	}
 

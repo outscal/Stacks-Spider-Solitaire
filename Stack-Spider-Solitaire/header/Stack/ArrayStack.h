@@ -1,5 +1,6 @@
 #pragma once
-#include <stack>
+#include <array>
+#include <cstdio>
 
 namespace ArrayStack
 {
@@ -7,20 +8,22 @@ namespace ArrayStack
     class Stack
     {
     private:
-        std::stack<T> _stack;
+        static const int max_size = 200;
+
+        std::array<T, max_size> array_stack;
+        int top;
 
     public:
         Stack();
         ~Stack();
 
-        T pop();
-        T top();
         void push(T data);
+        T pop();
+        T peek();
         bool empty();
         int size();
         void clear();
     };
-
 }
 
 namespace ArrayStack
@@ -28,7 +31,7 @@ namespace ArrayStack
     template <class T>
     Stack<T>::Stack()
     {
-        _stack = std::stack<T>();
+        top = 0;
     }
 
     template <class T>
@@ -38,45 +41,64 @@ namespace ArrayStack
     }
 
     template <class T>
-    T Stack<T>::pop()
-    {
-        if (empty()) return nullptr;
-
-        T temp = _stack.top();
-        _stack.pop();
-        return temp;
-    }
-
-    template <class T>
-    T Stack<T>::top()
-    {
-        return _stack.top();
-    }
-
-    template <class T>
     void Stack<T>::push(T data)
     {
-        _stack.push(data);
+        if (top < max_size)
+        {
+            array_stack[top++] = data;
+        }
+        else 
+        {
+            printf("Stack is full \n");
+        }
     }
 
-    template<class T>
+    template <class T>
+    T Stack<T>::pop()
+    {
+        if (!empty()) 
+        {
+            return array_stack[--top];
+        }
+        else 
+        {
+            printf("Stack is empty \n");
+            return nullptr;
+        }
+    }
+
+    template <class T>
+    T Stack<T>::peek()
+    {
+        if (!empty()) 
+        {
+            return array_stack[top - 1];
+        }
+        else 
+        {
+            printf("Stack is empty \n");
+            return nullptr;
+        }
+    }
+
+    template <class T>
     bool Stack<T>::empty()
     {
-        return _stack.empty();
+        return top == 0;
     }
 
-    template<class T>
+    template <class T>
     int Stack<T>::size()
     {
-        return _stack.size();
+        return top;
     }
 
-    template<class T>
+    template <class T>
     void Stack<T>::clear()
     {
         while (!empty())
         {
-            _stack.pop();
+            pop();
         }
     }
 }

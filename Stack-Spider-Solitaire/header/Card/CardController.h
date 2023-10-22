@@ -19,7 +19,10 @@ namespace Card
         void render();
 
         CardType* getCardType();
+        State getCardState();
         void setCardState(State card_state);
+
+        void setCardHighLight(bool b_highlight);
 
         sf::Vector2f getCardPosition();
         void setCardPosition(sf::Vector2f card_position);

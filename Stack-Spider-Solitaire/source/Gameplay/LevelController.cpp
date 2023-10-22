@@ -1,11 +1,13 @@
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Global/TimeService.h"
+#include "../../header/Card/CardConfig.h"
 
 namespace Gameplay
 {
 	using namespace Card;
 	using namespace ArrayStack;
+	using namespace LinkedListStack;
 	using namespace Global;
 
 	LevelController::LevelController()
@@ -29,9 +31,6 @@ namespace Gameplay
 	void LevelController::update()
 	{
 		updateElapsedTime();
-		updatePlayStacks();
-		updateSolutionStacks();
-		updateDrawingStack();
 		level_view->update();
 	}
 
@@ -45,16 +44,124 @@ namespace Gameplay
 		reset();
 	}
 
+	void LevelController::processButtonInput(CardController* selected_card_controller)
+	{
+		switch (selected_card_controller->getCardState())
+		{
+		case::Card::State::OPEN:
+			processCardMove(selected_card_controller);
+			break;
+		case::Card::State::CLOSE:
+			processCardDraw(selected_card_controller);
+			break;
+		case::Card::State::SELECTED:
+			processCardSelection(selected_card_controller);
+			break;
+		}
+
+		LinkedListStack::Stack<Card::CardController*>* stack = level_model->findPlayStack(selected_card_controller);
+	}
+
+	void LevelController::processCardSelection(Card::CardController* selected_card_controller)
+	{
+		unselectCards(selected_card_controller);
+	}
+
+	void LevelController::processCardDraw(CardController* selected_card_controller)
+	{
+		if (getDrawingStack()->search(selected_card_controller))
+		{
+			drawCards();
+		}
+	}
+
+	void LevelController::processCardMove(Card::CardController* selected_card_controller)
+	{
+		if (previously_selected_card_controller == nullptr)
+		{
+			previously_selected_card_controller = selected_card_controller;
+			selectCards(selected_card_controller);
+		}
+		else
+		{
+			//moveCards(selected_card_controller);
+		}
+	}
+
+	void LevelController::drawCards()
+	{
+		ArrayStack::Stack<Card::CardController*>* card_deck = getDrawingStack();
+
+		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+		{
+			if (card_deck->empty()) return;
+			CardController* card_controller = card_deck->pop();
+			
+			card_controller->setCardState(Card::State::OPEN);
+			level_model->addCardInPlayStack(i, card_controller);
+		}
+	}
+
+	void LevelController::selectCards(Card::CardController* card_controller)
+	{
+		LinkedListStack::Stack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
+
+		card_controller->setCardState(Card::State::SELECTED);
+		card_controller->setCardHighLight(true);
+
+		while (!stack->empty() && stack->peek() != card_controller)
+		{
+			CardController* card_controller = stack->pop();
+			card_controller->setCardState(Card::State::SELECTED);
+			card_controller->setCardHighLight(true);
+			temp_stack.push(card_controller);
+		}
+
+		while (!temp_stack.empty())
+		{
+			stack->push(temp_stack.pop());
+		}
+	}
+
+	void LevelController::unselectCards(Card::CardController* card_controller)
+	{
+		LinkedListStack::Stack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
+
+		while (!stack->empty() && stack->peek()->getCardState() == Card::State::SELECTED)
+		{
+			CardController* card_controller = stack->pop();
+			card_controller->setCardState(Card::State::OPEN);
+			card_controller->setCardHighLight(false);
+			temp_stack.push(card_controller);
+		}
+
+		while (!temp_stack.empty())
+		{
+			stack->push(temp_stack.pop());
+		}
+	}
+
+	void LevelController::moveCards(Card::CardController* card_controller)
+	{
+		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
+		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
+
+		while (currently_selected_card_stack->peek() != card_controller)
+		{
+			CardController* controller = currently_selected_card_stack->pop();
+			controller->setCardState(Card::State::OPEN);
+			previously_selected_card_stack->push(controller);
+		}
+
+		previously_selected_card_stack->push(currently_selected_card_stack->pop());
+	}
+
 	void LevelController::updateElapsedTime()
 	{
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 	}
-
-	void LevelController::updatePlayStacks() { }
-
-	void LevelController::updateSolutionStacks() { }
-
-	void LevelController::updateDrawingStack() { }
 
 	float LevelController::getCardWidth()
 	{
@@ -95,6 +202,7 @@ namespace Gameplay
 	{
 		elapsed_time = 0;
 		score = 0;
+		previously_selected_card_controller = nullptr;
 		level_model->reset();
 	}
 }

@@ -19,8 +19,10 @@ namespace Gameplay
         void createPlayStacks();
         void createSolutionStacks();
         void createDrawingStack();
+
         void initializeStacks();
         void openPlayStacksTopCard();
+
         void destroy();
         void deleteStackElements();
         void deleteLinkedListStackElements(LinkedListStack::Stack<Card::CardController*>* stack);
@@ -39,6 +41,8 @@ namespace Gameplay
         void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
+
+        LinkedListStack::Stack<Card::CardController*>* findPlayStack(Card::CardController* card_controller);
 
         std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
         std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();

@@ -34,10 +34,20 @@ namespace Card
 		return card_model->getCardType();
 	}
 
+	State CardController::getCardState()
+	{
+		return card_model->getCardType()->state;
+	}
+
 	void CardController::setCardState(State card_state)
 	{
 		card_model->setCardState(card_state);
 		card_view->updateCardTexture();
+	}
+
+	void CardController::setCardHighLight(bool b_highlight)
+	{
+		card_view->setCardHighLight(b_highlight);
 	}
 
 	sf::Vector2f CardController::getCardPosition()

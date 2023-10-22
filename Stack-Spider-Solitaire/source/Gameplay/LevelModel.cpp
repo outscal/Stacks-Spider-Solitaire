@@ -62,7 +62,7 @@ namespace Gameplay
 		{
 			for (int i = 0; i < number_of_play_stacks; i++)
 			{
-				if (card_deck->size() <= drawing_deck_stack_size) break;
+				if (card_deck->size() < drawing_deck_stack_size) break;
 				addCardInPlayStack(i, card_deck->pop());
 			}
 		}
@@ -117,6 +117,19 @@ namespace Gameplay
 	ArrayStack::Stack<CardController*>* Gameplay::LevelModel::getDrawingStack()
 	{
 		return drawing_stack;
+	}
+
+	LinkedListStack::Stack<Card::CardController*>* LevelModel::findPlayStack(CardController* card_controller)
+	{
+		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+		{
+			if (play_stacks[i]->search(card_controller))
+			{
+				return play_stacks[i];
+			}
+		}
+
+		return nullptr;
 	}
 
 	void LevelModel::deleteStackElements()

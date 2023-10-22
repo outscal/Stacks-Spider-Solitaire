@@ -2,6 +2,8 @@
 
 namespace Gameplay
 {
+	using namespace Card;
+
 	GameplayService::GameplayService()
 	{
 		level_controller = nullptr;
@@ -36,6 +38,11 @@ namespace Gameplay
 	void GameplayService::startLevel()
 	{
 		level_controller->startLevel();
+	}
+
+	void GameplayService::processButtonInput(CardController* selected_card_controller)
+	{
+		level_controller->processButtonInput(selected_card_controller);
 	}
 
 	float GameplayService::getCardWidth()

@@ -4,6 +4,7 @@
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Card/CardTexture.h"
+#include "../../header/Gameplay/GameplayService.h"
 
 namespace Card
 {
@@ -52,6 +53,18 @@ namespace Card
 		card_button_view->setTexture(getCardTexturePath());
 	}
 
+	void CardView::setCardHighLight(bool b_highlight)
+	{
+		if (b_highlight)
+		{
+			card_button_view->setImageAlpha(100);
+		}
+		else
+		{
+			card_button_view->setImageAlpha(255);
+		}
+	}
+
 	void CardView::registerButtonCallback()
 	{
 		card_button_view->registerCallbackFuntion(std::bind(&CardView::cardButtonCallback, this));
@@ -60,6 +73,7 @@ namespace Card
 	void CardView::cardButtonCallback()
 	{
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+		ServiceLocator::getInstance()->getGameplayService()->processButtonInput(card_controller);
 	}
 
 	sf::String CardView::getCardTexturePath()

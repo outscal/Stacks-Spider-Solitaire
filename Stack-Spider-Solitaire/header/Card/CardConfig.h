@@ -31,6 +31,7 @@ namespace Card
     enum class State
     {
         OPEN,
+        SELECTED,
         CLOSE,
     };
 }

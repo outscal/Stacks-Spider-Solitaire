@@ -23,6 +23,7 @@ namespace ArrayStack
         bool empty();
         int size();
         void clear();
+        bool search(T data);
     };
 }
 
@@ -99,6 +100,15 @@ namespace ArrayStack
         while (!empty())
         {
             pop();
+        }
+    }
+
+    template<class T>
+    inline bool Stack<T>::search(T data)
+    {
+        for (auto iterator = array_stack.begin(); iterator != array_stack.end(); ++iterator)
+        {
+            if (data == *(iterator)) return true;
         }
     }
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "../../header/Gameplay/LevelController.h"
+#include "../../header/Card/CardController.h"
 
 namespace Gameplay
 {
@@ -21,6 +22,7 @@ namespace Gameplay
 		void render();
 
 		void startLevel();
+		void processButtonInput(Card::CardController* selected_card_controller);
 
 		float getCardWidth();
 		float getCardHeight();

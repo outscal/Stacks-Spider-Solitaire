@@ -29,5 +29,6 @@ namespace Card
         void render();
 
         void updateCardTexture();
+        void setCardHighLight(bool b_highlight);
     };
 }

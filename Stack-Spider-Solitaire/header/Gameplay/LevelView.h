@@ -13,7 +13,8 @@ namespace Gameplay
     private:
         const float height_to_width_ratio = 1.45f;
         const float cards_horrizontal_spacing = 40.f;
-        const float cards_vertical_spacing = 25.f;
+        const float closed_cards_vertical_spacing = 25.f;
+        const float open_cards_vertical_spacing = 60.f;
 
         const float play_deck_top_offset = 90.f;
 
@@ -47,6 +48,7 @@ namespace Gameplay
         void renderDrawnigStack();
 
         void calculateCardExtents();
+        float getCardVerticalSpacing(Card::State state);
         void destroy();
 
     public:

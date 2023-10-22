@@ -21,6 +21,7 @@ namespace LinkedListStack
         bool empty();
         int size();
         void clear();
+        bool search(T data);
     };
 }
 
@@ -97,5 +98,14 @@ namespace LinkedListStack
         }
 
         stack_size = 0;
+    }
+
+    template<class T>
+    inline bool Stack<T>::search(T data)
+    {
+        for (auto iterator = linked_list_stack.begin(); iterator != linked_list_stack.end(); ++iterator)
+        {
+            if (data == *(iterator)) return true;
+        }
     }
 }

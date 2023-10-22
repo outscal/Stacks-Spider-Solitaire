@@ -48,6 +48,12 @@ namespace Gameplay
 		openPlayStacksTopCard();
 	}
 
+	void LevelModel::reset()
+	{
+		deleteStackElements();
+		initialize();
+	}
+
 	void LevelModel::initializeStacks()
 	{
 		ArrayStack::Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
@@ -113,8 +119,43 @@ namespace Gameplay
 		return drawing_stack;
 	}
 
+	void LevelModel::deleteStackElements()
+	{
+		for (int i = 0; i < number_of_play_stacks; i++)
+		{
+			deleteLinkedListStackElements(play_stacks[i]);
+		}
+
+		for (int i = 0; i < number_of_solution_stacks; i++)
+		{
+			deleteArrayStackElements(solution_stacks[i]);
+		}
+
+		deleteArrayStackElements(drawing_stack);
+	}
+
+	void LevelModel::deleteLinkedListStackElements(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		while (!stack->empty())
+		{
+			CardController* card_controller = stack->pop();
+			delete card_controller;
+		}
+	}
+
+	void LevelModel::deleteArrayStackElements(ArrayStack::Stack<Card::CardController*>* stack)
+	{
+		while (!stack->empty())
+		{
+			CardController* card_controller = stack->pop();
+			delete card_controller;
+		}
+	}
+
 	void LevelModel::destroy()
 	{
+		deleteStackElements();
+
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
 			delete (play_stacks[i]);

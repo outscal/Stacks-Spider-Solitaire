@@ -12,9 +12,14 @@ namespace Gameplay
         LevelModel* level_model;
         LevelView* level_view;
 
+        float elapsed_time;
+        int score;
+
+        void updateElapsedTime();
         void updatePlayStacks();
         void updateSolutionStacks();
         void updateDrawingStack();
+        void reset();
 
     public:
         LevelController();
@@ -24,8 +29,12 @@ namespace Gameplay
         void update();
         void render();
 
+        void startLevel();
+        
         float getCardWidth();
         float getCardHeight();
+        float getElapsedTime();
+        int getScore();
 
         std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
         std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();

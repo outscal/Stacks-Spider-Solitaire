@@ -19,11 +19,11 @@ namespace Gameplay
 
         const float drawing_deck_top_offset = 770.f;
         const float drawing_deck_left_offset = 1670.f;
-        const float drawing_deck_horizontal_spacing = 50.f;
+        const float drawing_deck_horizontal_spacing = 40.f;
 
         const float solution_deck_top_offset = 700.f;
         const float solution_deck_left_offset = 200.f;
-        const float solution_deck_horizontal_spacing = 50.f;
+        const float solution_deck_horizontal_spacing = 40.f;
 
         float card_width;
         float card_height;

@@ -33,8 +33,9 @@ namespace Gameplay
 		level_controller->render();
 	}
 
-	void GameplayService::createLevel()
+	void GameplayService::startLevel()
 	{
+		level_controller->startLevel();
 	}
 
 	float GameplayService::getCardWidth()
@@ -45,6 +46,16 @@ namespace Gameplay
 	float GameplayService::getCardHeight()
 	{
 		return level_controller->getCardHeight();
+	}
+
+	float GameplayService::getElapsedTime()
+	{
+		return level_controller->getElapsedTime();
+	}
+
+	int GameplayService::getScore()
+	{
+		return level_controller->getScore();
 	}
 
 	void GameplayService::destroy()

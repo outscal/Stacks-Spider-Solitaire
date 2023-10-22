@@ -20,9 +20,11 @@ namespace Gameplay
 		void update();
 		void render();
 
-		void createLevel();
+		void startLevel();
 
 		float getCardWidth();
 		float getCardHeight();
+		float getElapsedTime();
+		int getScore();
 	};
 }

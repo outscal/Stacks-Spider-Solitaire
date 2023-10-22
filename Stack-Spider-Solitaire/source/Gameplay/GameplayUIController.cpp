@@ -58,12 +58,12 @@ namespace Gameplay
 
     void GameplayUIController::initializeScoreText()
     {
-        score_text->initialize("Score : 0", sf::Vector2f(score_text_x_position, text_y_position), FontType::ROBOTO, font_size);
+        score_text->initialize("Score  :  0", sf::Vector2f(score_text_x_position, text_y_position), FontType::ROBOTO, font_size);
     }
 
     void GameplayUIController::initializeTimeText()
     {
-        time_text->initialize("Time : 01:00", sf::Vector2f(time_text_x_position, text_y_position), FontType::ROBOTO, font_size);
+        time_text->initialize("00 : 00 : 00", sf::Vector2f(time_text_x_position, text_y_position), FontType::ROBOTO, font_size);
     }
 
     void GameplayUIController::update()
@@ -94,6 +94,18 @@ namespace Gameplay
 
     void GameplayUIController::updateTimeText()
     {
+        float elapsed_time = ServiceLocator::getInstance()->getGameplayService()->getElapsedTime();
+
+        int hours = static_cast<int>(elapsed_time) / 3600;
+        int minutes = (static_cast<int>(elapsed_time) % 3600) / 60;
+        int seconds = static_cast<int>(elapsed_time) % 60;
+
+        sf::String elapsed_time_string = 
+            (hours < 10 ? "0" : "") + std::to_string(hours) + " : " +
+            (minutes < 10 ? "0" : "") + std::to_string(minutes) + " : " +
+            (seconds < 10 ? "0" : "") + std::to_string(seconds);
+
+        time_text->setText(elapsed_time_string);
         time_text->update();
     }
 

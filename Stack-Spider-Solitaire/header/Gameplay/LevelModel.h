@@ -22,6 +22,9 @@ namespace Gameplay
         void initializeStacks();
         void openPlayStacksTopCard();
         void destroy();
+        void deleteStackElements();
+        void deleteLinkedListStackElements(LinkedListStack::Stack<Card::CardController*>* stack);
+        void deleteArrayStackElements(ArrayStack::Stack<Card::CardController*>* stack);
 
     public:
         static const int number_of_play_stacks = 10;
@@ -31,6 +34,7 @@ namespace Gameplay
         ~LevelModel();
 
         void initialize();
+        void reset();
 
         void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);

@@ -1,9 +1,12 @@
 #include "../../header/Gameplay/LevelController.h"
+#include "../../header/Global/ServiceLocator.h"
+#include "../../header/Global/TimeService.h"
 
 namespace Gameplay
 {
 	using namespace Card;
 	using namespace ArrayStack;
+	using namespace Global;
 
 	LevelController::LevelController()
 	{
@@ -25,6 +28,7 @@ namespace Gameplay
 
 	void LevelController::update()
 	{
+		updateElapsedTime();
 		updatePlayStacks();
 		updateSolutionStacks();
 		updateDrawingStack();
@@ -34,6 +38,16 @@ namespace Gameplay
 	void LevelController::render()
 	{
 		level_view->render();
+	}
+
+	void LevelController::startLevel()
+	{
+		reset();
+	}
+
+	void LevelController::updateElapsedTime()
+	{
+		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 	}
 
 	void LevelController::updatePlayStacks() { }
@@ -52,6 +66,16 @@ namespace Gameplay
 		return level_view->getCardHeight();
 	}
 
+	float LevelController::getElapsedTime()
+	{
+		return elapsed_time;
+	}
+
+	int LevelController::getScore()
+	{
+		return score;
+	}
+
 	std::vector<LinkedListStack::Stack<CardController*>*> LevelController::getPlayStacks()
 	{
 		return level_model->getPlayStacks();
@@ -65,5 +89,12 @@ namespace Gameplay
 	ArrayStack::Stack<CardController*>* LevelController::getDrawingStack()
 	{
 		return level_model->getDrawingStack();
+	}
+
+	void LevelController::reset()
+	{
+		elapsed_time = 0;
+		score = 0;
+		level_model->reset();
 	}
 }

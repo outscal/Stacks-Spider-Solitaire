@@ -73,6 +73,7 @@ namespace MainMenu
     {
         ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
         GameService::setGameState(GameState::GAMEPLAY);
+        ServiceLocator::getInstance()->getGameplayService()->startLevel();
     }
 
     void MainMenuUIController::instructionsButtonCallback()

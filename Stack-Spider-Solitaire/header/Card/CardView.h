@@ -8,6 +8,9 @@ namespace Card
     class CardView
     {
     private:
+        const float normal_alpha = 255.f;
+        const float highlighted_alpha = 200.f;
+
         CardController* card_controller;
 
         float card_width;

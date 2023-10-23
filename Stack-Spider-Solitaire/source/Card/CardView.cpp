@@ -59,11 +59,11 @@ namespace Card
 	{
 		if (b_highlight)
 		{
-			card_button_view->setImageAlpha(100);
+			card_button_view->setImageAlpha(highlighted_alpha);
 		}
 		else
 		{
-			card_button_view->setImageAlpha(255);
+			card_button_view->setImageAlpha(normal_alpha);
 		}
 	}
 

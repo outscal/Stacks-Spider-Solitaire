@@ -67,11 +67,11 @@ namespace Gameplay
 	{ 
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
-			updatePlayStackCards(*(level_controller->getPlayStacks()[i]), i);
+			updatePlayStackCardsView(*(level_controller->getPlayStacks()[i]), i);
 		}
 	}
 
-	void LevelView::updatePlayStackCards(LinkedListStack::Stack<CardController*>& stack, int stack_position)
+	void LevelView::updatePlayStackCardsView(LinkedListStack::Stack<CardController*>& stack, int stack_position)
 	{
 		LinkedListStack::Stack<CardController*> temp_stack;
 		float card_stack_position = 0;
@@ -87,11 +87,9 @@ namespace Gameplay
 			float x_position = (stack_position * card_width) + ((stack_position + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset + vertical_spacing;
 
-			CardController* card_controller = temp_stack.peek();
+			CardController* card_controller = temp_stack.pop();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
-			card_controller->update();
 
-			temp_stack.pop();
 			stack.push(card_controller);
 			card_stack_position++;
 			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState());
@@ -109,7 +107,6 @@ namespace Gameplay
 
 			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
-			card_controller->update();
 		}
 	}
 
@@ -127,7 +124,6 @@ namespace Gameplay
 			float y_position = drawing_deck_top_offset;
 
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
-			card_controller->update();
 		}
 
 		while (!temp_stack.empty())
@@ -219,6 +215,8 @@ namespace Gameplay
 			return open_cards_vertical_spacing;
 		case::Card::State::CLOSE:
 			return closed_cards_vertical_spacing;
+		case::Card::State::SELECTED:
+			return open_cards_vertical_spacing;
 		}
 	}
 

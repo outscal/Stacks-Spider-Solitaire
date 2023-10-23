@@ -36,7 +36,7 @@ namespace Gameplay
         void initializeImage();
 
         void updatePlayStacksView();
-        void updatePlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack, int stack_position);
+        void updatePlayStackCardsView(LinkedListStack::Stack<Card::CardController*>& stack, int stack_position);
 
         void updateSolutionStacksView();      
         void updateDrawingStackView();

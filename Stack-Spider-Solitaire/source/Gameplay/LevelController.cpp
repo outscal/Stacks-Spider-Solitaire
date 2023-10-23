@@ -32,6 +32,7 @@ namespace Gameplay
 	{
 		updateElapsedTime();
 		level_view->update();
+		updateStacks();
 		processCardControllerInput();
 	}
 
@@ -153,17 +154,19 @@ namespace Gameplay
 	{
 		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
 		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
 		while (previously_selected_card_stack->peek() != previously_selected_card_controller)
 		{
 			CardController* controller = previously_selected_card_stack->pop();
 			controller->setCardState(Card::State::OPEN);
-			currently_selected_card_stack->push(controller);
+			temp_stack.push(controller);
 		}
 
-		currently_selected_card_stack->push(previously_selected_card_stack->pop());
+		temp_stack.push(previously_selected_card_stack->pop());
+		while (!temp_stack.empty()) currently_selected_card_stack->push(temp_stack.pop());
+		
 		openTopCardOfStack(previously_selected_card_stack);
-
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
 		previously_selected_card_controller = nullptr;
 	}
@@ -179,6 +182,68 @@ namespace Gameplay
 	void LevelController::updateElapsedTime()
 	{
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+	}
+
+	void LevelController::updateStacks()
+	{
+		updatePlayStacks();
+		updateSolutionStacks();
+		updateDrawingStack();
+	}
+
+	void LevelController::updatePlayStacks()
+	{
+		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
+		{
+			updateLinkedListStackCards(getPlayStacks()[i]);
+		}
+	}
+
+	void LevelController::updateSolutionStacks()
+	{
+		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
+		{
+			updateArrayStackCards(getSolutionStacks()[i]);
+		}
+	}
+
+	void LevelController::updateDrawingStack()
+	{
+		updateArrayStackCards(getDrawingStack());
+	}
+
+	void LevelController::updateLinkedListStackCards(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		LinkedListStack::Stack<CardController*> temp_stack;
+
+		while (!stack->empty())
+		{
+			CardController* card_controller = stack->pop();
+			card_controller->update();
+			temp_stack.push(card_controller);
+		}
+
+		while (!temp_stack.empty())
+		{
+			stack->push(temp_stack.pop());
+		}
+	}
+
+	void LevelController::updateArrayStackCards(ArrayStack::Stack<Card::CardController*>* stack)
+	{
+		ArrayStack::Stack<CardController*> temp_stack;
+
+		while (!stack->empty())
+		{
+			CardController* card_controller = stack->pop();
+			card_controller->update();
+			temp_stack.push(card_controller);
+		}
+
+		while (!temp_stack.empty())
+		{
+			stack->push(temp_stack.pop());
+		}
 	}
 
 	void LevelController::setCardToProcessInput(Card::CardController* selected_card_controller)

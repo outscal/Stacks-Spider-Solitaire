@@ -19,8 +19,14 @@ namespace Gameplay
         int score;
 
         void updateElapsedTime();
-        void processCardControllerInput();
+        void updateStacks();
+        void updatePlayStacks();
+        void updateSolutionStacks();
+        void updateDrawingStack();
+        void updateArrayStackCards(ArrayStack::Stack<Card::CardController*>* stack);
+        void updateLinkedListStackCards(LinkedListStack::Stack<Card::CardController*>* stack);
 
+        void processCardControllerInput();
         void processButtonInput(Card::CardController* selected_card_controller);
         void processCardSelection(Card::CardController* selected_card_controller);
         void processCardDraw(Card::CardController* selected_card_controller);

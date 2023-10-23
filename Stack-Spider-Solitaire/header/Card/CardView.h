@@ -1,5 +1,6 @@
 #pragma once
 #include "../../header/UI/UIElement/ButtonView.h"
+#include "../../header/UI/UIElement/ImageView.h"
 
 namespace Card
 {
@@ -8,15 +9,16 @@ namespace Card
     class CardView
     {
     private:
-        const float normal_alpha = 255.f;
-        const float highlighted_alpha = 200.f;
-
         CardController* card_controller;
 
         float card_width;
         float card_height;
 
         UIElement::ButtonView* card_button_view;
+        UIElement::ImageView* card_highlight;
+
+        void initializeButton();
+        void initializeImage();
 
         void updateCardView();
         void registerButtonCallback();

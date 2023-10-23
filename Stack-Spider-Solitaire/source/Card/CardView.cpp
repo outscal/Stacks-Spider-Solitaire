@@ -17,11 +17,13 @@ namespace Card
 	CardView::CardView()
 	{
 		card_button_view = new ButtonView();
+		card_highlight = new ImageView();
 	}
 
 	CardView::~CardView()
 	{
 		delete (card_button_view);
+		delete (card_highlight);
 	}
 
 	void CardView::initialize(float width, float height, CardController* controller)
@@ -30,24 +32,39 @@ namespace Card
 		card_width = width;
 		card_height = height;
 
-		card_button_view->initialize("Card", getCardTexturePath(), card_width, card_height, sf::Vector2f(30, 30));
-		registerButtonCallback();
+		initializeButton();
+		initializeImage();
 	}
 
 	void CardView::update()
 	{
 		updateCardView();
 		card_button_view->update();
+		card_highlight->update();
 	}
 
 	void CardView::render()
 	{
 		card_button_view->render();
+		card_highlight->render();
+	}
+
+	void CardView::initializeButton()
+	{
+		card_button_view->initialize("Card", getCardTexturePath(), card_width, card_height, sf::Vector2f(0, 0));
+		registerButtonCallback();
+	}
+
+	void CardView::initializeImage()
+	{
+		card_highlight->initialize(Config::card_highlight_texture_path, card_width, card_height, sf::Vector2f(0, 0));
+		card_highlight->hide();
 	}
 
 	void CardView::updateCardView()
 	{
 		card_button_view->setPosition(card_controller->getCardPosition());
+		card_highlight->setPosition(card_controller->getCardPosition());
 	}
 
 	void CardView::updateCardTexture()
@@ -59,11 +76,11 @@ namespace Card
 	{
 		if (b_highlight)
 		{
-			card_button_view->setImageAlpha(highlighted_alpha);
+			card_highlight->show();
 		}
 		else
 		{
-			card_button_view->setImageAlpha(normal_alpha);
+			card_highlight->hide();
 		}
 	}
 

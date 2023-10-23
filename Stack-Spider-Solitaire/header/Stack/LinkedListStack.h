@@ -107,5 +107,7 @@ namespace LinkedListStack
         {
             if (data == *(iterator)) return true;
         }
+
+        return false;
     }
 }

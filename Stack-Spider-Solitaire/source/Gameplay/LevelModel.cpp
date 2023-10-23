@@ -119,9 +119,9 @@ namespace Gameplay
 		return drawing_stack;
 	}
 
-	LinkedListStack::Stack<Card::CardController*>* LevelModel::findPlayStack(CardController* card_controller)
+	LinkedListStack::Stack<Card::CardController*>* LevelModel::findPlayStack(Card::CardController* card_controller)
 	{
-		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+		for (int i = 0; i < number_of_play_stacks; i++)
 		{
 			if (play_stacks[i]->search(card_controller))
 			{

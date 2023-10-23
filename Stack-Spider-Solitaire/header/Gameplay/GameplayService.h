@@ -22,7 +22,7 @@ namespace Gameplay
 		void render();
 
 		void startLevel();
-		void processButtonInput(Card::CardController* selected_card_controller);
+		void setCardToProcessInput(Card::CardController* selected_card_controller);
 
 		float getCardWidth();
 		float getCardHeight();

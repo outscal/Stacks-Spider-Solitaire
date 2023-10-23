@@ -5,12 +5,14 @@
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Card/CardTexture.h"
 #include "../../header/Gameplay/GameplayService.h"
+#include "../../header/Event/EventService.h"
 
 namespace Card
 {
 	using namespace UIElement;
 	using namespace Global;
 	using namespace Sound;
+	using namespace Event;
 
 	CardView::CardView()
 	{
@@ -73,7 +75,8 @@ namespace Card
 	void CardView::cardButtonCallback()
 	{
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-		ServiceLocator::getInstance()->getGameplayService()->processButtonInput(card_controller);
+		ServiceLocator::getInstance()->getGameplayService()->setCardToProcessInput(card_controller);
+		ServiceLocator::getInstance()->getEventService()->setLeftMouseButtonState(ButtonState::HELD);
 	}
 
 	sf::String CardView::getCardTexturePath()

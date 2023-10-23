@@ -40,9 +40,9 @@ namespace Gameplay
 		level_controller->startLevel();
 	}
 
-	void GameplayService::processButtonInput(CardController* selected_card_controller)
+	void GameplayService::setCardToProcessInput(CardController* selected_card_controller)
 	{
-		level_controller->processButtonInput(selected_card_controller);
+		level_controller->setCardToProcessInput(selected_card_controller);
 	}
 
 	float GameplayService::getCardWidth()

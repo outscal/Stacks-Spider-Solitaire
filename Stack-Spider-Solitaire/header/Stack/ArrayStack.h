@@ -110,5 +110,7 @@ namespace ArrayStack
         {
             if (data == *(iterator)) return true;
         }
+
+        return false;
     }
 }

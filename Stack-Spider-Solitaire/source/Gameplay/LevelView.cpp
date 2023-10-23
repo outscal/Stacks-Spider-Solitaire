@@ -87,10 +87,11 @@ namespace Gameplay
 			float x_position = (stack_position * card_width) + ((stack_position + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset + vertical_spacing;
 
-			CardController* card_controller = temp_stack.pop();
+			CardController* card_controller = temp_stack.peek();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
 			card_controller->update();
 
+			temp_stack.pop();
 			stack.push(card_controller);
 			card_stack_position++;
 			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState());

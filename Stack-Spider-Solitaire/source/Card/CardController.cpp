@@ -42,12 +42,21 @@ namespace Card
 	void CardController::setCardState(State card_state)
 	{
 		card_model->setCardState(card_state);
-		card_view->updateCardTexture();
-	}
 
-	void CardController::setCardHighLight(bool b_highlight)
-	{
-		card_view->setCardHighLight(b_highlight);
+		switch (card_state)
+		{
+		case Card::State::OPEN:
+			card_view->setCardHighLight(false);
+			break;
+		case Card::State::SELECTED:
+			card_view->setCardHighLight(true);
+			break;
+		case Card::State::CLOSE:
+			card_view->setCardHighLight(false);
+			break;
+		}
+
+		card_view->updateCardTexture();
 	}
 
 	sf::Vector2f CardController::getCardPosition()

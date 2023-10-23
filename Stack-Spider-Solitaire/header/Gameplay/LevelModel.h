@@ -30,7 +30,7 @@ namespace Gameplay
 
     public:
         static const int number_of_play_stacks = 10;
-        static const int number_of_solution_stacks = 4;
+        static const int number_of_solution_stacks = 8;
 
         LevelModel();
         ~LevelModel();

@@ -38,6 +38,11 @@ namespace Gameplay
         void moveCards(Card::CardController* selected_card_controller);
         void openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack);
 
+        bool isValidSelection(Card::CardController* selected_card_controller);
+        bool isValidMove(Card::CardController* selected_card_controller);
+
+        void addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+        void removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
         void reset();
 
     public:

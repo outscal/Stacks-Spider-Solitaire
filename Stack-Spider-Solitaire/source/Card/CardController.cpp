@@ -49,7 +49,7 @@ namespace Card
 			card_view->setCardHighLight(false);
 			break;
 		case Card::State::SELECTED:
-			card_view->setCardHighLight(true);
+			if(card_model->getCardType()->rank != Rank::DEFAULT) card_view->setCardHighLight(true);
 			break;
 		case Card::State::CLOSE:
 			card_view->setCardHighLight(false);

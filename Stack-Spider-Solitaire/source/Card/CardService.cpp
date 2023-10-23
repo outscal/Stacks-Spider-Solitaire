@@ -23,14 +23,16 @@ namespace Card
 
 	CardController* CardService::generateCard(Rank rank, Suit suit)
 	{
-		return new CardController(rank, suit);
+		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
+		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
+
+		CardController* card = new CardController(rank, suit);
+		card->initialize(card_width, card_height);
+		return card;
 	}
 
 	Stack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
-		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
-		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
-
 		Stack<CardController*>* card_deck = new Stack<CardController*>();
 
 		for (int i = 0; i < number_of_decks; i++)
@@ -40,8 +42,6 @@ namespace Card
 				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 				{
 					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
-
-					card->initialize(card_width, card_height);
 					card_deck->push(card);
 				}
 			}

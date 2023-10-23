@@ -8,7 +8,8 @@ namespace Card
     enum class Suit
     {
         HEARTS,
-        SPADES
+        SPADES,
+        DEFAULT,
     };
 
     enum class Rank
@@ -26,6 +27,7 @@ namespace Card
         JACK,
         QUEEN,
         KING,
+        DEFAULT,
     };
 
     enum class State

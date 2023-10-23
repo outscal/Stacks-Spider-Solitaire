@@ -78,6 +78,8 @@ namespace Gameplay
 
 	void LevelController::processCardDraw(CardController* selected_card_controller)
 	{
+		if(previously_selected_card_controller) unselectCards(previously_selected_card_controller);
+
 		if (getDrawingStack()->search(selected_card_controller))
 		{
 			drawCards();
@@ -86,15 +88,17 @@ namespace Gameplay
 
 	void LevelController::processCardMove(Card::CardController* selected_card_controller)
 	{
-		if (previously_selected_card_controller == nullptr)
+		if (previously_selected_card_controller == nullptr && isValidSelection(selected_card_controller))
 		{
 			previously_selected_card_controller = selected_card_controller;
 			selectCards(selected_card_controller);
+			return;
 		}
-		else
-		{
-			moveCards(selected_card_controller);
-		}
+
+		if (previously_selected_card_controller == nullptr) return;
+
+		if (isValidMove(selected_card_controller)) moveCards(selected_card_controller);
+		else unselectCards(previously_selected_card_controller);
 	}
 
 	void LevelController::drawCards()
@@ -155,6 +159,7 @@ namespace Gameplay
 		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
 		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
+		removeEmptyCard(currently_selected_card_stack);
 
 		while (previously_selected_card_stack->peek() != previously_selected_card_controller)
 		{
@@ -173,10 +178,55 @@ namespace Gameplay
 
 	void LevelController::openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack)
 	{
-		if (!stack->empty())
+		if (stack->empty())
 		{
-			stack->peek()->setCardState(Card::State::OPEN);
+			addEmptyCard(stack);
 		}
+
+		stack->peek()->setCardState(Card::State::OPEN);
+	}
+
+	bool LevelController::isValidSelection(Card::CardController* selected_card_controller)
+	{
+		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
+
+		Card::Suit card_suit = selected_card_controller->getCardType()->suit;
+		int previous_card_rank = static_cast<int>(currently_selected_card_stack->peek()->getCardType()->rank) - 1;
+		bool is_valid_selection = true;
+
+		while (currently_selected_card_stack->peek() != selected_card_controller)
+		{
+			CardController* card_controller = currently_selected_card_stack->pop();
+			temp_stack.push(card_controller);
+
+			if (static_cast<int>(card_controller->getCardType()->rank) != ++previous_card_rank
+				|| card_controller->getCardType()->suit != card_suit)
+			{
+				is_valid_selection = false;
+				break;
+			}
+		}
+
+		while (!temp_stack.empty())
+		{
+			currently_selected_card_stack->push(temp_stack.pop());
+		}
+
+		return is_valid_selection;
+	}
+
+	bool LevelController::isValidMove(Card::CardController* selected_card_controller)
+	{
+		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
+		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
+
+		if (currently_selected_card_stack->peek() != selected_card_controller) return false;
+
+		Card::Rank previous_card_rank = previously_selected_card_controller->getCardType()->rank;
+		Card::Rank current_card_rank = selected_card_controller->getCardType()->rank;
+
+		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
 	}
 
 	void LevelController::updateElapsedTime()
@@ -284,6 +334,21 @@ namespace Gameplay
 	ArrayStack::Stack<CardController*>* LevelController::getDrawingStack()
 	{
 		return level_model->getDrawingStack();
+	}
+
+	void LevelController::addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+		stack->push(empty_card);
+	}
+
+	void LevelController::removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		if (stack->peek()->getCardType()->rank == Card::Rank::DEFAULT)
+		{
+			CardController* card_controller = stack->pop();
+			delete (card_controller);
+		}
 	}
 
 	void LevelController::reset()

@@ -9,6 +9,8 @@ namespace Gameplay
 	using namespace Card;
 	using namespace Global;
 
+	const float LevelModel::card_hide_duration_multiplyer = 0.1f;
+
 	LevelModel::LevelModel()
 	{
 		createPlayStacks();

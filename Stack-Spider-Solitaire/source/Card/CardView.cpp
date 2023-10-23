@@ -45,8 +45,11 @@ namespace Card
 
 	void CardView::render()
 	{
-		card_button_view->render();
-		card_highlight->render();
+		if (card_controller->getCardVisibility() == CardVisibility::VISIBLE)
+		{
+			card_button_view->render();
+			card_highlight->render();
+		}
 	}
 
 	void CardView::initializeButton()

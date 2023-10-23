@@ -110,6 +110,7 @@ namespace Gameplay
 			if (card_deck->empty()) return;
 			CardController* card_controller = card_deck->pop();
 			
+			card_controller->hideCard(static_cast<float>(i) * LevelModel::card_hide_duration_multiplyer);
 			card_controller->setCardState(Card::State::OPEN);
 			level_model->addCardInPlayStack(i, card_controller);
 		}

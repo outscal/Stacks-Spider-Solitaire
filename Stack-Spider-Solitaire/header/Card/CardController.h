@@ -10,11 +10,13 @@ namespace Card
         CardModel* card_model;
         CardView* card_view;
 
+        void updateCardVisibility();
+
     public:
         CardController(Rank rank, Suit suit);
         ~CardController();
 
-        void initialize(float card_width, float card_height);
+        void initialize(float card_width, float card_height, float hide_duration = 0);
         void update();
         void render();
 
@@ -24,5 +26,8 @@ namespace Card
 
         sf::Vector2f getCardPosition();
         void setCardPosition(sf::Vector2f card_position);
+
+        CardVisibility getCardVisibility();
+        void hideCard(float duration);
     };
 }

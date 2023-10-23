@@ -4,6 +4,12 @@
 
 namespace Card
 {
+    enum class CardVisibility
+    {
+        VISIBLE,
+        HIDDEN,
+    };
+
     struct CardType
     {
         CardType(Rank card_rank, Suit card_suit, State card_state)
@@ -24,6 +30,9 @@ namespace Card
         CardType* card_type;
         sf::Vector2f position;
 
+        CardVisibility card_visibility;
+        float hide_duration;
+
     public:
         CardModel(Rank rank, Suit suit);
         ~CardModel();
@@ -33,5 +42,11 @@ namespace Card
 
         void setCardState(State card_state);
         CardType* getCardType();
+
+        void setCardVisibility(CardVisibility visibility);
+        CardVisibility getCardVisibility();
+
+        void setHideDuration(float duration);
+        float getHideDuration();
     };
 }

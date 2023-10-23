@@ -5,6 +5,7 @@ namespace Card
 	CardModel::CardModel(Rank rank, Suit suit)
 	{
 		card_type = new CardType(rank, suit, State::CLOSE);
+		card_visibility = CardVisibility::VISIBLE;
 	}
 
 	CardModel::~CardModel()
@@ -30,5 +31,25 @@ namespace Card
 	CardType* CardModel::getCardType()
 	{
 		return card_type;
+	}
+
+	void CardModel::setCardVisibility(CardVisibility visibility)
+	{
+		card_visibility = visibility;
+	}
+
+	CardVisibility CardModel::getCardVisibility()
+	{
+		return card_visibility;
+	}
+
+	void CardModel::setHideDuration(float duration)
+	{
+		hide_duration = duration;
+	}
+
+	float CardModel::getHideDuration()
+	{
+		return hide_duration;
 	}
 }

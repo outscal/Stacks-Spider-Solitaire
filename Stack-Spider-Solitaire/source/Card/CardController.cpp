@@ -1,7 +1,11 @@
 #include "../../header/Card/CardController.h"
+#include "../../header/Global/ServiceLocator.h"
+#include "../../header/Global/TimeService.h"
 
 namespace Card
 {
+	using namespace Global;
+
 	CardController::CardController(Rank rank, Suit suit)
 	{
 		card_model = new CardModel(rank, suit);
@@ -14,19 +18,36 @@ namespace Card
 		delete card_view;
 	}
 
-	void CardController::initialize(float card_width, float card_height)
+	void CardController::initialize(float card_width, float card_height, float hide_duration)
 	{
 		card_view->initialize(card_width, card_height, this);
+		card_model->setCardVisibility(CardVisibility::HIDDEN);
 	}
 
 	void CardController::update()
 	{
+		updateCardVisibility();
 		card_view->update();
 	}
 
 	void CardController::render()
 	{
 		card_view->render();
+	}
+
+	void CardController::updateCardVisibility()
+	{
+		if (card_model->getHideDuration() <= 0)
+		{
+			card_model->setCardVisibility(CardVisibility::VISIBLE);
+		}
+		else
+		{
+			card_model->setCardVisibility(CardVisibility::HIDDEN);
+
+			float delta_time = ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+			card_model->setHideDuration(card_model->getHideDuration() - delta_time);
+		}
 	}
 
 	CardType* CardController::getCardType()
@@ -67,5 +88,15 @@ namespace Card
 	void CardController::setCardPosition(sf::Vector2f card_position)
 	{
 		card_model->setPosition(card_position);
+	}
+
+	CardVisibility CardController::getCardVisibility()
+	{
+		return card_model->getCardVisibility();
+	}
+
+	void CardController::hideCard(float duration)
+	{
+		card_model->setHideDuration(duration);
 	}
 }

@@ -31,18 +31,19 @@ namespace Gameplay
         void processCardSelection(Card::CardController* selected_card_controller);
         void processCardDraw(Card::CardController* selected_card_controller);
         void processCardMove(Card::CardController* selected_card_controller);
+        void processSuitCompletion(LinkedListStack::Stack<Card::CardController*>* stack);
         void drawCards();
 
         void selectCards(Card::CardController* card_controller);
         void unselectCards(Card::CardController* card_controller);
         void moveCards(Card::CardController* selected_card_controller);
+        void moveCardsBetweenStacks(LinkedListStack::Stack<Card::CardController*>* source_stack, LinkedListStack::Stack<Card::CardController*>* target_stack);
         void openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack);
 
         bool isValidSelection(Card::CardController* selected_card_controller);
         bool isValidMove(Card::CardController* selected_card_controller);
-
-        void addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
-        void removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+        bool isSequential(LinkedListStack::Stack<Card::CardController*>* stack, Card::CardController* last_card_to_check);
+        bool isSuitComplete(LinkedListStack::Stack<Card::CardController*>* stack);
 
         void reduceScore(int val);
         void increaseScore(int val);

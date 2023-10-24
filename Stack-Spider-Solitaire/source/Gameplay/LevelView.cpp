@@ -80,7 +80,9 @@ namespace Gameplay
 
 		while (!stack.empty())
 		{
-			if (stack.peek()->getCardState() == Card::State::OPEN) number_of_open_cards++;
+			if (stack.peek()->getCardState() == Card::State::OPEN || 
+				stack.peek()->getCardState() == Card::State::SELECTED) number_of_open_cards++;
+
 			temp_stack.push(stack.pop());
 		}
 
@@ -115,7 +117,7 @@ namespace Gameplay
 	void LevelView::updateDrawingStackView() 
 	{ 
 		ArrayStack::Stack<CardController*> temp_stack;
-		int number_of_draws = level_controller->getDrawingStack()->size() / LevelModel::number_of_play_stacks;
+		int number_of_draws = getNumberOfDrawsRemaining();
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
@@ -173,7 +175,7 @@ namespace Gameplay
 	void LevelView::renderDrawnigStack()
 	{
 		ArrayStack::Stack<CardController*> temp_stack;
-		int number_of_draws = level_controller->getDrawingStack()->size() / LevelModel::number_of_play_stacks;
+		int number_of_draws = getNumberOfDrawsRemaining();
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
@@ -196,6 +198,14 @@ namespace Gameplay
 	float LevelView::getCardHeight()
 	{
 		return card_height;
+	}
+
+	int LevelView::getNumberOfDrawsRemaining()
+	{
+		float drawing_stack_size = static_cast<float>(level_controller->getDrawingStack()->size());
+		float play_stacks_count = static_cast<float>(LevelModel::number_of_play_stacks);
+		
+		return static_cast<int>(std::ceil(drawing_stack_size / play_stacks_count));
 	}
 
 	void LevelView::calculateCardExtents()

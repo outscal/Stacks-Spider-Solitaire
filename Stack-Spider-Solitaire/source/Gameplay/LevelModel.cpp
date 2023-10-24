@@ -64,7 +64,7 @@ namespace Gameplay
 		{
 			for (int i = 0; i < number_of_play_stacks; i++)
 			{
-				if (card_deck->size() < drawing_deck_stack_size) break;
+				if (card_deck->size() <= drawing_deck_stack_size) break;
 				addCardInPlayStack(i, card_deck->pop());
 			}
 		}
@@ -89,6 +89,7 @@ namespace Gameplay
 	{
 		if (stack_index >= 0 && stack_index < number_of_play_stacks)
 		{
+			removeEmptyCard(play_stacks[stack_index]);
 			play_stacks[stack_index]->push(card_controller);
 		}
 	}
@@ -121,6 +122,16 @@ namespace Gameplay
 		return drawing_stack;
 	}
 
+	ArrayStack::Stack<Card::CardController*>* LevelModel::getEmptySolutionStack()
+	{
+		for (int i = 0; i < number_of_solution_stacks; i++)
+		{
+			if (solution_stacks[i]->size() == 0) return solution_stacks[i];
+		}
+
+		return nullptr;
+	}
+
 	LinkedListStack::Stack<Card::CardController*>* LevelModel::findPlayStack(Card::CardController* card_controller)
 	{
 		for (int i = 0; i < number_of_play_stacks; i++)
@@ -132,6 +143,23 @@ namespace Gameplay
 		}
 
 		return nullptr;
+	}
+
+	void LevelModel::addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+		stack->push(empty_card);
+	}
+
+	void LevelModel::removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		if (stack->empty()) return;
+
+		if (stack->peek()->getCardType()->rank == Card::Rank::DEFAULT)
+		{
+			CardController* card_controller = stack->pop();
+			delete (card_controller);
+		}
 	}
 
 	void LevelModel::deleteStackElements()

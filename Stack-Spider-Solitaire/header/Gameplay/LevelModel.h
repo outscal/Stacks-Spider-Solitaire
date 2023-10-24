@@ -30,7 +30,7 @@ namespace Gameplay
 
     public:
         static const int number_of_play_stacks = 10;
-        static const int number_of_solution_stacks = 8;
+        static const int number_of_solution_stacks = 7;
         static const int initial_score = 500;
         static const int suit_complete_score = 50;
         static const float card_hide_duration_multiplyer;
@@ -45,10 +45,15 @@ namespace Gameplay
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
 
+        void addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+        void removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+
         LinkedListStack::Stack<Card::CardController*>* findPlayStack(Card::CardController* card_controller);
 
         std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
         std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();
         ArrayStack::Stack<Card::CardController*>* getDrawingStack();
+
+        ArrayStack::Stack<Card::CardController*>* getEmptySolutionStack();
     };
 }

@@ -16,13 +16,13 @@ namespace Gameplay
         const float closed_cards_vertical_spacing = 25.f;
         const float open_cards_vertical_spacing = 60.f;
 
-        const float play_deck_top_offset = 90.f;
+        const float play_deck_top_offset = 110.f;
 
         const float drawing_deck_top_offset = 770.f;
         const float drawing_deck_left_offset = 1670.f;
         const float drawing_deck_horizontal_spacing = 40.f;
 
-        const float solution_deck_top_offset = 700.f;
+        const float solution_deck_top_offset = 770.f;
         const float solution_deck_left_offset = 200.f;
         const float solution_deck_horizontal_spacing = 40.f;
 
@@ -49,6 +49,7 @@ namespace Gameplay
         void renderSolutionStacks();
         void renderDrawnigStack();
 
+        int getNumberOfDrawsRemaining();
         void calculateCardExtents();
         float getCardVerticalSpacing(Card::State state, int number_of_open_cards);
         void destroy();

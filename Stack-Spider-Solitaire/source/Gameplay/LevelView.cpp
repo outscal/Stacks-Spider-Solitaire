@@ -76,9 +76,11 @@ namespace Gameplay
 		LinkedListStack::Stack<CardController*> temp_stack;
 		float card_stack_position = 0;
 		float vertical_spacing = 0;
+		int number_of_open_cards = 0;
 
 		while (!stack.empty())
 		{
+			if (stack.peek()->getCardState() == Card::State::OPEN) number_of_open_cards++;
 			temp_stack.push(stack.pop());
 		}
 
@@ -92,7 +94,7 @@ namespace Gameplay
 
 			stack.push(card_controller);
 			card_stack_position++;
-			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState());
+			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState(), number_of_open_cards);
 		}
 	}
 
@@ -207,16 +209,18 @@ namespace Gameplay
 		card_height = card_width * height_to_width_ratio;
 	}
 
-	float LevelView::getCardVerticalSpacing(Card::State state)
+	float LevelView::getCardVerticalSpacing(Card::State state, int number_of_open_cards)
 	{
+		float vertical_spacing_adjustment_ratio = static_cast<float>(max_number_of_open_cards) / static_cast<float>(number_of_open_cards);
+
 		switch (state)
 		{
 		case::Card::State::OPEN:
-			return open_cards_vertical_spacing;
+			return open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
 		case::Card::State::CLOSE:
 			return closed_cards_vertical_spacing;
 		case::Card::State::SELECTED:
-			return open_cards_vertical_spacing;
+			return open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
 		}
 	}
 

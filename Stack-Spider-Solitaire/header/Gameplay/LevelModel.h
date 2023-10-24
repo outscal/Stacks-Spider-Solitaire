@@ -31,6 +31,8 @@ namespace Gameplay
     public:
         static const int number_of_play_stacks = 10;
         static const int number_of_solution_stacks = 8;
+        static const int initial_score = 500;
+        static const int suit_complete_score = 50;
         static const float card_hide_duration_multiplyer;
 
         LevelModel();

@@ -89,6 +89,10 @@ namespace Gameplay
 
     void GameplayUIController::updateScoreText()
     {
+        int score = ServiceLocator::getInstance()->getGameplayService()->getScore();
+        sf::String score_string = std::to_string(score);
+
+        score_text->setText(score_string);
         score_text->update();
     }
 

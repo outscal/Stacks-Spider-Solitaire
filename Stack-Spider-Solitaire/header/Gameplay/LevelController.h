@@ -43,6 +43,9 @@ namespace Gameplay
 
         void addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
         void removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+
+        void reduceScore(int val);
+        void increaseScore(int val);
         void reset();
 
     public:

@@ -175,6 +175,7 @@ namespace Gameplay
 		openTopCardOfStack(previously_selected_card_stack);
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
 		previously_selected_card_controller = nullptr;
+		reduceScore(1);
 	}
 
 	void LevelController::openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack)
@@ -352,10 +353,20 @@ namespace Gameplay
 		}
 	}
 
+	void LevelController::reduceScore(int val)
+	{
+		score -= val;
+	}
+
+	void LevelController::increaseScore(int val)
+	{
+		score += val;
+	}
+
 	void LevelController::reset()
 	{
 		elapsed_time = 0;
-		score = 0;
+		score = LevelModel::initial_score;
 		previously_selected_card_controller = nullptr;
 		flagged_card_to_process_input = nullptr;
 		level_model->reset();

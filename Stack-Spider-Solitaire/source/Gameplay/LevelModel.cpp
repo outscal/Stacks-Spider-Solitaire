@@ -50,14 +50,10 @@ namespace Gameplay
 	{
 		Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
 
+		// Adding one card in play stacks for visualization purpose. 
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
 			addCardInPlayStack(i, card_deck->pop());
-		}
-
-		for (int i = 0; i < number_of_solution_stacks; i++)
-		{
-			addCardInSolutionStack(i, card_deck->pop());
 		}
 
 		while (!card_deck->empty())

@@ -26,7 +26,7 @@ namespace Gameplay
 	void LevelView::initialize(LevelController* controller)
 	{
 		level_controller = controller;
-		initializeImage();
+		initializeBackgroudImage();
 		calculateCardExtents();
 	}
 
@@ -35,7 +35,7 @@ namespace Gameplay
 		background_image = new ImageView();
 	}
 
-	void LevelView::initializeImage()
+	void LevelView::initializeBackgroudImage()
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 

@@ -26,7 +26,7 @@ namespace Gameplay
         UIElement::ImageView* background_image;
 
         void createImage();
-        void initializeImage();
+        void initializeBackgroudImage();
 
         void updatePlayStacksView();
         void updateSolutionStacksView();

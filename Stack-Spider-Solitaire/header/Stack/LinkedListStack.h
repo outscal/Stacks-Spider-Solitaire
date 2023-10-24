@@ -57,7 +57,7 @@ namespace LinkedListStack
         }
         else
         {
-            printf("Stack is empty \n");
+            printf("Stack Underflow \n");
             return nullptr;
         }
     }
@@ -71,7 +71,7 @@ namespace LinkedListStack
         }
         else
         {
-            printf("Stack is empty \n");
+            printf("Stack Underflow \n");
             return nullptr;
         }
     }

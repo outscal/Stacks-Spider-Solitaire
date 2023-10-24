@@ -49,7 +49,7 @@ namespace ArrayStack
         }
         else 
         {
-            printf("Stack is full \n");
+            printf("Stack Overflow \n");
         }
     }
 
@@ -62,7 +62,7 @@ namespace ArrayStack
         }
         else 
         {
-            printf("Stack is empty \n");
+            printf("Stack Underflow \n");
             return nullptr;
         }
     }
@@ -76,7 +76,7 @@ namespace ArrayStack
         }
         else 
         {
-            printf("Stack is empty \n");
+            printf("Stack Underflow \n");
             return nullptr;
         }
     }

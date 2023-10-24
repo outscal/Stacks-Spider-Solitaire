@@ -1,6 +1,7 @@
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Card/CardService.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Stack/ArrayStack/ArrayStack.h"
 
 namespace Gameplay
 {
@@ -24,7 +25,8 @@ namespace Gameplay
 	{
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
-			play_stacks.push_back(new Stack<CardController*>());
+			IStack<CardController*>* stack = new ArrayStack::Stack<CardController*>();
+			play_stacks.push_back(stack);
 		}
 	}
 
@@ -32,13 +34,14 @@ namespace Gameplay
 	{
 		for (int i = 0; i < number_of_solution_stacks; i++)
 		{
-			solution_stacks.push_back(new Stack<CardController*>());
+			IStack<CardController*>* stack = new ArrayStack::Stack<CardController*>();
+			solution_stacks.push_back(stack);
 		}
 	}
 
 	void LevelModel::createDrawingStack()
 	{
-		drawing_stack = new Stack<CardController*>();
+		drawing_stack = new ArrayStack::Stack<CardController*>();
 	}
 
 	void LevelModel::initialize() 
@@ -48,7 +51,7 @@ namespace Gameplay
 
 	void LevelModel::initializeStacks()
 	{
-		Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
+		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
 
 		// Adding one card in play stacks for visualization purpose. 
 		for (int i = 0; i < number_of_play_stacks; i++)
@@ -85,17 +88,17 @@ namespace Gameplay
 		drawing_stack->push(card_controller);
 	}
 
-	std::vector<Stack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
+	std::vector<IStack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
 	{
 		return play_stacks;
 	}
 
-	std::vector<Stack<CardController*>*> Gameplay::LevelModel::getSolutionStacks()
+	std::vector<IStack<CardController*>*> Gameplay::LevelModel::getSolutionStacks()
 	{
 		return solution_stacks;
 	}
 
-	ArrayStack::Stack<CardController*>* Gameplay::LevelModel::getDrawingStack()
+	IStack<CardController*>* Gameplay::LevelModel::getDrawingStack()
 	{
 		return drawing_stack;
 	}

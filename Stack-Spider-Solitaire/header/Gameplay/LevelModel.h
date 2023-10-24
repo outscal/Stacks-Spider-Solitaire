@@ -1,16 +1,18 @@
 #pragma once
-#include "../../header/Stack/ArrayStack.h"
+#include "../../header/Stack/IStack.h"
 #include "../../header/Card/CardController.h"
 #include <vector>
 
 namespace Gameplay
 {
+    using namespace Stack;
+
     class LevelModel
     {
     private:
-        std::vector<ArrayStack::Stack<Card::CardController*>*> play_stacks;
-        std::vector<ArrayStack::Stack<Card::CardController*>*> solution_stacks;
-        ArrayStack::Stack<Card::CardController*>* drawing_stack;
+        std::vector<IStack<Card::CardController*>*> play_stacks;
+        std::vector<IStack<Card::CardController*>*> solution_stacks;
+        IStack<Card::CardController*>* drawing_stack;
 
         void createPlayStacks();
         void createSolutionStacks();
@@ -31,8 +33,8 @@ namespace Gameplay
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
 
-        std::vector<ArrayStack::Stack<Card::CardController*>*> getPlayStacks();
-        std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();
-        ArrayStack::Stack<Card::CardController*>* getDrawingStack();
+        std::vector<IStack<Card::CardController*>*> getPlayStacks();
+        std::vector<IStack<Card::CardController*>*> getSolutionStacks();
+        IStack<Card::CardController*>* getDrawingStack();
     };
 }

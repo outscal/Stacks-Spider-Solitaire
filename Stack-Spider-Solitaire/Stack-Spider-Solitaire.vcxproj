@@ -49,11 +49,12 @@
     <ClInclude Include="header\Card\CardModel.h" />
     <ClInclude Include="header\Card\CardService.h" />
     <ClInclude Include="header\Card\CardView.h" />
-    <ClInclude Include="header\Stack\ArrayStack.h" />
+    <ClInclude Include="header\Stack\ArrayStack\ArrayStack.h" />
     <ClInclude Include="header\Gameplay\LevelController.h" />
     <ClInclude Include="header\Gameplay\LevelModel.h" />
     <ClInclude Include="header\Gameplay\GameplayService.h" />
     <ClInclude Include="header\Gameplay\LevelView.h" />
+    <ClInclude Include="header\Stack\IStack.h" />
     <ClInclude Include="header\UI\UIElement\AnimatedImageView.h" />
     <ClInclude Include="header\UI\UIElement\ButtonView.h" />
     <ClInclude Include="header\Global\Config.h" />

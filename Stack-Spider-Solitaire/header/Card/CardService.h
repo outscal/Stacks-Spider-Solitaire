@@ -1,13 +1,15 @@
 #pragma once
 #include "../../header/Card/CardController.h"
-#include "../../header/Stack/ArrayStack.h"
+#include "../../header/Stack/IStack.h"
 
 namespace Card
 {
+	using namespace Stack;
+
 	class CardService
 	{
 	private:
-		void shuffleDeck(ArrayStack::Stack<CardController*>* card_deck);
+		void shuffleDeck(IStack<CardController*>* card_deck);
 
 	public:
 		CardService();
@@ -18,7 +20,7 @@ namespace Card
 		void render();
 
 		CardController* generateCard(Rank rank, Suit suit);
-		ArrayStack::Stack<CardController*>* generateRandomizedCardDeck();
-		ArrayStack::Stack<CardController*>* generateSequentialCardDeck();
+		IStack<CardController*>* generateRandomizedCardDeck();
+		IStack<CardController*>* generateSequentialCardDeck();
 	};
 }

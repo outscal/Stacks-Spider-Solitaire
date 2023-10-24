@@ -45,6 +45,7 @@ namespace Gameplay
 									game_window->getSize().x, 
 									game_window->getSize().y, 
 									sf::Vector2f(0,0));
+		background_image->setImageAlpha(85);
 	}
 
 	void LevelView::update()

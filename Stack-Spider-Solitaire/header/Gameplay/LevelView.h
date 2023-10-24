@@ -26,7 +26,7 @@ namespace Gameplay
         const float solution_deck_left_offset = 200.f;
         const float solution_deck_horizontal_spacing = 40.f;
 
-        const int max_number_of_open_cards = 8;
+        const int max_number_of_open_cards = 7;
 
         float card_width;
         float card_height;

@@ -43,7 +43,7 @@ namespace Gameplay
     void GameplayUIController::initializeButton()
     {
         menu_button->initialize("Menu Button", 
-            Config::menu_button_texture_path, 
+            Config::menu_button_large_texture_path, 
             button_width, button_height, 
             sf::Vector2f(menu_button_x_position, menu_button_y_position));
 
@@ -90,7 +90,7 @@ namespace Gameplay
     void GameplayUIController::updateScoreText()
     {
         int score = ServiceLocator::getInstance()->getGameplayService()->getScore();
-        sf::String score_string = std::to_string(score);
+        sf::String score_string = "Score  :  " + std::to_string(score);
 
         score_text->setText(score_string);
         score_text->update();

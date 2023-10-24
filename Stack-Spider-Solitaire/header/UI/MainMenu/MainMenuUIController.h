@@ -13,9 +13,9 @@ namespace MainMenu
 		const float button_width = 400.f;
 		const float button_height = 140.f;
 
-		const float play_button_y_position = 500.f;
-		const float instructions_button_y_position = 700.f;
-		const float quit_button_y_position = 900.f;
+		const float play_button_y_position = 400.f;
+		const float instructions_button_y_position = 600.f;
+		const float quit_button_y_position = 800.f;
 
 		const float background_alpha = 85.f;
 

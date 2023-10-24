@@ -43,7 +43,6 @@ namespace Instructions
 		void initializeButtons();
 		void initializeTexts();
 		void registerButtonCallback();
-		float calculateLeftOffsetForButton();
 
 		void menuButtonCallback();
 

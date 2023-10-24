@@ -44,9 +44,12 @@ namespace Gameplay
         bool isValidMove(Card::CardController* selected_card_controller);
         bool isSequential(LinkedListStack::Stack<Card::CardController*>* stack, Card::CardController* last_card_to_check);
         bool isSuitComplete(LinkedListStack::Stack<Card::CardController*>* stack);
+        bool isLevelComplete();
+        bool isGameOver();
 
         void reduceScore(int val);
         void increaseScore(int val);
+        void processGameOver();
         void reset();
 
     public:

@@ -61,8 +61,8 @@ namespace Instructions
 
     void InstructionsScreenUIController::initializeButtons()
     {
-        float x_position = calculateLeftOffsetForButton();
-        menu_button->initialize("Menu Button", Config::menu_button_texture_path, button_width, button_height, sf::Vector2f(x_position, menu_button_y_position));
+        menu_button->initialize("Menu Button", Config::menu_button_texture_path, button_width, button_height, sf::Vector2f(0, menu_button_y_position));
+        menu_button->setCentreAlinged();
     }
 
     void InstructionsScreenUIController::initializeTexts()
@@ -77,12 +77,6 @@ namespace Instructions
     void InstructionsScreenUIController::registerButtonCallback()
     {
         menu_button->registerCallbackFuntion(std::bind(&InstructionsScreenUIController::menuButtonCallback, this));
-    }
-
-    float InstructionsScreenUIController::calculateLeftOffsetForButton()
-    {
-        sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-        return (static_cast<float>(game_window->getSize().x) / 2) - button_width / 2;
     }
 
     void InstructionsScreenUIController::menuButtonCallback()

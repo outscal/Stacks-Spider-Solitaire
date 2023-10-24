@@ -2,13 +2,17 @@
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Global/TimeService.h"
 #include "../../header/Card/CardConfig.h"
+#include "../../header/Sound/SoundService.h"
+#include "../../header/Main/GameService.h"
 
 namespace Gameplay
 {
+	using namespace Main;
 	using namespace Card;
 	using namespace ArrayStack;
 	using namespace LinkedListStack;
 	using namespace Global;
+	using namespace Sound;
 
 	LevelController::LevelController()
 	{
@@ -93,7 +97,11 @@ namespace Gameplay
 
 		if (previously_selected_card_controller == nullptr) return;
 
-		if (isValidMove(selected_card_controller)) moveCards(selected_card_controller);
+		if (isValidMove(selected_card_controller))
+		{
+			moveCards(selected_card_controller);
+			if (isGameOver()) processGameOver();
+		}
 		else unselectCards(previously_selected_card_controller);
 	}
 
@@ -108,6 +116,8 @@ namespace Gameplay
 
 		openTopCardOfStack(stack);
 		increaseScore(LevelModel::suit_complete_score);
+
+		if (isLevelComplete()) processGameOver();
 	}
 
 	void LevelController::drawCards()
@@ -264,6 +274,16 @@ namespace Gameplay
 		return isSequential(stack, last_card_to_check);
 	}
 
+	bool LevelController::isLevelComplete()
+	{
+		return (level_model->getEmptySolutionStack() == nullptr);
+	}
+
+	bool LevelController::isGameOver()
+	{
+		return score <= 0;
+	}
+
 	void LevelController::updateElapsedTime()
 	{
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
@@ -379,6 +399,12 @@ namespace Gameplay
 	void LevelController::increaseScore(int val)
 	{
 		score += val;
+	}
+
+	void LevelController::processGameOver()
+	{
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::LEVEL_COMPLETE);
+		GameService::setGameState(GameState::CREDITS);
 	}
 
 	void LevelController::reset()

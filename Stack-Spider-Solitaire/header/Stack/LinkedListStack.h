@@ -21,7 +21,7 @@ namespace LinkedListStack
         bool empty();
         int size();
         void clear();
-        bool search(T data);
+        bool contains(T data);
     };
 }
 
@@ -101,7 +101,7 @@ namespace LinkedListStack
     }
 
     template<class T>
-    inline bool Stack<T>::search(T data)
+    inline bool Stack<T>::contains(T data)
     {
         for (auto iterator = linked_list_stack.begin(); iterator != linked_list_stack.end(); ++iterator)
         {

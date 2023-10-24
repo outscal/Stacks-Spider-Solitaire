@@ -77,14 +77,8 @@ namespace Card
 
 	void CardView::setCardHighLight(bool b_highlight)
 	{
-		if (b_highlight)
-		{
-			card_highlight->show();
-		}
-		else
-		{
-			card_highlight->hide();
-		}
+		if (b_highlight) card_highlight->show();
+		else card_highlight->hide();
 	}
 
 	void CardView::registerButtonCallback()

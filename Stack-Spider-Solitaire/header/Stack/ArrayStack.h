@@ -23,7 +23,7 @@ namespace ArrayStack
         bool empty();
         int size();
         void clear();
-        bool search(T data);
+        bool contains(T data);
     };
 }
 
@@ -104,7 +104,7 @@ namespace ArrayStack
     }
 
     template<class T>
-    inline bool Stack<T>::search(T data)
+    inline bool Stack<T>::contains(T data)
     {
         for (auto iterator = array_stack.begin(); iterator != array_stack.end(); ++iterator)
         {

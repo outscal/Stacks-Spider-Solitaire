@@ -80,7 +80,7 @@ namespace Gameplay
 	{
 		if(previously_selected_card_controller) unselectCards(previously_selected_card_controller);
 
-		if (getDrawingStack()->search(selected_card_controller))
+		if (getDrawingStack()->contains(selected_card_controller))
 		{
 			drawCards();
 		}

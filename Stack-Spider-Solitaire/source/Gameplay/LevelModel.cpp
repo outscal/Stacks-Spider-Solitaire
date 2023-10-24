@@ -125,7 +125,7 @@ namespace Gameplay
 	{
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
-			if (play_stacks[i]->search(card_controller))
+			if (play_stacks[i]->contains(card_controller))
 			{
 				return play_stacks[i];
 			}

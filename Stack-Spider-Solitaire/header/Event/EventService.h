@@ -24,7 +24,7 @@ namespace Event
 		bool gameWindowWasClosed();
 		bool hasQuitGame();
 		bool isKeyboardEvent();
-		void updateButtonsState();
+		void updateButtonsState(ButtonState& button_state);
 		void updateLeftMouseButtonState();
 		void updateRightMouseButtonState();
 

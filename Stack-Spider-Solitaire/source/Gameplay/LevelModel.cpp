@@ -2,6 +2,7 @@
 #include "../../header/Card/CardService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
+#include "../../header/Stack/LinkedListStack/LinkedListStack.h"
 
 namespace Gameplay
 {
@@ -53,13 +54,13 @@ namespace Gameplay
 
 	void LevelModel::reset()
 	{
-		deleteStackElements();
+		deleteAllStackElemets();
 		initialize();
 	}
 
 	void LevelModel::initializeStacks()
 	{
-		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck(number_of_decks);
+		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
 
 		while (card_deck->size() > drawing_deck_stack_size)
 		{
@@ -122,31 +123,22 @@ namespace Gameplay
 		return drawing_stack;
 	}
 
-	void LevelModel::deleteStackElements()
+	void LevelModel::deleteAllStackElemets()
 	{
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
-			deleteLinkedListStackElements(play_stacks[i]);
+			deleteStackElements(play_stacks[i]);
 		}
 
 		for (int i = 0; i < number_of_solution_stacks; i++)
 		{
-			deleteArrayStackElements(solution_stacks[i]);
+			deleteStackElements(solution_stacks[i]);
 		}
 
-		deleteArrayStackElements(drawing_stack);
+		deleteStackElements(drawing_stack);
 	}
 
-	void LevelModel::deleteLinkedListStackElements(LinkedListStack::Stack<Card::CardController*>* stack)
-	{
-		while (!stack->empty())
-		{
-			CardController* card_controller = stack->pop();
-			delete card_controller;
-		}
-	}
-
-	void LevelModel::deleteArrayStackElements(ArrayStack::Stack<Card::CardController*>* stack)
+	void LevelModel::deleteStackElements(IStack<Card::CardController*>* stack)
 	{
 		while (!stack->empty())
 		{
@@ -157,7 +149,7 @@ namespace Gameplay
 
 	void LevelModel::destroy()
 	{
-		deleteStackElements();
+		deleteAllStackElemets();
 
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{

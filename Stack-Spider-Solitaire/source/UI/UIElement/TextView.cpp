@@ -12,9 +12,6 @@ namespace UI
 		sf::Font TextView::font_hand_writing;
 		sf::Font TextView::font_roboto;
 
-		sf::Font TextView::font_bubble_bobble;
-		sf::Font TextView::font_DS_DIGIB;
-
 		TextView::TextView() = default;
 
 		TextView::~TextView() = default;
@@ -30,40 +27,19 @@ namespace UI
 			setTextColor(color);
 		}
 
-	void TextView::initializeTextView()
-	{
-		loadFont();
-	}
-
-	void TextView::loadFont()
-	{
-		font_bubble_bobble.loadFromFile(Config::bubble_bobble_font_path);
-		font_DS_DIGIB.loadFromFile(Config::DS_DIGIB_font_path);
-		font_hand_writing.loadFromFile(Config::hand_writing_font_path);
-		font_roboto.loadFromFile(Config::roboto_font_path);
-	}
-
-	void TextView::setText(sf::String text_value)
-	{
-		text.setString(text_value);
-	}
-
-	void TextView::setFont(FontType font_type)
-	{
-		switch (font_type)
+		void TextView::initializeTextView()
 		{
-		case FontType::BUBBLE_BOBBLE:
-			text.setFont(font_bubble_bobble);
-			break;
-		case FontType::DS_DIGIB:
-			text.setFont(font_DS_DIGIB);
-			break;
-		case FontType::HAND_WRITING:
-			text.setFont(font_hand_writing);
-			break;
-		case FontType::ROBOTO:
-			text.setFont(font_roboto);
-			break;
+			loadFont();
+		}
+
+		void TextView::loadFont()
+		{
+			font_bubble_bobble.loadFromFile(Config::bubble_bobble_font_path);
+			font_DS_DIGIB.loadFromFile(Config::DS_DIGIB_font_path);
+			font_hand_writing.loadFromFile(Config::hand_writing_font_path);
+			font_roboto.loadFromFile(Config::roboto_font_path);
+		}
+
 		void TextView::update()
 		{
 			UIView::update();
@@ -77,17 +53,6 @@ namespace UI
 			{
 				game_window->draw(text);
 			}
-		}
-
-		void TextView::initializeTextView()
-		{
-			loadFont();
-		}
-
-		void TextView::loadFont()
-		{
-			font_bubble_bobble.loadFromFile(Config::bubble_bobble_font_path);
-			font_DS_DIGIB.loadFromFile(Config::DS_DIGIB_font_path);
 		}
 
 		void TextView::setText(sf::String text_value)
@@ -104,6 +69,12 @@ namespace UI
 				break;
 			case FontType::DS_DIGIB:
 				text.setFont(font_DS_DIGIB);
+				break;
+			case FontType::HAND_WRITING:
+				text.setFont(font_hand_writing);
+				break;
+			case FontType::ROBOTO:
+				text.setFont(font_roboto);
 				break;
 			}
 		}

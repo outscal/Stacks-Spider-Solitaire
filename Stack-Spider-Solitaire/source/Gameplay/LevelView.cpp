@@ -5,11 +5,11 @@
 #include "../../header/Main/GraphicService.h"
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Card/CardController.h"
+#include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <vector>
 
 namespace Gameplay
 {
-	using namespace LinkedListStack;
 	using namespace ArrayStack;
 	using namespace UI::UIElement;
 	using namespace Global;
@@ -73,9 +73,9 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::updatePlayStackCards(LinkedListStack::Stack<CardController*>& stack, int stack_position)
+	void LevelView::updatePlayStackCards(IStack<CardController*>& stack, int stack_position)
 	{
-		LinkedListStack::Stack<CardController*> temp_stack;
+		ArrayStack::Stack<CardController*> temp_stack;
 		float stack_size = stack.size();
 		float card_stack_position = 0;
 
@@ -144,9 +144,9 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::renderPlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack)
+	void LevelView::renderPlayStackCards(IStack<Card::CardController*>& stack)
 	{
-		LinkedListStack::Stack<CardController*> temp_stack;
+		ArrayStack::Stack<CardController*> temp_stack;
 
 		while (!stack.empty())
 		{

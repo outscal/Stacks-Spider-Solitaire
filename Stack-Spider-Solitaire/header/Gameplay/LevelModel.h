@@ -23,9 +23,8 @@ namespace Gameplay
         void initializeStacks();
         void openPlayStacksTopCard();
         void destroy();
-        void deleteStackElements();
-        void deleteLinkedListStackElements(LinkedListStack::Stack<Card::CardController*>* stack);
-        void deleteArrayStackElements(ArrayStack::Stack<Card::CardController*>* stack);
+        void deleteAllStackElemets();
+        void deleteStackElements(IStack<Card::CardController*>* stack);
 
     public:
         static const int number_of_play_stacks = 10;

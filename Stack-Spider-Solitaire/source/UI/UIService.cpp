@@ -9,7 +9,7 @@ namespace UI
 	using namespace SplashScreen;
 	using namespace UIElement;
 	using namespace Interface;
-	using namespace Gameplay;
+	using namespace GameplayUI;
 
 	UIService::UIService()
 	{

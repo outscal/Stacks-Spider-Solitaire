@@ -18,9 +18,6 @@ namespace Gameplay
         int score;
 
         void updateElapsedTime();
-        void updatePlayStacks();
-        void updateSolutionStacks();
-        void updateDrawingStack();
         void reset();
 
     public:

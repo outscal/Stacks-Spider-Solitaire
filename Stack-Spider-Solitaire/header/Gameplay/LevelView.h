@@ -1,11 +1,11 @@
 #pragma once
 #include "../../header/UI/UIElement/ImageView.h"
-#include "../../header/Stack/ArrayStack.h"
-#include "../../header/Stack/LinkedListStack.h"
+#include "../../header/Stack/IStack.h"
 #include "../../header/Card/CardController.h"
 
 namespace Gameplay
 {
+    using namespace Stack;
     class LevelController;
 
     class LevelView
@@ -37,13 +37,13 @@ namespace Gameplay
         void initializeBackgroudImage();
 
         void updatePlayStacksView();
-        void updatePlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack, int stack_position);
+        void updatePlayStackCards(IStack<Card::CardController*>& stack, int stack_position);
 
         void updateSolutionStacksView();      
         void updateDrawingStackView();
 
         void renderPlayStacks();
-        void renderPlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack);
+        void renderPlayStackCards(IStack<Card::CardController*>& stack);
 
         void renderSolutionStacks();
         void renderDrawnigStack();

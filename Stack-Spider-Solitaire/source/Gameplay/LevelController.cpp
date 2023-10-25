@@ -5,7 +5,6 @@
 namespace Gameplay
 {
 	using namespace Card;
-	using namespace Stack::ArrayStack;
 	using namespace Global;
 
 	LevelController::LevelController()

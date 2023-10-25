@@ -25,6 +25,7 @@ namespace Stack
             T peek() override;
             bool empty() override;
             int size() override;
+            bool contains(T data) override;
             void clear() override;
         };
     }
@@ -103,6 +104,17 @@ namespace Stack
             {
                 pop();
             }
+        }
+
+        template<class T>
+        bool Stack<T>::contains(T data)
+        {
+            for (auto iterator = array_stack.begin(); iterator != array_stack.end(); ++iterator)
+            {
+                if (data == *(iterator)) return true;
+            }
+
+            return false;
         }
     }
 }

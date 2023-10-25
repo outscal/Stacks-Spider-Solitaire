@@ -39,7 +39,7 @@ namespace Gameplay
         void initializeBackgroudImage();
 
         void updatePlayStacksView();
-        void updatePlayStackCards(IStack<Card::CardController*>& stack, int stack_position);
+        void updatePlayStackCardsView(IStack<Card::CardController*>& stack, int stack_position);
 
         void updateSolutionStacksView();      
         void updateDrawingStackView();

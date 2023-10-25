@@ -73,7 +73,7 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::updatePlayStackCards(IStack<CardController*>& stack, int stack_position)
+	void LevelView::updatePlayStackCardsView(IStack<CardController*>& stack, int stack_position)
 	{
 		ArrayStack::Stack<CardController*> temp_stack;
 		float stack_size = stack.size();

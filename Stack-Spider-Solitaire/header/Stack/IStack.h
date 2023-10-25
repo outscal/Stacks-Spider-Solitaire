@@ -12,6 +12,7 @@ namespace Stack
         virtual bool empty() = 0;
         virtual int size() = 0;
         virtual void clear() = 0;
+        virtual bool contains(T data) = 0;
         virtual ~IStack() { }
     };
 }

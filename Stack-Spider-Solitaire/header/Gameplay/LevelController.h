@@ -24,8 +24,7 @@ namespace Gameplay
         void updatePlayStacks();
         void updateSolutionStacks();
         void updateDrawingStack();
-        void updateArrayStackCards(ArrayStack::Stack<Card::CardController*>* stack);
-        void updateLinkedListStackCards(LinkedListStack::Stack<Card::CardController*>* stack);
+        void updateStackCards(IStack<Card::CardController*>* stack);
 
         void processCardControllerInput();
         void processButtonInput(Card::CardController* selected_card_controller);
@@ -37,13 +36,13 @@ namespace Gameplay
         void selectCards(Card::CardController* card_controller);
         void unselectCards(Card::CardController* card_controller);
         void moveCards(Card::CardController* selected_card_controller);
-        void openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack);
+        void openTopCardOfStack(IStack<Card::CardController*>* stack);
 
         bool isValidSelection(Card::CardController* selected_card_controller);
         bool isValidMove(Card::CardController* selected_card_controller);
 
-        void addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
-        void removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+        void addEmptyCard(IStack<Card::CardController*>* stack);
+        void removeEmptyCard(IStack<Card::CardController*>* stack);
 
         void reduceScore(int val);
         void increaseScore(int val);

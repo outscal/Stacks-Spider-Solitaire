@@ -13,7 +13,7 @@ namespace Card
         float card_width;
         float card_height;
 
-        UIElement::ButtonView* card_button_view;
+        UI::UIElement::ButtonView* card_button_view;
 
         void updateCardView();
         void registerButtonCallback();

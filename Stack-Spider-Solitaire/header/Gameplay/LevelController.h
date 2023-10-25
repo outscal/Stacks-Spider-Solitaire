@@ -2,10 +2,12 @@
 #include <vector>
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Gameplay/LevelView.h"
-#include "../../header/Stack/ArrayStack.h"
+#include "../../header/Stack/IStack.h"
 
 namespace Gameplay
 {
+    using namespace Stack;
+
     class LevelController
     {
     private:
@@ -36,8 +38,8 @@ namespace Gameplay
         float getElapsedTime();
         int getScore();
 
-        std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
-        std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();
-        ArrayStack::Stack<Card::CardController*>* getDrawingStack();
+        std::vector<IStack<Card::CardController*>*> getPlayStacks();
+        std::vector<IStack<Card::CardController*>*> getSolutionStacks();
+        IStack<Card::CardController*>* getDrawingStack();
     };
 }

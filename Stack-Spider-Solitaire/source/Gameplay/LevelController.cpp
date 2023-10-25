@@ -5,7 +5,7 @@
 namespace Gameplay
 {
 	using namespace Card;
-	using namespace ArrayStack;
+	using namespace Stack::ArrayStack;
 	using namespace Global;
 
 	LevelController::LevelController()
@@ -29,9 +29,6 @@ namespace Gameplay
 	void LevelController::update()
 	{
 		updateElapsedTime();
-		updatePlayStacks();
-		updateSolutionStacks();
-		updateDrawingStack();
 		level_view->update();
 	}
 
@@ -49,12 +46,6 @@ namespace Gameplay
 	{
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 	}
-
-	void LevelController::updatePlayStacks() { }
-
-	void LevelController::updateSolutionStacks() { }
-
-	void LevelController::updateDrawingStack() { }
 
 	float LevelController::getCardWidth()
 	{
@@ -75,18 +66,18 @@ namespace Gameplay
 	{
 		return score;
 	}
-
-	std::vector<LinkedListStack::Stack<CardController*>*> LevelController::getPlayStacks()
+	
+	std::vector<IStack<CardController*>*> LevelController::getPlayStacks()
 	{
 		return level_model->getPlayStacks();
 	}
 
-	std::vector<ArrayStack::Stack<CardController*>*> LevelController::getSolutionStacks()
+	std::vector<IStack<CardController*>*> LevelController::getSolutionStacks()
 	{
 		return level_model->getSolutionStacks();
 	}
 
-	ArrayStack::Stack<CardController*>* LevelController::getDrawingStack()
+	IStack<CardController*>* LevelController::getDrawingStack()
 	{
 		return level_model->getDrawingStack();
 	}

@@ -33,11 +33,6 @@ namespace Gameplay
 		level_controller->render();
 	}
 
-	void GameplayService::startLevel()
-	{
-		level_controller->startLevel();
-	}
-
 	float GameplayService::getCardWidth()
 	{
 		return level_controller->getCardWidth();

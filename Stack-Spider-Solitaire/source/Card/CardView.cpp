@@ -7,7 +7,7 @@
 
 namespace Card
 {
-	using namespace UIElement;
+	using namespace UI::UIElement;
 	using namespace Global;
 	using namespace Sound;
 

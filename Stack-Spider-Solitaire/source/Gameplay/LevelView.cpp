@@ -11,7 +11,7 @@ namespace Gameplay
 {
 	using namespace LinkedListStack;
 	using namespace ArrayStack;
-	using namespace UIElement;
+	using namespace UI::UIElement;
 	using namespace Global;
 	using namespace Card;
 
@@ -28,7 +28,7 @@ namespace Gameplay
 	void LevelView::initialize(LevelController* controller)
 	{
 		level_controller = controller;
-		initializeImage();
+		initializeBackgroudImage();
 		calculateCardExtents();
 	}
 
@@ -37,7 +37,7 @@ namespace Gameplay
 		background_image = new ImageView();
 	}
 
-	void LevelView::initializeImage()
+	void LevelView::initializeBackgroudImage()
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 
@@ -45,6 +45,8 @@ namespace Gameplay
 									game_window->getSize().x, 
 									game_window->getSize().y, 
 									sf::Vector2f(0,0));
+
+		background_image->setImageAlpha(background_alpha);
 	}
 
 	void LevelView::update()

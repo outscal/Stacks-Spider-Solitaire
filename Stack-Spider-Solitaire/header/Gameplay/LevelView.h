@@ -25,14 +25,16 @@ namespace Gameplay
         const float solution_deck_left_offset = 200.f;
         const float solution_deck_horizontal_spacing = 40.f;
 
+        const float background_alpha = 85.f;
+
         float card_width;
         float card_height;
 
         LevelController* level_controller;
-        UIElement::ImageView* background_image;
+        UI::UIElement::ImageView* background_image;
 
         void createImage();
-        void initializeImage();
+        void initializeBackgroudImage();
 
         void updatePlayStacksView();
         void updatePlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack, int stack_position);

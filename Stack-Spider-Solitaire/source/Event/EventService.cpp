@@ -19,7 +19,8 @@ namespace Event
 
     void EventService::update()
     {
-        updateButtonsState();
+        updateButtonsState(left_mouse_button_state);
+        updateButtonsState(right_mouse_button_state);
     }
 
     void EventService::processEvents()
@@ -35,49 +36,23 @@ namespace Event
         }
     }
 
-    void EventService::updateButtonsState()
-    {
-        updateLeftMouseButtonState();
-        updateRightMouseButtonState();
-    }
-
-    void EventService::updateLeftMouseButtonState()
+    void EventService::updateButtonsState(ButtonState& button_state)
     {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            switch (left_mouse_button_state)
+            switch (button_state)
             {
             case ButtonState::RELEASED:
-                left_mouse_button_state = ButtonState::PRESSED;
+                button_state = ButtonState::PRESSED;
                 break;
             case ButtonState::PRESSED:
-                left_mouse_button_state = ButtonState::HELD;
+                button_state = ButtonState::HELD;
                 break;
             }
         }
         else
         {
-            left_mouse_button_state = ButtonState::RELEASED;
-        }
-    }
-
-    void EventService::updateRightMouseButtonState()
-    {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-        {
-            switch (right_mouse_button_state)
-            {
-            case ButtonState::RELEASED:
-                right_mouse_button_state = ButtonState::PRESSED;
-                break;
-            case ButtonState::PRESSED:
-                right_mouse_button_state = ButtonState::HELD;
-                break;
-            }
-        }
-        else
-        {
-            right_mouse_button_state = ButtonState::RELEASED;
+            button_state = ButtonState::RELEASED;
         }
     }
 

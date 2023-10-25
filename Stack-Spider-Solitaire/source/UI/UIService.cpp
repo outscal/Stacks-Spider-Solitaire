@@ -9,7 +9,7 @@ namespace UI
 	using namespace SplashScreen;
 	using namespace UIElement;
 	using namespace Interface;
-	using namespace Gameplay;
+	using namespace GameplayUI;
 
 	UIService::UIService()
 	{
@@ -41,31 +41,19 @@ namespace UI
 	void UIService::update()
 	{
 		IUIController* ui_controller = getCurrentUIController();
-
-		if (ui_controller)
-		{
-			ui_controller->update();
-		}
+		if (ui_controller) ui_controller->update();
 	}
 
 	void UIService::render()
 	{
 		IUIController* ui_controller = getCurrentUIController();
-
-		if (ui_controller)
-		{
-			ui_controller->render();
-		}
+		if (ui_controller) ui_controller->render();
 	}
 
 	void UIService::showScreen()
 	{
 		IUIController* ui_controller = getCurrentUIController();
-
-		if (ui_controller)
-		{
-			ui_controller->show();
-		}
+		if (ui_controller) ui_controller->show();
 	}
 
 	void UIService::initializeControllers()

@@ -1,11 +1,11 @@
 #pragma once
 #include "../../header/UI/UIElement/ImageView.h"
-#include "../../header/Stack/ArrayStack.h"
-#include "../../header/Stack/LinkedListStack.h"
+#include "../../header/Stack/IStack.h"
 #include "../../header/Card/CardController.h"
 
 namespace Gameplay
 {
+    using namespace Stack;
     class LevelController;
 
     class LevelView
@@ -27,24 +27,25 @@ namespace Gameplay
         const float solution_deck_horizontal_spacing = 40.f;
 
         const int max_number_of_open_cards = 8;
+        const float background_alpha = 85.f;
 
         float card_width;
         float card_height;
 
         LevelController* level_controller;
-        UIElement::ImageView* background_image;
+        UI::UIElement::ImageView* background_image;
 
         void createImage();
-        void initializeImage();
+        void initializeBackgroudImage();
 
         void updatePlayStacksView();
-        void updatePlayStackCardsView(LinkedListStack::Stack<Card::CardController*>& stack, int stack_position);
+        void updatePlayStackCards(IStack<Card::CardController*>& stack, int stack_position);
 
         void updateSolutionStacksView();      
         void updateDrawingStackView();
 
         void renderPlayStacks();
-        void renderPlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack);
+        void renderPlayStackCards(IStack<Card::CardController*>& stack);
 
         void renderSolutionStacks();
         void renderDrawnigStack();

@@ -14,12 +14,12 @@ namespace Card
         float card_width;
         float card_height;
 
-        UIElement::ButtonView* card_button_view;
-        UIElement::ImageView* card_highlight;
+        UI::UIElement::ButtonView* card_button_view;
+        UI::UIElement::ImageView* card_highlight;
 
         void initializeButton();
         void initializeImage();
-
+        
         void updateCardView();
         void registerButtonCallback();
         void cardButtonCallback();

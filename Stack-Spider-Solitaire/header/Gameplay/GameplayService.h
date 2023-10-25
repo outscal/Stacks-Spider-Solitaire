@@ -20,8 +20,6 @@ namespace Gameplay
 		void update();
 		void render();
 
-		void createLevel();
-
 		float getCardWidth();
 		float getCardHeight();
 	};

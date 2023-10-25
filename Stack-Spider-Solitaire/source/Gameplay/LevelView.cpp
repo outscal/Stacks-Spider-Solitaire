@@ -9,7 +9,7 @@
 
 namespace Gameplay
 {
-	using namespace UIElement;
+	using namespace UI::UIElement;
 	using namespace Global;
 	using namespace Card;
 
@@ -43,6 +43,8 @@ namespace Gameplay
 									game_window->getSize().x, 
 									game_window->getSize().y, 
 									sf::Vector2f(0,0));
+
+		background_image->setImageAlpha(background_alpha);
 	}
 
 	void LevelView::update()

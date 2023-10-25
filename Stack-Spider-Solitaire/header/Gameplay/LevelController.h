@@ -14,10 +14,6 @@ namespace Gameplay
         LevelModel* level_model;
         LevelView* level_view;
 
-        void updatePlayStacks();
-        void updateSolutionStacks();
-        void updateDrawingStack();
-
     public:
         LevelController();
         ~LevelController();

@@ -24,9 +24,6 @@ namespace Gameplay
 
 	void LevelController::update()
 	{
-		updatePlayStacks();
-		updateSolutionStacks();
-		updateDrawingStack();
 		level_view->update();
 	}
 
@@ -34,12 +31,6 @@ namespace Gameplay
 	{
 		level_view->render();
 	}
-
-	void LevelController::updatePlayStacks() { }
-
-	void LevelController::updateSolutionStacks() { }
-
-	void LevelController::updateDrawingStack() { }
 
 	float LevelController::getCardWidth()
 	{

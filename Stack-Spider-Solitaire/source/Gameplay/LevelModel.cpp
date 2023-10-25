@@ -126,7 +126,7 @@ namespace Gameplay
 		return drawing_stack;
 	}
 
-	ArrayStack::Stack<Card::CardController*>* LevelModel::getEmptySolutionStack()
+	IStack<Card::CardController*>* LevelModel::getEmptySolutionStack()
 	{
 		for (int i = 0; i < number_of_solution_stacks; i++)
 		{
@@ -149,13 +149,13 @@ namespace Gameplay
 		return nullptr;
 	}
 
-	void LevelModel::addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
+	void LevelModel::addEmptyCard(IStack<Card::CardController*>* stack)
 	{
 		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
 		stack->push(empty_card);
 	}
 
-	void LevelModel::removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
+	void LevelModel::removeEmptyCard(IStack<Card::CardController*>* stack)
 	{
 		if (stack->empty()) return;
 

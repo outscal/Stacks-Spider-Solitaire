@@ -47,8 +47,8 @@ namespace Gameplay
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
 
-        void addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
-        void removeEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack);
+        void addEmptyCard(IStack<Card::CardController*>* stack);
+        void removeEmptyCard(IStack<Card::CardController*>* stack);
 
         IStack<Card::CardController*>* findPlayStack(Card::CardController* card_controller);
 

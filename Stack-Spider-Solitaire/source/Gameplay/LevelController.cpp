@@ -105,9 +105,9 @@ namespace Gameplay
 		else unselectCards(previously_selected_card_controller);
 	}
 
-	void LevelController::processSuitCompletion(LinkedListStack::Stack<Card::CardController*>* stack)
+	void LevelController::processSuitCompletion(IStack<Card::CardController*>* stack)
 	{
-		ArrayStack::Stack<Card::CardController*>* solution_stack = level_model->getEmptySolutionStack();
+		IStack<Card::CardController*>* solution_stack = level_model->getEmptySolutionStack();
 
 		if (solution_stack)
 		{
@@ -186,7 +186,7 @@ namespace Gameplay
 		reduceScore(1);
 	}
 
-	void LevelController::moveCardsBetweenStacks(LinkedListStack::Stack<Card::CardController*>* source_stack, LinkedListStack::Stack<Card::CardController*>* target_stack)
+	void LevelController::moveCardsBetweenStacks(IStack<Card::CardController*>* source_stack, IStack<Card::CardController*>* target_stack)
 	{
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
@@ -233,7 +233,7 @@ namespace Gameplay
 		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
 	}
 
-	bool LevelController::isSequential(LinkedListStack::Stack<Card::CardController*>* stack, Card::CardController* last_card_to_check)
+	bool LevelController::isSequential(IStack<Card::CardController*>* stack, Card::CardController* last_card_to_check)
 	{
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
@@ -259,7 +259,7 @@ namespace Gameplay
 		return is_sequential;
 	}
 
-	bool LevelController::isSuitComplete(LinkedListStack::Stack<Card::CardController*>* stack)
+	bool LevelController::isSuitComplete(IStack<Card::CardController*>* stack)
 	{
 		if (stack->size() + 1 < static_cast<int>(Card::Rank::DEFAULT)) return false;
 		LinkedListStack::Stack<Card::CardController*> temp_stack;

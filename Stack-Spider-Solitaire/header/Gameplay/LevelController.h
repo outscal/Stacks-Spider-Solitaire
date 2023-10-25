@@ -31,13 +31,13 @@ namespace Gameplay
         void processCardSelection(Card::CardController* selected_card_controller);
         void processCardDraw(Card::CardController* selected_card_controller);
         void processCardMove(Card::CardController* selected_card_controller);
-        void processSuitCompletion(LinkedListStack::Stack<Card::CardController*>* stack);
+        void processSuitCompletion(IStack<Card::CardController*>* stack);
         void drawCards();
 
         void selectCards(Card::CardController* card_controller);
         void unselectCards(Card::CardController* card_controller);
         void moveCards(Card::CardController* selected_card_controller);
-        void moveCardsBetweenStacks(LinkedListStack::Stack<Card::CardController*>* source_stack, LinkedListStack::Stack<Card::CardController*>* target_stack);
+        void moveCardsBetweenStacks(IStack<Card::CardController*>* source_stack, IStack<Card::CardController*>* target_stack);
         void openTopCardOfStack(IStack<Card::CardController*>* stack);
 
         bool isValidSelection(Card::CardController* selected_card_controller);
@@ -46,9 +46,6 @@ namespace Gameplay
         bool isSuitComplete(IStack<Card::CardController*>* stack);
         bool isLevelComplete();
         bool isGameOver();
-
-        void addEmptyCard(IStack<Card::CardController*>* stack);
-        void removeEmptyCard(IStack<Card::CardController*>* stack);
 
         void reduceScore(int val);
         void increaseScore(int val);

@@ -4,13 +4,13 @@
 #include "../../header/Card/CardConfig.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Main/GameService.h"
+#include "../../header/Stack/LinkedListStack/LinkedListStack.h"
 
 namespace Gameplay
 {
 	using namespace Main;
-	using namespace Card;
-	using namespace ArrayStack;
 	using namespace LinkedListStack;
+	using namespace Card;
 	using namespace Global;
 	using namespace Sound;
 
@@ -83,7 +83,7 @@ namespace Gameplay
 	void LevelController::processCardDraw(CardController* selected_card_controller)
 	{
 		if (previously_selected_card_controller) unselectCards(previously_selected_card_controller);
-		if (getDrawingStack()->search(selected_card_controller)) drawCards();
+		if (getDrawingStack()->contains(selected_card_controller)) drawCards();
 	}
 
 	void LevelController::processCardMove(Card::CardController* selected_card_controller)
@@ -122,7 +122,7 @@ namespace Gameplay
 
 	void LevelController::drawCards()
 	{
-		ArrayStack::Stack<Card::CardController*>* card_deck = getDrawingStack();
+		IStack<Card::CardController*>* card_deck = getDrawingStack();
 
 		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
@@ -137,7 +137,7 @@ namespace Gameplay
 
 	void LevelController::selectCards(Card::CardController* card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
+		IStack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 		card_controller->setCardState(Card::State::SELECTED);
 
@@ -153,7 +153,7 @@ namespace Gameplay
 
 	void LevelController::unselectCards(Card::CardController* card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
+		IStack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
 		while (!stack->empty() && stack->peek()->getCardState() == Card::State::SELECTED)
@@ -169,8 +169,9 @@ namespace Gameplay
 
 	void LevelController::moveCards(Card::CardController* card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
-		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
+		IStack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
+		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
 		if (!previously_selected_card_stack || !currently_selected_card_stack) return;
 
@@ -200,7 +201,7 @@ namespace Gameplay
 		while (!temp_stack.empty()) target_stack->push(temp_stack.pop());
 	}
 
-	void LevelController::openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack)
+	void LevelController::openTopCardOfStack(IStack<Card::CardController*>* stack)
 	{
 		if (stack->empty())
 		{
@@ -214,14 +215,14 @@ namespace Gameplay
 	{
 		if (selected_card_controller->getCardType()->rank == Card::Rank::DEFAULT) return false;
 
-		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
+		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
 		return (currently_selected_card_stack != nullptr) && isSequential(currently_selected_card_stack, selected_card_controller);
 	}
 
 	bool LevelController::isValidMove(Card::CardController* selected_card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
-		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
+		IStack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
+		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
 
 		if (!previously_selected_card_stack || !currently_selected_card_stack) return false;
 		if (currently_selected_card_stack->peek() != selected_card_controller) return false;
@@ -300,7 +301,7 @@ namespace Gameplay
 	{
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
-			updateLinkedListStackCards(getPlayStacks()[i]);
+			updateStackCards(getPlayStacks()[i]);
 		}
 	}
 
@@ -308,35 +309,18 @@ namespace Gameplay
 	{
 		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			updateArrayStackCards(getSolutionStacks()[i]);
+			updateStackCards(getSolutionStacks()[i]);
 		}
 	}
 
 	void LevelController::updateDrawingStack()
 	{
-		updateArrayStackCards(getDrawingStack());
+		updateStackCards(getDrawingStack());
 	}
 
-	void LevelController::updateLinkedListStackCards(LinkedListStack::Stack<Card::CardController*>* stack)
+	void LevelController::updateStackCards(IStack<Card::CardController*>* stack)
 	{
 		LinkedListStack::Stack<CardController*> temp_stack;
-
-		while (!stack->empty())
-		{
-			CardController* card_controller = stack->pop();
-			card_controller->update();
-			temp_stack.push(card_controller);
-		}
-
-		while (!temp_stack.empty())
-		{
-			stack->push(temp_stack.pop());
-		}
-	}
-
-	void LevelController::updateArrayStackCards(ArrayStack::Stack<Card::CardController*>* stack)
-	{
-		ArrayStack::Stack<CardController*> temp_stack;
 
 		while (!stack->empty())
 		{
@@ -375,18 +359,18 @@ namespace Gameplay
 	{
 		return score;
 	}
-
-	std::vector<LinkedListStack::Stack<CardController*>*> LevelController::getPlayStacks()
+	
+	std::vector<IStack<CardController*>*> LevelController::getPlayStacks()
 	{
 		return level_model->getPlayStacks();
 	}
 
-	std::vector<ArrayStack::Stack<CardController*>*> LevelController::getSolutionStacks()
+	std::vector<IStack<CardController*>*> LevelController::getSolutionStacks()
 	{
 		return level_model->getSolutionStacks();
 	}
 
-	ArrayStack::Stack<CardController*>* LevelController::getDrawingStack()
+	IStack<CardController*>* LevelController::getDrawingStack()
 	{
 		return level_model->getDrawingStack();
 	}

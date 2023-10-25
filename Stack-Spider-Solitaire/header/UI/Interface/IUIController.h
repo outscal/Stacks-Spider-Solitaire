@@ -1,16 +1,18 @@
 #pragma once
 
-namespace Interface
+namespace UI
 {
-    class IUIController
+    namespace Interface
     {
-    public:
-        virtual void initialize() = 0;
-        virtual void update() = 0;
-        virtual void render() = 0;
+        class IUIController
+        {
+        public:
+            virtual void initialize() = 0;
+            virtual void update() = 0;
+            virtual void render() = 0;
+            virtual void show() = 0;
 
-        virtual void show() = 0;
-
-        virtual ~IUIController() { }
-    };
+            virtual ~IUIController() { }
+        };
+    }
 }

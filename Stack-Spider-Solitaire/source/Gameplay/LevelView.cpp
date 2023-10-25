@@ -5,13 +5,13 @@
 #include "../../header/Main/GraphicService.h"
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Card/CardController.h"
+#include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <vector>
 
 namespace Gameplay
 {
-	using namespace LinkedListStack;
 	using namespace ArrayStack;
-	using namespace UIElement;
+	using namespace UI::UIElement;
 	using namespace Global;
 	using namespace Card;
 
@@ -28,7 +28,7 @@ namespace Gameplay
 	void LevelView::initialize(LevelController* controller)
 	{
 		level_controller = controller;
-		initializeImage();
+		initializeBackgroudImage();
 		calculateCardExtents();
 	}
 
@@ -37,7 +37,7 @@ namespace Gameplay
 		background_image = new ImageView();
 	}
 
-	void LevelView::initializeImage()
+	void LevelView::initializeBackgroudImage()
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 
@@ -45,7 +45,8 @@ namespace Gameplay
 									game_window->getSize().x, 
 									game_window->getSize().y, 
 									sf::Vector2f(0,0));
-		background_image->setImageAlpha(85);
+
+		background_image->setImageAlpha(background_alpha);
 	}
 
 	void LevelView::update()
@@ -72,9 +73,10 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::updatePlayStackCardsView(LinkedListStack::Stack<CardController*>& stack, int stack_position)
+	void LevelView::updatePlayStackCardsView(IStack<CardController*>& stack, int stack_position)
 	{
-		LinkedListStack::Stack<CardController*> temp_stack;
+		ArrayStack::Stack<CardController*> temp_stack;
+		float stack_size = stack.size();
 		float card_stack_position = 0;
 		float vertical_spacing = 0;
 		int number_of_open_cards = 0;
@@ -145,9 +147,9 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::renderPlayStackCards(LinkedListStack::Stack<Card::CardController*>& stack)
+	void LevelView::renderPlayStackCards(IStack<Card::CardController*>& stack)
 	{
-		LinkedListStack::Stack<CardController*> temp_stack;
+		ArrayStack::Stack<CardController*> temp_stack;
 
 		while (!stack.empty())
 		{

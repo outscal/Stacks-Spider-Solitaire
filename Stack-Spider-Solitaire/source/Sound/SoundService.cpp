@@ -5,8 +5,6 @@ namespace Sound
 {
 	using namespace Global;
 
-	SoundService::SoundService() {}
-
 	void SoundService::initialize()
 	{
 		loadBackgroundMusicFromFile();

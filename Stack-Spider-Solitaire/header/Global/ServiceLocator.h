@@ -1,9 +1,9 @@
 #pragma once
 #include "../../header/Main/GraphicService.h"
+#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Event/EventService.h"
 #include "../../header/UI/UIService.h"
 #include "../../header/Sound/SoundService.h"
-#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Card/CardService.h"
 #include "../../header/Global/TimeService.h"
 

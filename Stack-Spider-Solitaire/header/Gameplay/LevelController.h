@@ -2,11 +2,12 @@
 #include <vector>
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Gameplay/LevelView.h"
-#include "../../header/Stack/ArrayStack.h"
-#include "../../header/Stack/LinkedListStack.h"
+#include "../../header/Stack/IStack.h"
 
 namespace Gameplay
 {
+    using namespace Stack;
+
     class LevelController
     {
     private:
@@ -23,8 +24,7 @@ namespace Gameplay
         void updatePlayStacks();
         void updateSolutionStacks();
         void updateDrawingStack();
-        void updateArrayStackCards(ArrayStack::Stack<Card::CardController*>* stack);
-        void updateLinkedListStackCards(LinkedListStack::Stack<Card::CardController*>* stack);
+        void updateStackCards(IStack<Card::CardController*>* stack);
 
         void processCardControllerInput();
         void processButtonInput(Card::CardController* selected_card_controller);
@@ -38,14 +38,17 @@ namespace Gameplay
         void unselectCards(Card::CardController* card_controller);
         void moveCards(Card::CardController* selected_card_controller);
         void moveCardsBetweenStacks(LinkedListStack::Stack<Card::CardController*>* source_stack, LinkedListStack::Stack<Card::CardController*>* target_stack);
-        void openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack);
+        void openTopCardOfStack(IStack<Card::CardController*>* stack);
 
         bool isValidSelection(Card::CardController* selected_card_controller);
         bool isValidMove(Card::CardController* selected_card_controller);
-        bool isSequential(LinkedListStack::Stack<Card::CardController*>* stack, Card::CardController* last_card_to_check);
-        bool isSuitComplete(LinkedListStack::Stack<Card::CardController*>* stack);
+        bool isSequential(IStack<Card::CardController*>* stack, Card::CardController* last_card_to_check);
+        bool isSuitComplete(IStack<Card::CardController*>* stack);
         bool isLevelComplete();
         bool isGameOver();
+
+        void addEmptyCard(IStack<Card::CardController*>* stack);
+        void removeEmptyCard(IStack<Card::CardController*>* stack);
 
         void reduceScore(int val);
         void increaseScore(int val);
@@ -68,8 +71,8 @@ namespace Gameplay
         float getElapsedTime();
         int getScore();
 
-        std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
-        std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();
-        ArrayStack::Stack<Card::CardController*>* getDrawingStack();
+        std::vector<IStack<Card::CardController*>*> getPlayStacks();
+        std::vector<IStack<Card::CardController*>*> getSolutionStacks();
+        IStack<Card::CardController*>* getDrawingStack();
     };
 }

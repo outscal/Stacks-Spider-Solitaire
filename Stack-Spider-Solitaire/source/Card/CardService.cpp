@@ -3,6 +3,7 @@
 #include "../../header/Card/CardConfig.h"
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <ctime>
 #include <random>
 
@@ -31,10 +32,13 @@ namespace Card
 		return card;
 	}
 
-	Stack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
+	IStack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
-		Stack<CardController*>* card_deck = new Stack<CardController*>();
-
+		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
+		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
+		
+		IStack<CardController*>* card_deck = new ArrayStack::Stack<CardController*>();
+		
 		for (int i = 0; i < number_of_decks; i++)
 		{
 			for (int rank = 1; rank <= static_cast<int>(number_of_ranks); rank++)
@@ -50,15 +54,15 @@ namespace Card
 		return card_deck;
 	}
 
-	Stack<CardController*>* CardService::generateRandomizedCardDeck(int number_of_decks)
+	IStack<CardController*>* CardService::generateRandomizedCardDeck(int number_of_decks)
 	{
-		Stack<CardController*>* card_deck = generateSequentialCardDeck(number_of_decks);
+		IStack<CardController*>* card_deck = generateSequentialCardDeck(number_of_decks);
 
 		shuffleDeck(card_deck);
 		return card_deck;
 	}
 
-	void CardService::shuffleDeck(Stack<CardController*>* card_deck)
+	void CardService::shuffleDeck(IStack<CardController*>* card_deck)
 	{
 		std::vector<CardController*> card_deck_to_shuffle;
 

@@ -23,8 +23,6 @@ namespace Sound
 		void loadSoundFromFile();
 
 	public:
-		SoundService();
-
 		void initialize();
 
 		void playSound(SoundType soundType);

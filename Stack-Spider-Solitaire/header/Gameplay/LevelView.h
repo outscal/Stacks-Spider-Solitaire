@@ -16,7 +16,8 @@ namespace Gameplay
 		const float closed_cards_vertical_spacing = 25.f;
 		const float open_cards_vertical_spacing = 60.f;
 
-		const float play_deck_top_offset = 90.f;
+		const float play_deck_top_offset = 180.f;
+		const float play_deck_left_offset = 60.f;
 
 		const float drawing_deck_top_offset = 770.f;
 		const float drawing_deck_left_offset = 1670.f;

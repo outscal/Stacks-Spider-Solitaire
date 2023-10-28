@@ -7,6 +7,8 @@
 #include "Global/ServiceLocator.h"
 #include "Sound/SoundService.h"
 
+#include <iostream>
+
 namespace Card
 {
 	using namespace UIElement;
@@ -57,6 +59,7 @@ namespace Card
 	{
 		card_button_view->initialize("Card", getCardTexturePath(), card_width,
 									 card_height, sf::Vector2f(0, 0));
+		this->card_button_view->setOriginAtCentre();
 		registerButtonCallback();
 	}
 
@@ -64,6 +67,7 @@ namespace Card
 	{
 		card_highlight->initialize(Config::card_highlight_texture_path, card_width,
 								   card_height, sf::Vector2f(0, 0));
+		this->card_highlight->setOriginAtCentre();
 		card_highlight->hide();
 	}
 
@@ -76,6 +80,29 @@ namespace Card
 	void CardView::updateCardTexture()
 	{
 		card_button_view->setTexture(getCardTexturePath());
+	}
+
+	void CardView::selectCard()
+	{
+		this->scaleCard({1.25f, 1.25f});
+		this->setCardHighLight(true);
+	}
+
+	void CardView::unselectCard()
+	{
+
+		// move the center half the amount that i'm scaling it to the right
+		this->card_highlight->setScale(card_width, card_height);
+		this->card_button_view->setScale(card_width, card_height);
+
+		this->setCardHighLight(false);
+	}
+
+	void CardView::scaleCard(const sf::Vector2f& factor)
+	{
+		// Scale the card
+		this->card_button_view->scale(factor);
+		this->card_highlight->scale(factor);
 	}
 
 	void CardView::setCardHighLight(bool b_highlight)

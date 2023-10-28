@@ -1,5 +1,7 @@
 #include "UI/UIElement/ImageView.h"
 
+#include <iostream>
+
 namespace UIElement
 {
 	ImageView::ImageView() = default;
@@ -44,6 +46,21 @@ namespace UIElement
 		float scale_y = height / image_sprite.getTexture()->getSize().y;
 
 		image_sprite.setScale(scale_x, scale_y);
+	}
+
+	void ImageView::scale(const sf::Vector2f& factor)
+	{
+		image_sprite.scale(factor);
+	}
+
+	sf::Vector2f ImageView::getScale()
+	{
+		return this->image_sprite.getScale();
+	}
+
+	sf::Vector2f ImageView::getPosition()
+	{
+		return this->image_sprite.getPosition();
 	}
 
 	void ImageView::setPosition(sf::Vector2f position)

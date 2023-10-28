@@ -33,7 +33,11 @@ namespace Card
 		void update();
 		void render();
 
+		void selectCard();
+		void unselectCard();
+
 		void updateCardTexture();
 		void setCardHighLight(bool b_highlight);
+		void scaleCard(const sf::Vector2f& factor);
 	};
 } // namespace Card

@@ -87,7 +87,7 @@ namespace Gameplay
 
 		while (!temp_stack.empty())
 		{
-			float x_position = (stack_position * card_width) + ((stack_position + 1) * cards_horrizontal_spacing);
+			float x_position = play_deck_left_offset + (stack_position * card_width) + ((stack_position + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset + vertical_spacing;
 
 			CardController* card_controller = temp_stack.pop();

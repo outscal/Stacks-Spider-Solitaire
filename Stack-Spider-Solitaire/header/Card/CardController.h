@@ -25,7 +25,7 @@ namespace Card
 		State getCardState();
 		void setCardState(State card_state);
 
-		sf::Vector2f getCardPosition();
+		sf::Vector2f getCardPosition() const;
 		void setCardPosition(sf::Vector2f card_position);
 
 		CardVisibility getCardVisibility();

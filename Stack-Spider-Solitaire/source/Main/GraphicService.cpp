@@ -21,8 +21,10 @@ namespace Main
 	sf::RenderWindow* GraphicService::createGameWindow()
 	{
 		configureVideoMode();
+
+		// TejveerDebug: Making the window non-fullscreen for now.
 		return new sf::RenderWindow(video_mode, game_window_title,
-									sf::Style::Fullscreen);
+									sf::Style::Default);
 	}
 
 	void GraphicService::configureVideoMode()

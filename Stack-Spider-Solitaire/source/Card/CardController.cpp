@@ -1,6 +1,7 @@
 #include "Card/CardController.h"
 #include "Global/ServiceLocator.h"
 #include "Global/TimeService.h"
+#include <iostream>
 
 namespace Card
 {
@@ -69,21 +70,27 @@ namespace Card
 		switch (card_state)
 		{
 		case Card::State::OPEN:
-			card_view->setCardHighLight(false);
+			card_view->unselectCard();
 			break;
-		case Card::State::SELECTED:
+
+		case Card::State::SELECTED: {
 			if (card_model->getCardType()->rank != Rank::DEFAULT)
-				card_view->setCardHighLight(true);
+			{
+				card_view->selectCard();
+			}
+
 			break;
+		}
+
 		case Card::State::CLOSE:
-			card_view->setCardHighLight(false);
+			card_view->unselectCard();
 			break;
 		}
 
 		card_view->updateCardTexture();
 	}
 
-	sf::Vector2f CardController::getCardPosition()
+	sf::Vector2f CardController::getCardPosition() const
 	{
 		return card_model->getPosition();
 	}

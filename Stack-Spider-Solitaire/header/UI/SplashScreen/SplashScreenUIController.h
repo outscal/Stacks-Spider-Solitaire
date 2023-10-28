@@ -1,6 +1,6 @@
 #pragma once
-#include "../../header/UI/Interface/IUIController.h"
-#include "../../header/UI/UIElement/AnimatedImageView.h"
+#include "UI/Interface/IUIController.h"
+#include "UI/UIElement/AnimatedImageView.h"
 
 namespace SplashScreen
 {

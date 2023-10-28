@@ -1,6 +1,6 @@
 #pragma once
-#include "../../header/Gameplay/LevelController.h"
-#include "../../header/Card/CardController.h"
+#include "Gameplay/LevelController.h"
+#include "Card/CardController.h"
 
 namespace Gameplay
 {

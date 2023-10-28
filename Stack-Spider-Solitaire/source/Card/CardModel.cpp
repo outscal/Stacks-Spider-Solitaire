@@ -1,4 +1,4 @@
-#include "../../header/Card/CardModel.h"
+#include "Card/CardModel.h"
 
 namespace Card
 {

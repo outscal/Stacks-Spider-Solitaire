@@ -1,10 +1,10 @@
-#include "../../header/Gameplay/LevelView.h"
-#include "../../header/Gameplay/LevelModel.h"
-#include "../../header/Global/Config.h"
-#include "../../header/Global/ServiceLocator.h"
-#include "../../header/Main/GraphicService.h"
-#include "../../header/Gameplay/LevelController.h"
-#include "../../header/Card/CardController.h"
+#include "Gameplay/LevelView.h"
+#include "Gameplay/LevelModel.h"
+#include "Global/Config.h"
+#include "Global/ServiceLocator.h"
+#include "Main/GraphicService.h"
+#include "Gameplay/LevelController.h"
+#include "Card/CardController.h"
 #include <vector>
 
 namespace Gameplay

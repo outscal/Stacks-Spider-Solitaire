@@ -1,10 +1,10 @@
-#include "../../header/UI/MainMenu/MainMenuUIController.h"
-#include "../../header/Main/GameService.h"
-#include "../../header/Main/GraphicService.h"
-#include "../../header/Sound/SoundService.h"
-#include "../../header/Event/EventService.h"
-#include "../../header/Global/Config.h"
-#include "../../header/Global/ServiceLocator.h"
+#include "UI/MainMenu/MainMenuUIController.h"
+#include "Main/GameService.h"
+#include "Main/GraphicService.h"
+#include "Sound/SoundService.h"
+#include "Event/EventService.h"
+#include "Global/Config.h"
+#include "Global/ServiceLocator.h"
 
 namespace MainMenu
 {

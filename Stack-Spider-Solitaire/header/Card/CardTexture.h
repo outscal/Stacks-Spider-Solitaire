@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../../header/Card/CardConfig.h"
+#include "Card/CardConfig.h"
 
 namespace Card
 {

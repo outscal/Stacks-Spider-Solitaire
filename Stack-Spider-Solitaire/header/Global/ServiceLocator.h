@@ -1,11 +1,11 @@
 #pragma once
-#include "../../header/Main/GraphicService.h"
-#include "../../header/Event/EventService.h"
-#include "../../header/UI/UIService.h"
-#include "../../header/Sound/SoundService.h"
-#include "../../header/Gameplay/GameplayService.h"
-#include "../../header/Card/CardService.h"
-#include "../../header/Global/TimeService.h"
+#include "Main/GraphicService.h"
+#include "Event/EventService.h"
+#include "UI/UIService.h"
+#include "Sound/SoundService.h"
+#include "Gameplay/GameplayService.h"
+#include "Card/CardService.h"
+#include "Global/TimeService.h"
 
 namespace Global
 {

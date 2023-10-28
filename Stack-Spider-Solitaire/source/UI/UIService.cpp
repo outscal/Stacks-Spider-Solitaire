@@ -1,6 +1,6 @@
-#include "../../header/UI/UIService.h"
-#include "../../header/Main/GameService.h"
-#include "../../header/UI/UIElement/TextView.h"
+#include "UI/UIService.h"
+#include "Main/GameService.h"
+#include "UI/UIElement/TextView.h"
 
 namespace UI
 {

@@ -1,8 +1,8 @@
 #pragma once
-#include "../../header/UI/UIElement/ImageView.h"
-#include "../../header/Stack/ArrayStack.h"
-#include "../../header/Stack/LinkedListStack.h"
-#include "../../header/Card/CardController.h"
+#include "UI/UIElement/ImageView.h"
+#include "Stack/ArrayStack.h"
+#include "Stack/LinkedListStack.h"
+#include "Card/CardController.h"
 
 namespace Gameplay
 {

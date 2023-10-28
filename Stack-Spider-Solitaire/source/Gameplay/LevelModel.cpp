@@ -1,6 +1,6 @@
-#include "../../header/Gameplay/LevelModel.h"
-#include "../../header/Card/CardService.h"
-#include "../../header/Global/ServiceLocator.h"
+#include "Gameplay/LevelModel.h"
+#include "Card/CardService.h"
+#include "Global/ServiceLocator.h"
 
 namespace Gameplay
 {

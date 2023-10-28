@@ -1,6 +1,6 @@
 #include "Main/GameService.h"
-#include "Main/GraphicService.h"
 #include "Event/EventService.h"
+#include "Main/GraphicService.h"
 #include "UI/UIService.h"
 
 namespace Main
@@ -45,7 +45,10 @@ namespace Main
 		ServiceLocator::getInstance()->getUIService()->showScreen();
 	}
 
-	bool GameService::isRunning() { return service_locator->getGraphicService()->isGameWindowOpen(); }
+	bool GameService::isRunning()
+	{
+		return service_locator->getGraphicService()->isGameWindowOpen();
+	}
 
 	void GameService::setGameState(GameState new_state)
 	{
@@ -78,4 +81,4 @@ namespace Main
 	{
 		service_locator->deleteServiceLocator();
 	}
-}
+} // namespace Main

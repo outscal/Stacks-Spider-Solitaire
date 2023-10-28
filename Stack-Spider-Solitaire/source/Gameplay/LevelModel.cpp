@@ -44,7 +44,7 @@ namespace Gameplay
 		drawing_stack = new ArrayStack::Stack<CardController*>();
 	}
 
-	void LevelModel::initialize() 
+	void LevelModel::initialize()
 	{
 		initializeStacks();
 		openPlayStacksTopCard();
@@ -64,7 +64,8 @@ namespace Gameplay
 		{
 			for (int i = 0; i < number_of_play_stacks; i++)
 			{
-				if (card_deck->size() < drawing_deck_stack_size) break;
+				if (card_deck->size() < drawing_deck_stack_size)
+					break;
 				addCardInPlayStack(i, card_deck->pop());
 			}
 		}
@@ -183,4 +184,4 @@ namespace Gameplay
 
 		delete (drawing_stack);
 	}
-}
+} // namespace Gameplay

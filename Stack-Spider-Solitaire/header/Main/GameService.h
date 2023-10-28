@@ -1,6 +1,6 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Global/ServiceLocator.h"
+#include <SFML/Graphics.hpp>
 
 namespace Main
 {
@@ -14,7 +14,7 @@ namespace Main
 
 	class GameService
 	{
-	private:
+	  private:
 		static GameState current_state;
 		Global::ServiceLocator* service_locator;
 		sf::RenderWindow* game_window;
@@ -24,7 +24,7 @@ namespace Main
 		void showSplashScreen();
 		void destroy();
 
-	public:
+	  public:
 		GameService();
 		virtual ~GameService();
 
@@ -36,4 +36,4 @@ namespace Main
 		static void setGameState(GameState new_state);
 		static GameState getGameState();
 	};
-}
+} // namespace Main

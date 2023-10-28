@@ -9,7 +9,7 @@ namespace Global
 	*/
 	class TimeService
 	{
-	private:
+	  private:
 		/*
 		// A time point that represents the previous moment in time using the steady clock.
 		// The steady clock is a clock that provides a monotonic and constant time source
@@ -24,11 +24,10 @@ namespace Global
 		float calculateDeltaTime();
 		void updatePreviousTime();
 
-	public:
-
+	  public:
 		void initialize();
 		void update();
 
 		float getDeltaTime();
 	};
-}
+} // namespace Global

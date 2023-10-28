@@ -17,9 +17,13 @@ namespace UIElement
 		ui_state = UIState::VISIBLE;
 	}
 
-	void UIView::update() { }
+	void UIView::update()
+	{
+	}
 
-	void UIView::render() { }
+	void UIView::render()
+	{
+	}
 
 	void UIView::show()
 	{
@@ -30,4 +34,4 @@ namespace UIElement
 	{
 		ui_state = UIState::HIDDEN;
 	}
-}
+} // namespace UIElement

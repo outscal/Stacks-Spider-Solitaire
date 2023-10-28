@@ -11,11 +11,11 @@ namespace UIElement
 
 	class UIView
 	{
-	protected:
+	  protected:
 		sf::RenderWindow* game_window;
 		UIState ui_state;
 
-	public:
+	  public:
 		UIView();
 		virtual ~UIView();
 
@@ -26,4 +26,4 @@ namespace UIElement
 		virtual void show();
 		virtual void hide();
 	};
-}
+} // namespace UIElement

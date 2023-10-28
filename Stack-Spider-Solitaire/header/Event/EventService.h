@@ -13,7 +13,7 @@ namespace Event
 
 	class EventService
 	{
-	private:
+	  private:
 		sf::Event game_event;
 		sf::RenderWindow* game_window;
 
@@ -28,7 +28,7 @@ namespace Event
 		void updateLeftMouseButtonState();
 		void updateRightMouseButtonState();
 
-	public:
+	  public:
 		EventService();
 		~EventService();
 
@@ -42,4 +42,4 @@ namespace Event
 
 		void setLeftMouseButtonState(ButtonState button_state);
 	};
-}
+} // namespace Event

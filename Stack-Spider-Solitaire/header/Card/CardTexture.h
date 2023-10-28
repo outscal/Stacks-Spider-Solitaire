@@ -1,12 +1,12 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Card/CardConfig.h"
+#include <SFML/Graphics.hpp>
 
 namespace Card
 {
 	class CardTexture
 	{
-	public:
+	  public:
 		static sf::String getCardTexturePath(Rank rank, Suit suit, State state)
 		{
 			if (state == State::CLOSE)
@@ -19,4 +19,4 @@ namespace Card
 			return path;
 		}
 	};
-}
+} // namespace Card

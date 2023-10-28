@@ -1,10 +1,10 @@
 #include "Gameplay/LevelView.h"
+#include "Card/CardController.h"
+#include "Gameplay/LevelController.h"
 #include "Gameplay/LevelModel.h"
 #include "Global/Config.h"
 #include "Global/ServiceLocator.h"
 #include "Main/GraphicService.h"
-#include "Gameplay/LevelController.h"
-#include "Card/CardController.h"
 #include <vector>
 
 namespace Gameplay
@@ -41,10 +41,10 @@ namespace Gameplay
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 
-		background_image->initialize(Config::level_background_texture_path, 
-									game_window->getSize().x, 
-									game_window->getSize().y, 
-									sf::Vector2f(0,0));
+		background_image->initialize(Config::level_background_texture_path,
+									 game_window->getSize().x,
+									 game_window->getSize().y,
+									 sf::Vector2f(0, 0));
 	}
 
 	void LevelView::update()
@@ -63,8 +63,8 @@ namespace Gameplay
 		renderDrawnigStack();
 	}
 
-	void LevelView::updatePlayStacksView() 
-	{ 
+	void LevelView::updatePlayStacksView()
+	{
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
 			updatePlayStackCardsView(*(level_controller->getPlayStacks()[i]), i);
@@ -80,7 +80,8 @@ namespace Gameplay
 
 		while (!stack.empty())
 		{
-			if (stack.peek()->getCardState() == Card::State::OPEN) number_of_open_cards++;
+			if (stack.peek()->getCardState() == Card::State::OPEN)
+				number_of_open_cards++;
 			temp_stack.push(stack.pop());
 		}
 
@@ -98,11 +99,12 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::updateSolutionStacksView() 
+	void LevelView::updateSolutionStacksView()
 	{
 		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+			if (level_controller->getSolutionStacks()[i]->empty())
+				continue;
 
 			float x_position = solution_deck_left_offset + (i * solution_deck_horizontal_spacing);
 			float y_position = solution_deck_top_offset;
@@ -112,8 +114,8 @@ namespace Gameplay
 		}
 	}
 
-	void LevelView::updateDrawingStackView() 
-	{ 
+	void LevelView::updateDrawingStackView()
+	{
 		ArrayStack::Stack<CardController*> temp_stack;
 		int number_of_draws = level_controller->getDrawingStack()->size() / LevelModel::number_of_play_stacks;
 
@@ -163,7 +165,8 @@ namespace Gameplay
 	{
 		for (int i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+			if (level_controller->getSolutionStacks()[i]->empty())
+				continue;
 
 			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->render();
@@ -215,11 +218,11 @@ namespace Gameplay
 
 		switch (state)
 		{
-		case::Card::State::OPEN:
+		case ::Card::State::OPEN:
 			return open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
-		case::Card::State::CLOSE:
+		case ::Card::State::CLOSE:
 			return closed_cards_vertical_spacing;
-		case::Card::State::SELECTED:
+		case ::Card::State::SELECTED:
 			return open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
 		}
 	}
@@ -228,4 +231,4 @@ namespace Gameplay
 	{
 		delete (background_image);
 	}
-}
+} // namespace Gameplay

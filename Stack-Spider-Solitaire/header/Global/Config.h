@@ -1,12 +1,12 @@
 #pragma once
-#include <string>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 namespace Global
 {
 	class Config
 	{
-	public:
+	  public:
 		static const sf::String outscal_logo_texture_path;
 		static const sf::String background_texture_path;
 		static const sf::String level_background_texture_path;
@@ -25,4 +25,4 @@ namespace Global
 		static const sf::String background_music_path;
 		static const sf::String button_click_sound_path;
 	};
-}
+} // namespace Global

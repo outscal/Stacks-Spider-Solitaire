@@ -2,36 +2,38 @@
 #include "UI/UIElement/ButtonView.h"
 #include "UI/UIElement/ImageView.h"
 
-namespace Card {
-class CardController;
+namespace Card
+{
+	class CardController;
 
-class CardView {
-private:
-	CardController* card_controller;
+	class CardView
+	{
+	  private:
+		CardController* card_controller;
 
-	float card_width;
-	float card_height;
+		float card_width;
+		float card_height;
 
-	UIElement::ButtonView* card_button_view;
-	UIElement::ImageView* card_highlight;
+		UIElement::ButtonView* card_button_view;
+		UIElement::ImageView* card_highlight;
 
-	void initializeButton();
-	void initializeImage();
+		void initializeButton();
+		void initializeImage();
 
-	void updateCardView();
-	void registerButtonCallback();
-	void cardButtonCallback();
-	sf::String getCardTexturePath();
+		void updateCardView();
+		void registerButtonCallback();
+		void cardButtonCallback();
+		sf::String getCardTexturePath();
 
-public:
-	CardView();
-	~CardView();
+	  public:
+		CardView();
+		~CardView();
 
-	void initialize(float width, float height, CardController* controller);
-	void update();
-	void render();
+		void initialize(float width, float height, CardController* controller);
+		void update();
+		void render();
 
-	void updateCardTexture();
-	void setCardHighLight(bool b_highlight);
-};
+		void updateCardTexture();
+		void setCardHighLight(bool b_highlight);
+	};
 } // namespace Card

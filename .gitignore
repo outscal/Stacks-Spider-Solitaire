@@ -1,3 +1,6 @@
+# VScode settings
+.vscode/
+
 # Build folder
 Stack-Spider-Solitaire/build
 

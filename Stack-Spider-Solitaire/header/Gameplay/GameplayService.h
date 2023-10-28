@@ -1,19 +1,19 @@
 #pragma once
-#include "Gameplay/LevelController.h"
 #include "Card/CardController.h"
+#include "Gameplay/LevelController.h"
 
 namespace Gameplay
 {
 	class GameplayService
 	{
-	private:
+	  private:
 		GameplayService* gameplay_service;
 		LevelController* level_controller;
 
 		void createLevelController();
 		void destroy();
 
-	public:
+	  public:
 		GameplayService();
 		~GameplayService();
 
@@ -29,4 +29,4 @@ namespace Gameplay
 		float getElapsedTime();
 		int getScore();
 	};
-}
+} // namespace Gameplay

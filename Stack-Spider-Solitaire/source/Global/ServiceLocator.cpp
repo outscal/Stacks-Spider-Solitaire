@@ -23,7 +23,10 @@ namespace Global
 		createServices();
 	}
 
-	ServiceLocator::~ServiceLocator() { clearAllServices(); }
+	ServiceLocator::~ServiceLocator()
+	{
+		clearAllServices();
+	}
 
 	void ServiceLocator::createServices()
 	{
@@ -76,13 +79,13 @@ namespace Global
 
 	void ServiceLocator::clearAllServices()
 	{
-		delete(ui_service);
-		delete(graphic_service);
-		delete(sound_service);
-		delete(event_service);
-		delete(gameplay_service);
-		delete(card_service);
-		delete(time_service);
+		delete (ui_service);
+		delete (graphic_service);
+		delete (sound_service);
+		delete (event_service);
+		delete (gameplay_service);
+		delete (card_service);
+		delete (time_service);
 	}
 
 	ServiceLocator* ServiceLocator::getInstance()
@@ -91,19 +94,43 @@ namespace Global
 		return &instance;
 	}
 
-	EventService* ServiceLocator::getEventService() { return event_service; }
+	EventService* ServiceLocator::getEventService()
+	{
+		return event_service;
+	}
 
-	GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
+	GraphicService* ServiceLocator::getGraphicService()
+	{
+		return graphic_service;
+	}
 
-	SoundService* ServiceLocator::getSoundService() { return sound_service; }
+	SoundService* ServiceLocator::getSoundService()
+	{
+		return sound_service;
+	}
 
-	UIService* ServiceLocator::getUIService() { return ui_service; }
+	UIService* ServiceLocator::getUIService()
+	{
+		return ui_service;
+	}
 
-	GameplayService* ServiceLocator::getGameplayService() { return gameplay_service; }
+	GameplayService* ServiceLocator::getGameplayService()
+	{
+		return gameplay_service;
+	}
 
-	CardService* ServiceLocator::getCardService() { return card_service; }
+	CardService* ServiceLocator::getCardService()
+	{
+		return card_service;
+	}
 
-	Global::TimeService* ServiceLocator::getTimeService() { return time_service; }
+	Global::TimeService* ServiceLocator::getTimeService()
+	{
+		return time_service;
+	}
 
-	void ServiceLocator::deleteServiceLocator() { delete(this); }
-}
+	void ServiceLocator::deleteServiceLocator()
+	{
+		delete (this);
+	}
+} // namespace Global

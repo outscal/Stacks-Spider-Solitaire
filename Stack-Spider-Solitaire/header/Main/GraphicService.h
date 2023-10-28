@@ -5,7 +5,7 @@ namespace Main
 {
 	class GraphicService
 	{
-	private:
+	  private:
 		const int frame_rate = 60;
 
 		const std::string game_window_title = "Outscal Presents - Spider Solitaire";
@@ -21,7 +21,7 @@ namespace Main
 		void configureVideoMode();
 		void onDestroy();
 
-	public:
+	  public:
 		GraphicService();
 		~GraphicService();
 
@@ -34,4 +34,4 @@ namespace Main
 		void setFrameRate(int);
 		sf::RenderWindow* getGameWindow();
 	};
-}
+} // namespace Main

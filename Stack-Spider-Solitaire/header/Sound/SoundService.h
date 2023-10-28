@@ -10,7 +10,7 @@ namespace Sound
 
 	class SoundService
 	{
-	private:
+	  private:
 		const int background_music_volume = 30;
 
 		sf::Music background_music;
@@ -20,7 +20,7 @@ namespace Sound
 		void loadBackgroundMusicFromFile();
 		void loadSoundFromFile();
 
-	public:
+	  public:
 		SoundService();
 
 		void initialize();
@@ -28,4 +28,4 @@ namespace Sound
 		void playSound(SoundType soundType);
 		void playBackgroundMusic();
 	};
-}
+} // namespace Sound

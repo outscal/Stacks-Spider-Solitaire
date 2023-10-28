@@ -6,7 +6,7 @@ namespace SplashScreen
 {
 	class SplashScreenUIController : public Interface::IUIController
 	{
-	private:
+	  private:
 		// Constants:
 		const float logo_animation_duration = 2.0f;
 		const float logo_width = 600.f;
@@ -19,7 +19,7 @@ namespace SplashScreen
 		void fadeOutAnimationCallback();
 		sf::Vector2f getLogoPosition();
 
-	public:
+	  public:
 		SplashScreenUIController();
 		~SplashScreenUIController();
 
@@ -28,4 +28,4 @@ namespace SplashScreen
 		void render() override;
 		void show() override;
 	};
-}
+} // namespace SplashScreen

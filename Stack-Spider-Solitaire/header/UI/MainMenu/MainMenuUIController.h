@@ -1,14 +1,14 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "UI/Interface/IUIController.h"
-#include "UI/UIElement/ImageView.h"
 #include "UI/UIElement/ButtonView.h"
+#include "UI/UIElement/ImageView.h"
+#include <SFML/Graphics.hpp>
 
 namespace MainMenu
 {
 	class MainMenuUIController : public Interface::IUIController
 	{
-	private:
+	  private:
 		// Constants:
 		const float button_width = 400.f;
 		const float button_height = 140.f;
@@ -37,7 +37,7 @@ namespace MainMenu
 
 		void destroy();
 
-	public:
+	  public:
 		MainMenuUIController();
 		~MainMenuUIController();
 
@@ -46,4 +46,4 @@ namespace MainMenu
 		void render() override;
 		void show() override;
 	};
-}
+} // namespace MainMenu

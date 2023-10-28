@@ -1,14 +1,14 @@
 #pragma once
-#include "UI/MainMenu/MainMenuUIController.h"
-#include "UI/SplashScreen/SplashScreenUIController.h"
 #include "Gameplay/GameplayUIController.h"
 #include "UI/Interface/IUIController.h"
+#include "UI/MainMenu/MainMenuUIController.h"
+#include "UI/SplashScreen/SplashScreenUIController.h"
 
 namespace UI
 {
 	class UIService
 	{
-	private:
+	  private:
 		SplashScreen::SplashScreenUIController* splash_screen_ui_controller;
 		MainMenu::MainMenuUIController* main_menu_ui_controller;
 		Gameplay::GameplayUIController* gameplay_ui_controller;
@@ -18,7 +18,7 @@ namespace UI
 		Interface::IUIController* getCurrentUIController();
 		void destroy();
 
-	public:
+	  public:
 		UIService();
 		~UIService();
 
@@ -27,4 +27,4 @@ namespace UI
 		void render();
 		void showScreen();
 	};
-}
+} // namespace UI

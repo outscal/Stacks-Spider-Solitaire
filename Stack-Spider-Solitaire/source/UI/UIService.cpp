@@ -95,8 +95,8 @@ namespace UI
 
 	void UIService::destroy()
 	{
-		delete(splash_screen_ui_controller);
-		delete(main_menu_ui_controller);
-		delete(gameplay_ui_controller);
+		delete (splash_screen_ui_controller);
+		delete (main_menu_ui_controller);
+		delete (gameplay_ui_controller);
 	}
-}
+} // namespace UI

@@ -52,4 +52,4 @@ namespace Card
 	{
 		return hide_duration;
 	}
-}
+} // namespace Card

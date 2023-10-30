@@ -5,6 +5,8 @@
 #include "Global/Config.h"
 #include "Global/ServiceLocator.h"
 #include "Main/GraphicService.h"
+
+#include <iostream>
 #include <vector>
 
 namespace Gameplay
@@ -91,7 +93,23 @@ namespace Gameplay
 			float y_position = play_deck_top_offset + vertical_spacing;
 
 			CardController* card_controller = temp_stack.pop();
-			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
+
+			if (card_controller->shouldFollowMouse())
+			{
+				// Get the mouse position
+				auto game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+				auto mouse_position = sf::Mouse::getPosition(*game_window);
+				auto current_mouse_coord = game_window->mapPixelToCoords(mouse_position);
+
+				card_controller->setModelPosition(
+					sf::Vector2f{current_mouse_coord.x, current_mouse_coord.y + vertical_spacing} - sf::Vector2f{0, play_deck_top_offset});
+			}
+			else
+			{
+				card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
+			}
+
+			this->prev_card_position = sf::Vector2f{x_position, y_position};
 
 			stack.push(card_controller);
 			card_stack_position++;

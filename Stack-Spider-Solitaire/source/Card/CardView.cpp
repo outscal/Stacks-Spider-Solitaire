@@ -75,6 +75,7 @@ namespace Card
 	{
 		card_button_view->setPosition(card_controller->getCardPosition());
 		card_highlight->setPosition(card_controller->getCardPosition());
+		return;
 	}
 
 	void CardView::updateCardTexture()
@@ -84,18 +85,19 @@ namespace Card
 
 	void CardView::selectCard()
 	{
-		this->scaleCard({1.25f, 1.25f});
+		// this->scaleCard({1.15f, 1.15f});
 		this->setCardHighLight(true);
+		this->card_controller->followMouse();
 	}
 
 	void CardView::unselectCard()
 	{
-
 		// move the center half the amount that i'm scaling it to the right
-		this->card_highlight->setScale(card_width, card_height);
-		this->card_button_view->setScale(card_width, card_height);
+		// this->card_highlight->setScale(card_width, card_height);
+		// this->card_button_view->setScale(card_width, card_height);
 
 		this->setCardHighLight(false);
+		this->card_controller->stopFollowingMouse();
 	}
 
 	void CardView::scaleCard(const sf::Vector2f& factor)

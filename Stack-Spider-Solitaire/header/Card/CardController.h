@@ -10,6 +10,10 @@ namespace Card
 		CardModel* card_model;
 		CardView* card_view;
 
+		bool card_follow_mouse{false};
+		sf::Vector2f prev_card_position{0.0f, 0.0f};
+		sf::Vector2f last_mouse_coord{0.0f, 0.0f};
+
 		void updateCardVisibility();
 
 	  public:
@@ -30,5 +34,11 @@ namespace Card
 
 		CardVisibility getCardVisibility();
 		void hideCard(float duration);
+
+		void followMouse();
+		void stopFollowingMouse();
+
+		bool shouldFollowMouse();
+		void setModelPosition(const sf::Vector2f& pos);
 	};
 } // namespace Card

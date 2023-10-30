@@ -37,7 +37,7 @@ namespace Card
 		CardModel(Rank rank, Suit suit);
 		~CardModel();
 
-		void setPosition(sf::Vector2f card_position);
+		void setPosition(const sf::Vector2f& card_position);
 		sf::Vector2f getPosition();
 
 		void setCardState(State card_state);

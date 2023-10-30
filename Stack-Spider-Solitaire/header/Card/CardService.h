@@ -18,8 +18,10 @@ namespace Card
 		void render();
 
 		CardController* generateCard(Rank rank, Suit suit);
+
 		ArrayStack::Stack<CardController*>*
 		generateRandomizedCardDeck(int number_of_decks = 1);
+
 		ArrayStack::Stack<CardController*>*
 		generateSequentialCardDeck(int number_of_decks = 1);
 	};

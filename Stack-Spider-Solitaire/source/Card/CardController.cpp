@@ -1,7 +1,14 @@
 #include "Card/CardController.h"
 #include "Global/ServiceLocator.h"
 #include "Global/TimeService.h"
+
+#include <SFML/Window/Mouse.hpp>
+
+#include <cmath>
 #include <iostream>
+
+constexpr float PLAY_DECK_TOP_OFFSET = 180.f;
+constexpr float PLAY_DECK_LEFT_OFFSET = 60.f;
 
 namespace Card
 {
@@ -28,8 +35,31 @@ namespace Card
 
 	void CardController::update()
 	{
+
 		updateCardVisibility();
 		card_view->update();
+	}
+
+	void CardController::setModelPosition(const sf::Vector2f& pos)
+	{
+		this->card_model->setPosition(pos);
+	}
+
+	bool CardController::shouldFollowMouse()
+	{
+		return this->card_follow_mouse;
+	}
+
+	void CardController::followMouse()
+	{
+		// Save the prev position of the card for later use
+		// in the this->stopFollowingMouse() function.
+		this->card_follow_mouse = true;
+	}
+
+	void CardController::stopFollowingMouse()
+	{
+		this->card_follow_mouse = false;
 	}
 
 	void CardController::render()

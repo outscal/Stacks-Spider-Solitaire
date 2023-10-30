@@ -13,7 +13,7 @@ namespace Card
 		delete (card_type);
 	}
 
-	void CardModel::setPosition(sf::Vector2f card_position)
+	void CardModel::setPosition(const sf::Vector2f& card_position)
 	{
 		position = card_position;
 	}

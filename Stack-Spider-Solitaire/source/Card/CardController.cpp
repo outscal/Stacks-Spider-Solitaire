@@ -99,6 +99,7 @@ namespace Card
 			break;
 
 		case Card::State::SELECTED: {
+
 			if (card_model->getCardType()->rank != Rank::DEFAULT)
 			{
 				card_view->selectCard();

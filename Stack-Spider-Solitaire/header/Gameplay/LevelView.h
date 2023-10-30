@@ -6,6 +6,21 @@
 
 namespace Gameplay
 {
+	inline float length(const sf::Vector2f& vector)
+	{
+		return std::sqrt(vector.x * vector.x + vector.y * vector.y);
+	}
+
+	inline sf::Vector2f normalize(const sf::Vector2f& vector)
+	{
+		float length = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+		if (length != 0)
+		{
+			return sf::Vector2f(vector.x / length, vector.y / length);
+		}
+		return vector; // Avoid division by zero
+	}
+
 	class LevelController;
 
 	class LevelView
@@ -29,8 +44,17 @@ namespace Gameplay
 
 		const int max_number_of_open_cards = 8;
 
+		const float animation_speed = 1000.0;
+
 		float card_width;
 		float card_height;
+
+		sf::Vector2f prev_mouse_pos{};
+		sf::Vector2f velocity{};
+
+		sf::RenderWindow* game_window;
+		sf::Vector2i mouse_position{};
+		sf::Vector2f current_mouse_coord{};
 
 		LevelController* level_controller;
 		UIElement::ImageView* background_image;

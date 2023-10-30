@@ -85,7 +85,7 @@ namespace Card
 
 	void CardView::selectCard()
 	{
-		// this->scaleCard({1.15f, 1.15f});
+		this->scaleCard({1.15f, 1.15f});
 		this->setCardHighLight(true);
 		this->card_controller->followMouse();
 	}
@@ -93,8 +93,8 @@ namespace Card
 	void CardView::unselectCard()
 	{
 		// move the center half the amount that i'm scaling it to the right
-		// this->card_highlight->setScale(card_width, card_height);
-		// this->card_button_view->setScale(card_width, card_height);
+		this->card_highlight->setScale(card_width, card_height);
+		this->card_button_view->setScale(card_width, card_height);
 
 		this->setCardHighLight(false);
 		this->card_controller->stopFollowingMouse();

@@ -6,6 +6,7 @@
 #include "Global/ServiceLocator.h"
 #include "Main/GraphicService.h"
 
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -32,6 +33,7 @@ namespace Gameplay
 		level_controller = controller;
 		initializeImage();
 		calculateCardExtents();
+		this->game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 	}
 
 	void LevelView::createImage()
@@ -51,6 +53,10 @@ namespace Gameplay
 
 	void LevelView::update()
 	{
+		// Get the mouse position
+		this->mouse_position = sf::Mouse::getPosition(*game_window);
+		this->current_mouse_coord = game_window->mapPixelToCoords(mouse_position);
+
 		background_image->update();
 		updatePlayStacksView();
 		updateSolutionStacksView();
@@ -86,9 +92,8 @@ namespace Gameplay
 			if (stack.peek()->getCardState() == Card::State::OPEN)
 			{
 				number_of_open_cards++;
-				num_selected_cards++;
 			}
-			else if (stack.peek()->getCardState() == Card::State::SELECTED)
+			if (stack.peek()->getCardState() == Card::State::SELECTED)
 			{
 				num_selected_cards++;
 			}
@@ -105,12 +110,21 @@ namespace Gameplay
 
 			if (card_controller->shouldFollowMouse())
 			{
-				// Get the mouse position
-				auto game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-				auto mouse_position = sf::Mouse::getPosition(*game_window);
-				auto current_mouse_coord = game_window->mapPixelToCoords(mouse_position);
+				sf::Vector2f mouse_delta = current_mouse_coord - this->prev_mouse_pos;
 
-				card_controller->setCardPosition(sf::Vector2f{current_mouse_coord.x, (num_selected_cards <= 1) ? current_mouse_coord.y : current_mouse_coord.y + vertical_spacing - play_deck_top_offset});
+				// Apply acceleration
+				this->velocity += 0.08f * static_cast<sf::Vector2f>(mouse_delta);
+
+				// Calculate the new card position with or without vertical spacing
+
+				sf::Vector2f cardpos = sf::Vector2f{current_mouse_coord.x, (num_selected_cards <= 1) ? (current_mouse_coord.y) : (current_mouse_coord.y + vertical_spacing - play_deck_top_offset)};
+				cardpos += velocity;
+
+				// Apply acceleration to card position
+				card_controller->setCardPosition(cardpos);
+
+				this->prev_mouse_pos = current_mouse_coord;
+				velocity *= 0.99f;
 			}
 			else
 			{
@@ -151,7 +165,30 @@ namespace Gameplay
 			float x_position = drawing_deck_left_offset - (i * drawing_deck_horizontal_spacing);
 			float y_position = drawing_deck_top_offset;
 
-			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
+			auto target_position = sf::Vector2f(x_position, y_position);
+
+			// Update sprite position for animation
+			sf::Vector2f currentPosition = card_controller->getCardPosition();
+			sf::Vector2f direction = target_position - currentPosition;
+
+			// Calculate the distance to move this frame based on animationSpeed
+			float distance_to_move = this->animation_speed * ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+			// If the sprite hasn't reached the target position yet, move it
+			if (direction != sf::Vector2f(0, 0))
+			{
+				if (distance_to_move >= length(direction))
+				{
+					card_controller->setCardPosition(target_position);
+				}
+				else
+				{
+					sf::Vector2f step = normalize(direction) * distance_to_move;
+
+					sf::Vector2f pos = card_controller->getCardPosition();
+					card_controller->setCardPosition({pos.x + step.x, pos.y + step.y});
+				}
+			}
 		}
 
 		while (!temp_stack.empty())

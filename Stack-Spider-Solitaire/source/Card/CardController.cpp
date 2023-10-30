@@ -40,11 +40,6 @@ namespace Card
 		card_view->update();
 	}
 
-	void CardController::setModelPosition(const sf::Vector2f& pos)
-	{
-		this->card_model->setPosition(pos);
-	}
-
 	bool CardController::shouldFollowMouse()
 	{
 		return this->card_follow_mouse;
@@ -125,7 +120,7 @@ namespace Card
 		return card_model->getPosition();
 	}
 
-	void CardController::setCardPosition(sf::Vector2f card_position)
+	void CardController::setCardPosition(const sf::Vector2f& card_position)
 	{
 		card_model->setPosition(card_position);
 	}

@@ -32,8 +32,6 @@ namespace Gameplay
 		float card_width;
 		float card_height;
 
-		sf::Vector2f prev_card_position;
-
 		LevelController* level_controller;
 		UIElement::ImageView* background_image;
 

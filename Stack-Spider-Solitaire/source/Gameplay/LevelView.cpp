@@ -79,11 +79,20 @@ namespace Gameplay
 		float card_stack_position = 0;
 		float vertical_spacing = 0;
 		int number_of_open_cards = 0;
+		auto num_selected_cards = 0;
 
 		while (!stack.empty())
 		{
 			if (stack.peek()->getCardState() == Card::State::OPEN)
+			{
 				number_of_open_cards++;
+				num_selected_cards++;
+			}
+			else if (stack.peek()->getCardState() == Card::State::SELECTED)
+			{
+				num_selected_cards++;
+			}
+
 			temp_stack.push(stack.pop());
 		}
 
@@ -101,15 +110,12 @@ namespace Gameplay
 				auto mouse_position = sf::Mouse::getPosition(*game_window);
 				auto current_mouse_coord = game_window->mapPixelToCoords(mouse_position);
 
-				card_controller->setModelPosition(
-					sf::Vector2f{current_mouse_coord.x, current_mouse_coord.y + vertical_spacing} - sf::Vector2f{0, play_deck_top_offset});
+				card_controller->setCardPosition(sf::Vector2f{current_mouse_coord.x, (num_selected_cards <= 1) ? current_mouse_coord.y : current_mouse_coord.y + vertical_spacing - play_deck_top_offset});
 			}
 			else
 			{
 				card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
 			}
-
-			this->prev_card_position = sf::Vector2f{x_position, y_position};
 
 			stack.push(card_controller);
 			card_stack_position++;

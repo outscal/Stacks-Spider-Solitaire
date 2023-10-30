@@ -30,7 +30,7 @@ namespace Card
 		void setCardState(State card_state);
 
 		sf::Vector2f getCardPosition() const;
-		void setCardPosition(sf::Vector2f card_position);
+		void setCardPosition(const sf::Vector2f& card_position);
 
 		CardVisibility getCardVisibility();
 		void hideCard(float duration);
@@ -39,6 +39,5 @@ namespace Card
 		void stopFollowingMouse();
 
 		bool shouldFollowMouse();
-		void setModelPosition(const sf::Vector2f& pos);
 	};
 } // namespace Card

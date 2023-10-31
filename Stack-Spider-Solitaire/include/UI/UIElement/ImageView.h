@@ -18,8 +18,8 @@ namespace UIElement
 		void initialize(sf::String texture_path, float image_width,
 						float image_height, sf::Vector2f position);
 
-		virtual void update() override;
-		virtual void render() override;
+		void update() override;
+		void render() override;
 
 		virtual void setTexture(sf::String texture_path);
 		virtual void setScale(float width, float height);

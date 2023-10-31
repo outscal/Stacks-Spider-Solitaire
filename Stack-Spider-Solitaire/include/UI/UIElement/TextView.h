@@ -32,7 +32,7 @@ namespace UIElement
 
 	  public:
 		TextView();
-		virtual ~TextView();
+		~TextView();
 
 		static void initializeTextView();
 

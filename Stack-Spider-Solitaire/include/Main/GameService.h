@@ -26,7 +26,7 @@ namespace Main
 
 	  public:
 		GameService();
-		virtual ~GameService();
+		~GameService();
 
 		void ignite();
 		void update();

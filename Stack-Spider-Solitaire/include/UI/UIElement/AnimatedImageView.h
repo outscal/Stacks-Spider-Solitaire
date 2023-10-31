@@ -31,16 +31,17 @@ namespace UIElement
 		float elapsed_duration;
 		sf::Clock clock;
 
-		virtual void reset();
 		void setAnimationDuration(float duration);
 		void setAnimationType(AnimationType type);
 
-		virtual void fadeIn();
-		virtual void fadeOut();
+		void reset();
+
+		void fadeIn();
+		void fadeOut();
 
 	  public:
 		AnimatedImageView();
-		virtual ~AnimatedImageView();
+		~AnimatedImageView();
 
 		void initialize() override;
 		void initialize(sf::String texture_path, float image_width,

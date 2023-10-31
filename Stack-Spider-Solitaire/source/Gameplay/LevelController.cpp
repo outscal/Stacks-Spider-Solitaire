@@ -1,7 +1,7 @@
-#include "../../header/Gameplay/LevelController.h"
-#include "../../header/Card/CardConfig.h"
-#include "../../header/Global/ServiceLocator.h"
-#include "../../header/Global/TimeService.h"
+#include "Gameplay/LevelController.h"
+#include "Card/CardConfig.h"
+#include "Global/ServiceLocator.h"
+#include "Global/TimeService.h"
 
 namespace Gameplay
 {

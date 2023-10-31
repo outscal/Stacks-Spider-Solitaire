@@ -21,7 +21,7 @@ file(GLOB_RECURSE SPIDERSOLITAIRE_SOURCES
 # Create the project
 add_executable(SpiderSolitaire ${CMAKE_SOURCE_DIR}/main.cpp ${SPIDERSOLITAIRE_SOURCES})
 target_include_directories(SpiderSolitaire PRIVATE 
-    ${CMAKE_SOURCE_DIR}/header/
+    ${CMAKE_SOURCE_DIR}/include/
 )
 
 # Link SFML

@@ -7,7 +7,7 @@ namespace Gameplay
 	class GameplayService
 	{
 	  private:
-		GameplayService* gameplay_service;
+		[[maybe_unused]] GameplayService* gameplay_service;
 		LevelController* level_controller;
 
 		void createLevelController();

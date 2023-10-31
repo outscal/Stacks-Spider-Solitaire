@@ -208,7 +208,8 @@ namespace Gameplay
 			CardController* card_controller = currently_selected_card_stack->pop();
 			temp_stack.push(card_controller);
 
-			if (static_cast<int>(card_controller->getCardType()->rank) != ++previous_card_rank || card_controller->getCardType()->suit != card_suit)
+			if (static_cast<int>(card_controller->getCardType()->rank) != ++previous_card_rank ||
+				card_controller->getCardType()->suit != card_suit)
 			{
 				is_valid_selection = false;
 				break;
@@ -225,7 +226,7 @@ namespace Gameplay
 
 	bool LevelController::isValidMove(Card::CardController* selected_card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
+		// LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
 		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
 
 		if (currently_selected_card_stack->peek() != selected_card_controller)
@@ -346,7 +347,7 @@ namespace Gameplay
 
 	void LevelController::addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
 	{
-		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::CardTypeEnum::DEFAULT, Card::Rank::DEFAULT, Card::Suit::DEFAULT);
 		stack->push(empty_card);
 	}
 

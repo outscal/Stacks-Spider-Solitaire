@@ -82,7 +82,7 @@ namespace Gameplay
 	void LevelView::updatePlayStackCardsView(LinkedListStack::Stack<CardController*>& stack, int stack_position)
 	{
 		LinkedListStack::Stack<CardController*> temp_stack;
-		float card_stack_position = 0;
+		// float card_stack_position = 0;
 		float vertical_spacing = 0;
 		int number_of_open_cards = 0;
 		auto num_selected_cards = 0;
@@ -132,7 +132,7 @@ namespace Gameplay
 			}
 
 			stack.push(card_controller);
-			card_stack_position++;
+			// card_stack_position++;
 			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState(), number_of_open_cards);
 		}
 	}
@@ -167,27 +167,36 @@ namespace Gameplay
 
 			auto target_position = sf::Vector2f(x_position, y_position);
 
-			// Update sprite position for animation
-			sf::Vector2f currentPosition = card_controller->getCardPosition();
-			sf::Vector2f direction = target_position - currentPosition;
-
-			// Calculate the distance to move this frame based on animationSpeed
-			float distance_to_move = this->animation_speed * ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-
-			// If the sprite hasn't reached the target position yet, move it
-			if (direction != sf::Vector2f(0, 0))
+			// FIXME
+			if (this->initial_draw)
 			{
-				if (distance_to_move >= length(direction))
-				{
-					card_controller->setCardPosition(target_position);
-				}
-				else
-				{
-					sf::Vector2f step = normalize(direction) * distance_to_move;
+				// Update sprite position for animation
+				sf::Vector2f currentPosition = card_controller->getCardPosition();
+				sf::Vector2f direction = target_position - currentPosition;
 
-					sf::Vector2f pos = card_controller->getCardPosition();
-					card_controller->setCardPosition({pos.x + step.x, pos.y + step.y});
+				// Calculate the distance to move this frame based on animationSpeed
+				float distance_to_move = this->animation_speed * ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+				// If the sprite hasn't reached the target position yet, move it
+				if (direction != sf::Vector2f(0, 0))
+				{
+					this->initial_draw = false;
+					if (distance_to_move >= length(direction))
+					{
+						card_controller->setCardPosition(target_position);
+					}
+					else
+					{
+						sf::Vector2f step = normalize(direction) * distance_to_move;
+
+						sf::Vector2f pos = card_controller->getCardPosition();
+						card_controller->setCardPosition({pos.x + step.x, pos.y + step.y});
+					}
 				}
+			}
+			else
+			{
+				card_controller->setCardPosition(target_position);
 			}
 		}
 

@@ -13,8 +13,11 @@ namespace UIElement
 		ImageView();
 		virtual ~ImageView();
 
+		void initialize() override;
+
 		void initialize(sf::String texture_path, float image_width,
 						float image_height, sf::Vector2f position);
+
 		virtual void update() override;
 		virtual void render() override;
 
@@ -26,6 +29,9 @@ namespace UIElement
 		virtual void setOriginAtCentre();
 		virtual void setImageAlpha(float alpha);
 		virtual void setCentreAlinged();
+
+		void show() override;
+		void hide() override;
 
 		virtual sf::Vector2f getScale();
 		virtual sf::Vector2f getPosition();

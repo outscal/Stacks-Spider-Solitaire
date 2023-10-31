@@ -6,6 +6,11 @@ namespace UIElement
 
 	AnimatedImageView::~AnimatedImageView() = default;
 
+	void AnimatedImageView::initialize()
+	{
+		throw std::logic_error("Un-implemented function: AnimatedImageView::initialize()");
+	}
+
 	void AnimatedImageView::initialize(sf::String texture_path, float image_width,
 									   float image_height, sf::Vector2f position)
 	{

@@ -37,8 +37,7 @@ namespace Gameplay
 		void selectCards(Card::CardController* card_controller);
 		void unselectCards(Card::CardController* card_controller);
 		void moveCards(Card::CardController* selected_card_controller);
-		void
-		openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack);
+		void openTopCardOfStack(LinkedListStack::Stack<Card::CardController*>* stack);
 
 		bool isValidSelection(Card::CardController* selected_card_controller);
 		bool isValidMove(Card::CardController* selected_card_controller);

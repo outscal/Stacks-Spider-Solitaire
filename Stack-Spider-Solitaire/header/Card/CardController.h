@@ -17,7 +17,7 @@ namespace Card
 		void updateCardVisibility();
 
 	  public:
-		CardController(Rank rank, Suit suit);
+		CardController(CardTypeEnum card_type, Rank rank, Suit suit);
 		~CardController();
 
 		void initialize(float card_width, float card_height,

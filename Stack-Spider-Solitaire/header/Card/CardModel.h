@@ -12,13 +12,12 @@ namespace Card
 
 	struct CardType
 	{
-		CardType(Rank card_rank, Suit card_suit, State card_state)
+		CardType(CardTypeEnum card_type, Rank card_rank, Suit card_suit, State card_state)
+			: type(card_type), rank(card_rank), suit(card_suit), state(card_state)
 		{
-			rank = card_rank;
-			suit = card_suit;
-			state = card_state;
 		}
 
+		CardTypeEnum type;
 		Rank rank;
 		Suit suit;
 		State state;
@@ -34,7 +33,7 @@ namespace Card
 		float hide_duration;
 
 	  public:
-		CardModel(Rank rank, Suit suit);
+		CardModel(CardTypeEnum card_type, Rank rank, Suit suit);
 		~CardModel();
 
 		void setPosition(const sf::Vector2f& card_position);

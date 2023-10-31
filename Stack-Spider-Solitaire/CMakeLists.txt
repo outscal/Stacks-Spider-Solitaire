@@ -52,6 +52,7 @@ message("-- Using libasan")
 # Enable address sanitizer and Extra warnings
 target_compile_options(SpiderSolitaire PRIVATE
     -Wall -Wextra
+    -Werror
     -fsanitize=address
 )
 target_link_options(SpiderSolitaire PRIVATE -fsanitize=address)

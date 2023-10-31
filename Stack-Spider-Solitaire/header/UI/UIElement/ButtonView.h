@@ -18,19 +18,24 @@ namespace UIElement
 	  protected:
 		sf::String button_title;
 
-		virtual void handleButtonInteraction();
-		virtual bool clickedButton(sf::Sprite* button_sprite,
-								   sf::Vector2f mouse_position);
+		void handleButtonInteraction();
+		bool clickedButton(sf::Sprite* button_sprite,
+						   sf::Vector2f mouse_position);
 
 	  public:
 		ButtonView();
-		virtual ~ButtonView();
+		~ButtonView();
 
-		virtual void initialize(sf::String title, sf::String texture_path,
-								float button_width, float button_height,
-								sf::Vector2f position);
-		virtual void update() override;
-		virtual void render() override;
+		void initialize() override;
+
+		void initialize(sf::String title, sf::String texture_path,
+						float button_width, float button_height,
+						sf::Vector2f position);
+		void update() override;
+		void render() override;
+
+		void show() override;
+		void hide() override;
 
 		void registerCallbackFuntion(CallbackFunction button_callback);
 	};

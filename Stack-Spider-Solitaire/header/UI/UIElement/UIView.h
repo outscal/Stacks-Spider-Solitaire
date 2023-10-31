@@ -19,11 +19,11 @@ namespace UIElement
 		UIView();
 		virtual ~UIView();
 
-		virtual void initialize();
-		virtual void update();
-		virtual void render();
+		virtual void initialize() = 0;
+		virtual void update() = 0;
+		virtual void render() = 0;
 
-		virtual void show();
-		virtual void hide();
+		virtual void show() = 0;
+		virtual void hide() = 0;
 	};
 } // namespace UIElement

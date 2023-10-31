@@ -1,12 +1,29 @@
 #include "UI/UIElement/ImageView.h"
 
 #include <iostream>
+#include <stdexcept>
 
 namespace UIElement
 {
 	ImageView::ImageView() = default;
 
 	ImageView::~ImageView() = default;
+
+	void ImageView::show()
+	{
+		UIView::show();
+	}
+
+	void ImageView::hide()
+	{
+
+		UIView::hide();
+	}
+
+	void ImageView::initialize()
+	{
+		throw std::logic_error("Un-implemented function: ImageView::initialize()");
+	};
 
 	void ImageView::initialize(sf::String texture_path, float image_width,
 							   float image_height, sf::Vector2f position)

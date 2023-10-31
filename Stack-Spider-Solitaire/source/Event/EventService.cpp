@@ -56,6 +56,11 @@ namespace Event
 			case ButtonState::PRESSED:
 				left_mouse_button_state = ButtonState::HELD;
 				break;
+
+			case ButtonState::HELD:
+				// TODO: Handle this state
+				// throw std::logic_error("Un-implemented function: ButtonState HELD");
+				break;
 			}
 		}
 		else
@@ -75,6 +80,10 @@ namespace Event
 				break;
 			case ButtonState::PRESSED:
 				right_mouse_button_state = ButtonState::HELD;
+				break;
+			case ButtonState::HELD:
+				// TODO: Handle this state
+				// throw std::logic_error("Un-implemented function: Button HELD");
 				break;
 			}
 		}

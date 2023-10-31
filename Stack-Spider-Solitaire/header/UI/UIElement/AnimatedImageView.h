@@ -42,6 +42,7 @@ namespace UIElement
 		AnimatedImageView();
 		virtual ~AnimatedImageView();
 
+		void initialize() override;
 		void initialize(sf::String texture_path, float image_width,
 						float image_height, sf::Vector2f position);
 		void update() override;

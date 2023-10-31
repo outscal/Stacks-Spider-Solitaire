@@ -27,14 +27,14 @@ namespace Card
 	{
 	}
 
-	CardController* CardService::generateCard(Rank rank, Suit suit)
+	CardController* CardService::generateCard(CardTypeEnum card_type, Rank rank, Suit suit)
 	{
 		float card_width =
 			ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
 		float card_height =
 			ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
 
-		CardController* card = new CardController(rank, suit);
+		CardController* card = new CardController(card_type, rank, suit);
 		card->initialize(card_width, card_height);
 		return card;
 	}
@@ -51,8 +51,10 @@ namespace Card
 				for (int suit = 0; suit < static_cast<int>(number_of_suits);
 					 suit++)
 				{
-					CardController* card = generateCard(static_cast<Rank>(rank),
-														static_cast<Suit>(suit));
+					CardController* card = generateCard(
+						CardTypeEnum::DEFAULT,
+						static_cast<Rank>(rank),
+						static_cast<Suit>(suit));
 					card_deck->push(card);
 				}
 			}

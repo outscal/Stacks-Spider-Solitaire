@@ -14,6 +14,21 @@ namespace UIElement
 
 	TextView::~TextView() = default;
 
+	void TextView::initialize()
+	{
+		throw std::logic_error("Un-implemented function: TextView::initialize()");
+	}
+
+	void TextView::hide()
+	{
+		throw std::logic_error("Un-implemented function: TextView::hide()");
+	}
+
+	void TextView::show()
+	{
+		throw std::logic_error("Un-implemented function: TextView::show()");
+	}
+
 	void TextView::initialize(sf::String text_value, sf::Vector2f position,
 							  FontType font_type, int font_size, sf::Color color)
 	{

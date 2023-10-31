@@ -49,6 +49,8 @@ namespace Gameplay
 		float card_width;
 		float card_height;
 
+		bool initial_draw{true};
+
 		sf::Vector2f prev_mouse_pos{};
 		sf::Vector2f velocity{};
 

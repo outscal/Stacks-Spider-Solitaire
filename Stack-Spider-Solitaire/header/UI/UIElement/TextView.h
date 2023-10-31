@@ -36,12 +36,18 @@ namespace UIElement
 
 		static void initializeTextView();
 
+		void initialize() override;
+
 		virtual void initialize(sf::String text_value, sf::Vector2f position,
 								FontType font_type = FontType::BUBBLE_BOBBLE,
 								int font_size = default_font_size,
 								sf::Color color = sf::Color::White);
+
 		void update() override;
 		void render() override;
+
+		void hide() override;
+		void show() override;
 
 		void setText(sf::String text_value);
 		void setTextCentreAligned();

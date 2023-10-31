@@ -139,7 +139,7 @@ namespace Card
 	{
 		CardType* card = card_controller->getCardType();
 		sf::String texture_path =
-			CardTexture::getCardTexturePath(card->rank, card->suit, card->state);
+			CardTexture::getCardTexturePath(card->type, card->rank, card->suit, card->state);
 		return texture_path;
 	}
 } // namespace Card

@@ -3,6 +3,8 @@
 #include "Global/ServiceLocator.h"
 #include "Sound/SoundService.h"
 
+#include <stdexcept>
+
 namespace UIElement
 {
 	using namespace Event;
@@ -11,6 +13,21 @@ namespace UIElement
 	ButtonView::ButtonView() = default;
 
 	ButtonView::~ButtonView() = default;
+
+	void ButtonView::initialize()
+	{
+		throw std::logic_error("Un-implemented function: ButtonView::initialize()");
+	}
+
+	void ButtonView::show()
+	{
+		throw std::logic_error("Un-implemented function: ButtonView::show()");
+	}
+
+	void ButtonView::hide()
+	{
+		throw std::logic_error("Un-implemented function: ButtonView::hide()");
+	}
 
 	void ButtonView::initialize(sf::String title, sf::String texture_path,
 								float button_width, float button_height,

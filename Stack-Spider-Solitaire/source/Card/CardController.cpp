@@ -7,16 +7,13 @@
 #include <cmath>
 #include <iostream>
 
-constexpr float PLAY_DECK_TOP_OFFSET = 180.f;
-constexpr float PLAY_DECK_LEFT_OFFSET = 60.f;
-
 namespace Card
 {
 	using namespace Global;
 
-	CardController::CardController(Rank rank, Suit suit)
+	CardController::CardController(CardTypeEnum card_type, Rank rank, Suit suit)
 	{
-		card_model = new CardModel(rank, suit);
+		card_model = new CardModel(card_type, rank, suit);
 		card_view = new CardView();
 	}
 
@@ -27,7 +24,7 @@ namespace Card
 	}
 
 	void CardController::initialize(float card_width, float card_height,
-									float hide_duration)
+									[[maybe_unused]] float hide_duration)
 	{
 		card_view->initialize(card_width, card_height, this);
 		card_model->setCardVisibility(CardVisibility::HIDDEN);

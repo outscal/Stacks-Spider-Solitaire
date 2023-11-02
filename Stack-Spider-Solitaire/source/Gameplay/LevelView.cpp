@@ -167,7 +167,7 @@ namespace Gameplay
 
 			auto target_position = sf::Vector2f(x_position, y_position);
 
-			// FIXME
+			// Don't do this more than once (at the start)
 			if (this->initial_draw)
 			{
 				// Update sprite position for animation
@@ -180,7 +180,6 @@ namespace Gameplay
 				// If the sprite hasn't reached the target position yet, move it
 				if (direction != sf::Vector2f(0, 0))
 				{
-					this->initial_draw = false;
 					if (distance_to_move >= length(direction))
 					{
 						card_controller->setCardPosition(target_position);
@@ -188,14 +187,17 @@ namespace Gameplay
 					else
 					{
 						sf::Vector2f step = normalize(direction) * distance_to_move;
-
-						sf::Vector2f pos = card_controller->getCardPosition();
-						card_controller->setCardPosition({pos.x + step.x, pos.y + step.y});
+						card_controller->moveCardPosition(step);
 					}
+				}
+				else
+				{
+					this->initial_draw = false;
 				}
 			}
 			else
 			{
+
 				card_controller->setCardPosition(target_position);
 			}
 		}
@@ -299,6 +301,7 @@ namespace Gameplay
 
 	void LevelView::destroy()
 	{
+		this->initial_draw = true;
 		delete (background_image);
 	}
 } // namespace Gameplay

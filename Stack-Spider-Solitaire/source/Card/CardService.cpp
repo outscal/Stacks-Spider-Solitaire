@@ -3,7 +3,9 @@
 #include "Card/CardController.h"
 #include "Gameplay/GameplayService.h"
 #include "Global/ServiceLocator.h"
+
 #include <ctime>
+#include <iostream>
 #include <random>
 
 namespace Card
@@ -29,45 +31,48 @@ namespace Card
 
 	CardController* CardService::generateCard(CardTypeEnum card_type, Rank rank, Suit suit)
 	{
-		float card_width =
-			ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
-		float card_height =
-			ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
+		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
+		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
 
 		CardController* card = new CardController(card_type, rank, suit);
 		card->initialize(card_width, card_height);
 		return card;
 	}
 
-	Stack<CardController*>*
-	CardService::generateSequentialCardDeck(int number_of_decks)
+	Stack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
 		Stack<CardController*>* card_deck = new Stack<CardController*>();
 
 		for (int i = 0; i < number_of_decks; i++)
 		{
-			for (int rank = 1; rank <= static_cast<int>(number_of_ranks); rank++)
+			for (int rank = 1; rank <= number_of_ranks; rank++)
 			{
-				for (int suit = 0; suit < static_cast<int>(number_of_suits);
-					 suit++)
+				for (int suit = 0; suit < number_of_suits; suit++)
 				{
-					CardController* card = generateCard(
-						CardTypeEnum::DEFAULT,
-						static_cast<Rank>(rank),
-						static_cast<Suit>(suit));
+					CardController* card =
+						generateCard(CardTypeEnum::DEFAULT, static_cast<Rank>(rank), static_cast<Suit>(suit));
+
 					card_deck->push(card);
 				}
 			}
 		}
 
+		std::default_random_engine rng;
+		std::uniform_int_distribution<int> special_card_distribution(0, 3);
+
+		auto random_special_card = 0;
+		// add a random special card
+		CardController* special_card =
+			generateCard(static_cast<CardTypeEnum>(random_special_card), Rank::DEFAULT, Suit::DEFAULT);
+
+		card_deck->push(special_card);
+
 		return card_deck;
 	}
 
-	Stack<CardController*>*
-	CardService::generateRandomizedCardDeck(int number_of_decks)
+	Stack<CardController*>* CardService::generateRandomizedCardDeck(int number_of_decks)
 	{
-		Stack<CardController*>* card_deck =
-			generateSequentialCardDeck(number_of_decks);
+		Stack<CardController*>* card_deck = generateSequentialCardDeck(number_of_decks);
 
 		shuffleDeck(card_deck);
 		return card_deck;
@@ -84,8 +89,7 @@ namespace Card
 
 		std::random_device device;
 		std::mt19937 random_engine(device());
-		std::shuffle(card_deck_to_shuffle.begin(), card_deck_to_shuffle.end(),
-					 random_engine);
+		std::shuffle(card_deck_to_shuffle.begin(), card_deck_to_shuffle.end(), random_engine);
 
 		card_deck->clear();
 		for (CardController* card : card_deck_to_shuffle)

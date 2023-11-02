@@ -3,6 +3,8 @@
 #include "Global/ServiceLocator.h"
 #include "Global/TimeService.h"
 
+#include <iostream>
+
 namespace Gameplay
 {
 	using namespace Card;
@@ -98,11 +100,79 @@ namespace Gameplay
 
 		if (previously_selected_card_controller == nullptr)
 			return;
-
-		if (isValidMove(selected_card_controller))
+		else if (isValidMove(selected_card_controller))
+		{
 			moveCards(selected_card_controller);
+		}
 		else
 			unselectCards(previously_selected_card_controller);
+	}
+
+	void LevelController::handleSpecialCardMove(Card::CardController* special_card_controller)
+	{
+		// Get the special card's type and the stack that it will be placed on
+		auto special_card_type = special_card_controller->getCardType()->type;
+		auto target_stack = level_model->findPlayStack(special_card_controller);
+
+		// Empty stack check
+		if (target_stack->empty())
+		{
+			return;
+		}
+
+		// switch case for type of special card
+		switch (special_card_type)
+		{
+		case CardTypeEnum::SORT: {
+			sortStack(target_stack);
+
+			break;
+		}
+		case CardTypeEnum::SWAP:
+			break;
+		case CardTypeEnum::TIME:
+			break;
+		case CardTypeEnum::VISION:
+			break;
+		case CardTypeEnum::DEFAULT:
+			break;
+		default:
+			break;
+		}
+
+		// remove the special card afterwards
+		delete target_stack->pop();
+	}
+
+	void LevelController::sortStack(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		// Bubble sort the stack
+		bool swapped{};
+		do
+		{
+			swapped = false;
+			Card::CardController* prevCard = nullptr;
+			Card::CardController* currentCard = stack->peek();
+
+			while (currentCard != prevCard)
+			{
+				prevCard = currentCard;
+				currentCard = stack->pop();
+				Card::CardController* nextCard = stack->peek();
+				if (nextCard && currentCard->getCardType()->rank > nextCard->getCardType()->rank)
+				{
+					// Swap cards
+					stack->pop();
+					stack->push(currentCard);
+					stack->push(nextCard);
+					swapped = true;
+				}
+				else
+				{
+					stack->push(currentCard);
+				}
+			}
+		} while (swapped);
 	}
 
 	void LevelController::drawCards()
@@ -162,8 +232,10 @@ namespace Gameplay
 
 	void LevelController::moveCards(Card::CardController* card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
-		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
+		LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack =
+			level_model->findPlayStack(previously_selected_card_controller);
+		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack =
+			level_model->findPlayStack(card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 		removeEmptyCard(currently_selected_card_stack);
 
@@ -180,6 +252,12 @@ namespace Gameplay
 
 		openTopCardOfStack(previously_selected_card_stack);
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
+
+		if (isSpecialCard(card_controller))
+		{
+			handleSpecialCardMove(card_controller);
+		}
+
 		previously_selected_card_controller = nullptr;
 		reduceScore(1);
 	}
@@ -196,7 +274,8 @@ namespace Gameplay
 
 	bool LevelController::isValidSelection(Card::CardController* selected_card_controller)
 	{
-		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
+		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack =
+			level_model->findPlayStack(selected_card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
 		Card::Suit card_suit = selected_card_controller->getCardType()->suit;
@@ -208,9 +287,13 @@ namespace Gameplay
 			CardController* card_controller = currently_selected_card_stack->pop();
 			temp_stack.push(card_controller);
 
+			// If the card isn't in order
+			// or the suits don't match
+			// or the bottom card is special, then you can't move the current one on it
 			if (static_cast<int>(card_controller->getCardType()->rank) != ++previous_card_rank ||
-				card_controller->getCardType()->suit != card_suit)
+				card_controller->getCardType()->suit != card_suit || !isSpecialCard(card_controller))
 			{
+				// invalidate the selection
 				is_valid_selection = false;
 				break;
 			}
@@ -226,8 +309,17 @@ namespace Gameplay
 
 	bool LevelController::isValidMove(Card::CardController* selected_card_controller)
 	{
-		// LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
-		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
+		// Special cards are rebels,
+		// they don't follow no rules.
+		if (isSpecialCard(selected_card_controller))
+		{
+			return true;
+		}
+
+		// LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack =
+		// level_model->findPlayStack(previously_selected_card_controller);
+		LinkedListStack::Stack<Card::CardController*>* currently_selected_card_stack =
+			level_model->findPlayStack(selected_card_controller);
 
 		if (currently_selected_card_stack->peek() != selected_card_controller)
 			return false;
@@ -236,6 +328,16 @@ namespace Gameplay
 		Card::Rank current_card_rank = selected_card_controller->getCardType()->rank;
 
 		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
+	}
+
+	bool LevelController::isSpecialCard(Card::CardController* selected_card_controller)
+	{
+		if (selected_card_controller->getCardType()->type != CardTypeEnum::DEFAULT)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	void LevelController::updateElapsedTime()
@@ -347,7 +449,8 @@ namespace Gameplay
 
 	void LevelController::addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
 	{
-		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::CardTypeEnum::DEFAULT, Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(
+			Card::CardTypeEnum::DEFAULT, Card::Rank::DEFAULT, Card::Suit::DEFAULT);
 		stack->push(empty_card);
 	}
 

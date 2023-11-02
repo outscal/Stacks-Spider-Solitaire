@@ -96,8 +96,7 @@ namespace Card
 			break;
 
 		case Card::State::SELECTED: {
-
-			if (card_model->getCardType()->rank != Rank::DEFAULT)
+			if (card_model->getCardType()->rank != Rank::DEFAULT || card_model->getCardType()->type != CardTypeEnum::DEFAULT)
 			{
 				card_view->selectCard();
 			}
@@ -121,6 +120,12 @@ namespace Card
 	void CardController::setCardPosition(const sf::Vector2f& card_position)
 	{
 		card_model->setPosition(card_position);
+	}
+
+	void CardController::moveCardPosition(const sf::Vector2f& step)
+	{
+		sf::Vector2f pos = this->getCardPosition();
+		this->setCardPosition({pos.x + step.x, pos.y + step.y});
 	}
 
 	CardVisibility CardController::getCardVisibility()

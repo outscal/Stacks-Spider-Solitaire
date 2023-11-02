@@ -2,6 +2,8 @@
 #include "Card/CardConfig.h"
 #include <SFML/Graphics.hpp>
 
+#include <stdexcept>
+
 namespace Card
 {
 	class CardTexture
@@ -31,6 +33,7 @@ namespace Card
 					return "assets/textures/cards/card_time.png";
 
 				case CardTypeEnum::DEFAULT:
+					throw std::logic_error("Impossible code path reached: CardTexture.h");
 					break;
 
 				default:

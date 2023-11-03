@@ -23,15 +23,13 @@ namespace Main
 		configureVideoMode();
 
 		// TejveerDebug: Making the window non-fullscreen for now.
-		return new sf::RenderWindow(video_mode, game_window_title,
-									sf::Style::Default);
+		return new sf::RenderWindow(video_mode, game_window_title, sf::Style::Default);
 	}
 
 	void GraphicService::configureVideoMode()
 	{
 		video_mode =
-			*(new sf::VideoMode(game_window_width, game_window_height,
-								sf::VideoMode::getDesktopMode().bitsPerPixel));
+			*(new sf::VideoMode(game_window_width, game_window_height, sf::VideoMode::getDesktopMode().bitsPerPixel));
 	}
 
 	void GraphicService::onDestroy()

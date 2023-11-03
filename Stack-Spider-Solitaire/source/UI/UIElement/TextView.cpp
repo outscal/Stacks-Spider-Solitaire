@@ -29,8 +29,8 @@ namespace UIElement
 		throw std::logic_error("Un-implemented function: TextView::show()");
 	}
 
-	void TextView::initialize(sf::String text_value, sf::Vector2f position,
-							  FontType font_type, int font_size, sf::Color color)
+	void TextView::initialize(sf::String text_value, sf::Vector2f position, FontType font_type, int font_size,
+							  sf::Color color)
 	{
 		UIView::initialize();
 
@@ -110,8 +110,7 @@ namespace UIElement
 
 	void TextView::setTextCentreAligned()
 	{
-		float x_position =
-			(game_window->getSize().x - text.getLocalBounds().width) / 2;
+		float x_position = (game_window->getSize().x - text.getLocalBounds().width) / 2;
 		float y_position = text.getGlobalBounds().getPosition().y;
 
 		text.setPosition(sf::Vector2f(x_position, y_position));

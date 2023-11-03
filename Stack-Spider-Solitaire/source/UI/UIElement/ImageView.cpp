@@ -25,8 +25,7 @@ namespace UIElement
 		throw std::logic_error("Un-implemented function: ImageView::initialize()");
 	};
 
-	void ImageView::initialize(sf::String texture_path, float image_width,
-							   float image_height, sf::Vector2f position)
+	void ImageView::initialize(sf::String texture_path, float image_width, float image_height, sf::Vector2f position)
 	{
 		UIView::initialize();
 		setTexture(texture_path);
@@ -72,12 +71,12 @@ namespace UIElement
 
 	sf::Vector2f ImageView::getScale()
 	{
-		return this->image_sprite.getScale();
+		return image_sprite.getScale();
 	}
 
 	sf::Vector2f ImageView::getPosition()
 	{
-		return this->image_sprite.getPosition();
+		return image_sprite.getPosition();
 	}
 
 	void ImageView::setPosition(sf::Vector2f position)
@@ -92,8 +91,7 @@ namespace UIElement
 
 	void ImageView::setOriginAtCentre()
 	{
-		image_sprite.setOrigin(image_sprite.getLocalBounds().width / 2,
-							   image_sprite.getLocalBounds().height / 2);
+		image_sprite.setOrigin(image_sprite.getLocalBounds().width / 2, image_sprite.getLocalBounds().height / 2);
 	}
 
 	void ImageView::setImageAlpha(float alpha)
@@ -105,8 +103,7 @@ namespace UIElement
 
 	void ImageView::setCentreAlinged()
 	{
-		float x_position = (game_window->getSize().x / 2) -
-						   (image_sprite.getGlobalBounds().width / 2);
+		float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
 		float y_position = image_sprite.getGlobalBounds().getPosition().y;
 
 		image_sprite.setPosition(x_position, y_position);

@@ -58,7 +58,8 @@ namespace Gameplay
 
 	void LevelModel::initializeStacks()
 	{
-		ArrayStack::Stack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
+		ArrayStack::Stack<CardController*>* card_deck =
+			ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
 
 		while (card_deck->size() > drawing_deck_stack_size)
 		{

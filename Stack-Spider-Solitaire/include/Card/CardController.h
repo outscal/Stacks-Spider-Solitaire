@@ -17,11 +17,10 @@ namespace Card
 		void updateCardVisibility();
 
 	  public:
-		CardController(CardTypeEnum card_type, Rank rank, Suit suit);
+		CardController(Type type, Rank rank, Suit suit);
 		~CardController();
 
-		void initialize(float card_width, float card_height,
-						float hide_duration = 0);
+		void initialize(float card_width, float card_height, float hide_duration = 0);
 		void update();
 		void render();
 

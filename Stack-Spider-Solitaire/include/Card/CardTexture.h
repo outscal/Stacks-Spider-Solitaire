@@ -9,30 +9,30 @@ namespace Card
 	class CardTexture
 	{
 	  public:
-		static sf::String getCardTexturePath(CardTypeEnum card_type, Rank rank, Suit suit, State state)
+		static sf::String getCardTexturePath(Type card_type, Rank rank, Suit suit, State state)
 		{
 			if (state == State::CLOSE)
 			{
 				return sf::String("assets/textures/cards/card_53.png");
 			}
 
-			if (card_type != Card::CardTypeEnum::DEFAULT)
+			if (card_type != Card::Type::DEFAULT)
 			{
 				switch (card_type)
 				{
-				case CardTypeEnum::SORT:
+				case Type::SORT:
 					return "assets/textures/cards/card_sort.png";
 
-				case CardTypeEnum::VISION:
+				case Type::VISION:
 					return "assets/textures/cards/card_vision.png";
 
-				case CardTypeEnum::SWAP:
+				case Type::SWAP:
 					return "assets/textures/cards/card_swap.png";
 
-				case CardTypeEnum::TIME:
+				case Type::TIME:
 					return "assets/textures/cards/card_time.png";
 
-				case CardTypeEnum::DEFAULT:
+				case Type::DEFAULT:
 					throw std::logic_error("Impossible code path reached: CardTexture.h");
 					break;
 

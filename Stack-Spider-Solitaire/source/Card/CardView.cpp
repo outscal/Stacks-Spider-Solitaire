@@ -16,6 +16,8 @@ namespace Card
 	using namespace Sound;
 	using namespace Event;
 
+	constexpr auto CARD_ZOOM_SCALE = 1.15f;
+
 	CardView::CardView()
 	{
 		card_button_view = new ButtonView();
@@ -28,8 +30,7 @@ namespace Card
 		delete (card_highlight);
 	}
 
-	void CardView::initialize(float width, float height,
-							  CardController* controller)
+	void CardView::initialize(float width, float height, CardController* controller)
 	{
 		card_controller = controller;
 		card_width = width;
@@ -57,17 +58,15 @@ namespace Card
 
 	void CardView::initializeButton()
 	{
-		card_button_view->initialize("Card", getCardTexturePath(), card_width,
-									 card_height, sf::Vector2f(0, 0));
-		this->card_button_view->setOriginAtCentre();
+		card_button_view->initialize("Card", getCardTexturePath(), card_width, card_height, sf::Vector2f(0, 0));
+		card_button_view->setOriginAtCentre();
 		registerButtonCallback();
 	}
 
 	void CardView::initializeImage()
 	{
-		card_highlight->initialize(Config::card_highlight_texture_path, card_width,
-								   card_height, sf::Vector2f(0, 0));
-		this->card_highlight->setOriginAtCentre();
+		card_highlight->initialize(Config::card_highlight_texture_path, card_width, card_height, sf::Vector2f(0, 0));
+		card_highlight->setOriginAtCentre();
 		card_highlight->hide();
 	}
 
@@ -75,7 +74,6 @@ namespace Card
 	{
 		card_button_view->setPosition(card_controller->getCardPosition());
 		card_highlight->setPosition(card_controller->getCardPosition());
-		return;
 	}
 
 	void CardView::updateCardTexture()
@@ -85,26 +83,26 @@ namespace Card
 
 	void CardView::selectCard()
 	{
-		this->scaleCard({1.15f, 1.15f});
-		this->setCardHighLight(true);
-		this->card_controller->followMouse();
+		scaleCard({CARD_ZOOM_SCALE, CARD_ZOOM_SCALE});
+		setCardHighLight(true);
+		card_controller->followMouse();
 	}
 
 	void CardView::unselectCard()
 	{
 		// move the center half the amount that i'm scaling it to the right
-		this->card_highlight->setScale(card_width, card_height);
-		this->card_button_view->setScale(card_width, card_height);
+		card_highlight->setScale(card_width, card_height);
+		card_button_view->setScale(card_width, card_height);
 
-		this->setCardHighLight(false);
-		this->card_controller->stopFollowingMouse();
+		setCardHighLight(false);
+		card_controller->stopFollowingMouse();
 	}
 
 	void CardView::scaleCard(const sf::Vector2f& factor)
 	{
 		// Scale the card
-		this->card_button_view->scale(factor);
-		this->card_highlight->scale(factor);
+		card_button_view->scale(factor);
+		card_highlight->scale(factor);
 	}
 
 	void CardView::setCardHighLight(bool b_highlight)
@@ -121,25 +119,20 @@ namespace Card
 
 	void CardView::registerButtonCallback()
 	{
-		card_button_view->registerCallbackFuntion(
-			std::bind(&CardView::cardButtonCallback, this));
+		card_button_view->registerCallbackFuntion(std::bind(&CardView::cardButtonCallback, this));
 	}
 
 	void CardView::cardButtonCallback()
 	{
-		ServiceLocator::getInstance()->getSoundService()->playSound(
-			SoundType::BUTTON_CLICK);
-		ServiceLocator::getInstance()->getGameplayService()->setCardToProcessInput(
-			card_controller);
-		ServiceLocator::getInstance()->getEventService()->setLeftMouseButtonState(
-			ButtonState::HELD);
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+		ServiceLocator::getInstance()->getGameplayService()->setCardToProcessInput(card_controller);
+		ServiceLocator::getInstance()->getEventService()->setLeftMouseButtonState(ButtonState::HELD);
 	}
 
 	sf::String CardView::getCardTexturePath()
 	{
 		CardType* card = card_controller->getCardType();
-		sf::String texture_path =
-			CardTexture::getCardTexturePath(card->type, card->rank, card->suit, card->state);
+		sf::String texture_path = CardTexture::getCardTexturePath(card->type, card->rank, card->suit, card->state);
 		return texture_path;
 	}
 } // namespace Card

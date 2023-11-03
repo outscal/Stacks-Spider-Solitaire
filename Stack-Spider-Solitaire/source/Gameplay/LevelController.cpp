@@ -121,35 +121,30 @@ namespace Gameplay
 		if (target_stack->empty())
 			return;
 
-		std::cout << "wtf" << static_cast<int>(special_card_type) << std::endl;
 		// switch case for type of special card
 		switch (special_card_type)
 		{
-		case CardTypeEnum::SORT: {
-			std::cout << "Sort card" << std::endl;
+		case Type::SORT: {
 			sortStack(target_stack);
 			break;
 		}
-		case CardTypeEnum::VISION: {
-			std::cout << "Vision card" << std::endl;
+		case Type::VISION: {
 			revealAllCards(target_stack);
 			break;
 		}
-		case CardTypeEnum::SWAP: {
-			std::cout << "Time card" << std::endl;
+		case Type::SWAP: {
 			if (target_stack->size() >= 2)
 			{
 				swapTopTwoCards(target_stack);
 			}
 			break;
 		}
-		case CardTypeEnum::TIME: {
+		case Type::TIME: {
 			// Reset the time
-			std::cout << "Time card" << std::endl;
 			elapsed_time = 0.0f;
 			break;
 		}
-		case CardTypeEnum::DEFAULT:
+		case Type::DEFAULT:
 			break;
 		default:
 			break;
@@ -300,8 +295,8 @@ namespace Gameplay
 		openTopCardOfStack(previously_selected_card_stack);
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
 
-		if (isSpecialCard(this->previously_selected_card_controller))
-			handleSpecialCardMove(this->previously_selected_card_controller);
+		if (isSpecialCard(previously_selected_card_controller))
+			handleSpecialCardMove(previously_selected_card_controller);
 
 		previously_selected_card_controller = nullptr;
 		reduceScore(1);
@@ -333,7 +328,7 @@ namespace Gameplay
 			temp_stack.push(card_controller);
 
 			// or the bottom card is special, then you can't move the current one on it
-			if (isSpecialCard(this->previously_selected_card_controller))
+			if (isSpecialCard(previously_selected_card_controller))
 			{
 				break;
 			}
@@ -361,7 +356,7 @@ namespace Gameplay
 	{
 		// Special cards are rebels,
 		// they don't follow no rules.
-		if (isSpecialCard(this->previously_selected_card_controller))
+		if (isSpecialCard(previously_selected_card_controller))
 			return true;
 
 		// LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack =
@@ -383,7 +378,7 @@ namespace Gameplay
 		if (!selected_card_controller)
 			return false;
 
-		if (selected_card_controller->getCardType()->type != CardTypeEnum::DEFAULT)
+		if (selected_card_controller->getCardType()->type != Type::DEFAULT)
 			return true;
 
 		return false;
@@ -499,7 +494,7 @@ namespace Gameplay
 	void LevelController::addEmptyCard(LinkedListStack::Stack<Card::CardController*>* stack)
 	{
 		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(
-			Card::CardTypeEnum::DEFAULT, Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+			Card::Type::DEFAULT, Card::Rank::DEFAULT, Card::Suit::DEFAULT);
 		stack->push(empty_card);
 	}
 

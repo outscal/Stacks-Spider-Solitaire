@@ -2,7 +2,7 @@
 
 namespace Card
 {
-	CardModel::CardModel(CardTypeEnum p_card_type, Rank rank, Suit suit)
+	CardModel::CardModel(Type p_card_type, Rank rank, Suit suit)
 	{
 		card_type = new CardType(p_card_type, rank, suit, State::CLOSE);
 		card_visibility = CardVisibility::VISIBLE;

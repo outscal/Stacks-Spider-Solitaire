@@ -47,15 +47,19 @@ namespace MainMenu
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 
-		background_image->initialize(Config::background_texture_path, game_window->getSize().x, game_window->getSize().y, sf::Vector2f(0, 0));
+		background_image->initialize(Config::background_texture_path, game_window->getSize().x,
+									 game_window->getSize().y, sf::Vector2f(0, 0));
 		background_image->setImageAlpha(background_alpha);
 	}
 
 	void MainMenuUIController::initializeButtons()
 	{
-		play_button->initialize("Play Button", Config::play_button_texture_path, button_width, button_height, sf::Vector2f(0, play_button_y_position));
-		instructions_button->initialize("Instructions Button", Config::instructions_button_texture_path, button_width, button_height, sf::Vector2f(0, instructions_button_y_position));
-		quit_button->initialize("Quit Button", Config::quit_button_texture_path, button_width, button_height, sf::Vector2f(0, quit_button_y_position));
+		play_button->initialize("Play Button", Config::play_button_texture_path, button_width, button_height,
+								sf::Vector2f(0, play_button_y_position));
+		instructions_button->initialize("Instructions Button", Config::instructions_button_texture_path, button_width,
+										button_height, sf::Vector2f(0, instructions_button_y_position));
+		quit_button->initialize("Quit Button", Config::quit_button_texture_path, button_width, button_height,
+								sf::Vector2f(0, quit_button_y_position));
 
 		play_button->setCentreAlinged();
 		instructions_button->setCentreAlinged();
@@ -65,7 +69,8 @@ namespace MainMenu
 	void MainMenuUIController::registerButtonCallback()
 	{
 		play_button->registerCallbackFuntion(std::bind(&MainMenuUIController::playButtonCallback, this));
-		instructions_button->registerCallbackFuntion(std::bind(&MainMenuUIController::instructionsButtonCallback, this));
+		instructions_button->registerCallbackFuntion(
+			std::bind(&MainMenuUIController::instructionsButtonCallback, this));
 		quit_button->registerCallbackFuntion(std::bind(&MainMenuUIController::quitButtonCallback, this));
 	}
 

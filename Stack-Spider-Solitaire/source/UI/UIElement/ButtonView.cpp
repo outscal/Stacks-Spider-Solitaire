@@ -29,8 +29,7 @@ namespace UIElement
 		throw std::logic_error("Un-implemented function: ButtonView::hide()");
 	}
 
-	void ButtonView::initialize(sf::String title, sf::String texture_path,
-								float button_width, float button_height,
+	void ButtonView::initialize(sf::String title, sf::String texture_path, float button_width, float button_height,
 								sf::Vector2f position)
 	{
 		ImageView::initialize(texture_path, button_width, button_height, position);
@@ -59,8 +58,7 @@ namespace UIElement
 
 	void ButtonView::handleButtonInteraction()
 	{
-		sf::Vector2f mouse_position =
-			sf::Vector2f(sf::Mouse::getPosition(*game_window));
+		sf::Vector2f mouse_position = sf::Vector2f(sf::Mouse::getPosition(*game_window));
 
 		if (clickedButton(&image_sprite, mouse_position))
 		{
@@ -69,12 +67,9 @@ namespace UIElement
 		}
 	}
 
-	bool ButtonView::clickedButton(sf::Sprite* button_sprite,
-								   sf::Vector2f mouse_position)
+	bool ButtonView::clickedButton(sf::Sprite* button_sprite, sf::Vector2f mouse_position)
 	{
-		return ServiceLocator::getInstance()
-				   ->getEventService()
-				   ->pressedLeftMouseButton() &&
+		return ServiceLocator::getInstance()->getEventService()->pressedLeftMouseButton() &&
 			   button_sprite->getGlobalBounds().contains(mouse_position);
 	}
 

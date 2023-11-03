@@ -29,7 +29,7 @@ namespace Card
 	{
 	}
 
-	CardController* CardService::generateCard(CardTypeEnum card_type, Rank rank, Suit suit)
+	CardController* CardService::generateCard(Type card_type, Rank rank, Suit suit)
 	{
 		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
 		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
@@ -50,7 +50,7 @@ namespace Card
 				for (int suit = 0; suit < number_of_suits; suit++)
 				{
 					CardController* card =
-						generateCard(CardTypeEnum::DEFAULT, static_cast<Rank>(rank), static_cast<Suit>(suit));
+						generateCard(Type::DEFAULT, static_cast<Rank>(rank), static_cast<Suit>(suit));
 
 					card_deck->push(card);
 				}
@@ -65,7 +65,7 @@ namespace Card
 			auto random_special_card = special_card_distribution(rng);
 			// add a random special card
 			CardController* special_card =
-				generateCard(static_cast<CardTypeEnum>(random_special_card), Rank::DEFAULT, Suit::DEFAULT);
+				generateCard(static_cast<Type>(random_special_card), Rank::DEFAULT, Suit::DEFAULT);
 
 			card_deck->push(special_card);
 		}

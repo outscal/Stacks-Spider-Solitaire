@@ -45,7 +45,8 @@ namespace SplashScreen
 
 	void SplashScreenUIController::fadeInAnimationCallback()
 	{
-		outscal_logo_view->playAnimation(AnimationType::FADE_OUT, logo_animation_duration, std::bind(&SplashScreenUIController::fadeOutAnimationCallback, this));
+		outscal_logo_view->playAnimation(AnimationType::FADE_OUT, logo_animation_duration,
+										 std::bind(&SplashScreenUIController::fadeOutAnimationCallback, this));
 	}
 
 	void SplashScreenUIController::fadeOutAnimationCallback()
@@ -66,6 +67,7 @@ namespace SplashScreen
 
 	void SplashScreenUIController::show()
 	{
-		outscal_logo_view->playAnimation(AnimationType::FADE_IN, logo_animation_duration, std::bind(&SplashScreenUIController::fadeInAnimationCallback, this));
+		outscal_logo_view->playAnimation(AnimationType::FADE_IN, logo_animation_duration,
+										 std::bind(&SplashScreenUIController::fadeInAnimationCallback, this));
 	}
 } // namespace SplashScreen

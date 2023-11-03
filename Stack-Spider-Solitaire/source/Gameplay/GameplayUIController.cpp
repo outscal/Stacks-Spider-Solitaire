@@ -42,10 +42,8 @@ namespace Gameplay
 
 	void GameplayUIController::initializeButton()
 	{
-		menu_button->initialize(
-			"Menu Button", Config::menu_button_texture_path, button_width,
-			button_height,
-			sf::Vector2f(menu_button_x_position, menu_button_y_position));
+		menu_button->initialize("Menu Button", Config::menu_button_texture_path, button_width, button_height,
+								sf::Vector2f(menu_button_x_position, menu_button_y_position));
 
 		registerButtonCallback();
 	}
@@ -58,16 +56,14 @@ namespace Gameplay
 
 	void GameplayUIController::initializeScoreText()
 	{
-		score_text->initialize("Score  :  0",
-							   sf::Vector2f(score_text_x_position, text_y_position),
-							   FontType::ROBOTO, font_size);
+		score_text->initialize("Score  :  0", sf::Vector2f(score_text_x_position, text_y_position), FontType::ROBOTO,
+							   font_size);
 	}
 
 	void GameplayUIController::initializeTimeText()
 	{
-		time_text->initialize("00 : 00 : 00",
-							  sf::Vector2f(time_text_x_position, text_y_position),
-							  FontType::ROBOTO, font_size);
+		time_text->initialize("00 : 00 : 00", sf::Vector2f(time_text_x_position, text_y_position), FontType::ROBOTO,
+							  font_size);
 	}
 
 	void GameplayUIController::update()
@@ -102,17 +98,15 @@ namespace Gameplay
 
 	void GameplayUIController::updateTimeText()
 	{
-		float elapsed_time =
-			ServiceLocator::getInstance()->getGameplayService()->getElapsedTime();
+		float elapsed_time = ServiceLocator::getInstance()->getGameplayService()->getElapsedTime();
 
 		int hours = static_cast<int>(elapsed_time) / 3600;
 		int minutes = (static_cast<int>(elapsed_time) % 3600) / 60;
 		int seconds = static_cast<int>(elapsed_time) % 60;
 
-		sf::String elapsed_time_string =
-			(hours < 10 ? "0" : "") + std::to_string(hours) + " : " +
-			(minutes < 10 ? "0" : "") + std::to_string(minutes) + " : " +
-			(seconds < 10 ? "0" : "") + std::to_string(seconds);
+		sf::String elapsed_time_string = (hours < 10 ? "0" : "") + std::to_string(hours) + " : " +
+										 (minutes < 10 ? "0" : "") + std::to_string(minutes) + " : " +
+										 (seconds < 10 ? "0" : "") + std::to_string(seconds);
 
 		time_text->setText(elapsed_time_string);
 		time_text->update();
@@ -120,15 +114,13 @@ namespace Gameplay
 
 	void GameplayUIController::menuButtonCallback()
 	{
-		ServiceLocator::getInstance()->getSoundService()->playSound(
-			SoundType::BUTTON_CLICK);
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
 		GameService::setGameState(GameState::MAIN_MENU);
 	}
 
 	void GameplayUIController::registerButtonCallback()
 	{
-		menu_button->registerCallbackFuntion(
-			std::bind(&GameplayUIController::menuButtonCallback, this));
+		menu_button->registerCallbackFuntion(std::bind(&GameplayUIController::menuButtonCallback, this));
 	}
 
 	void GameplayUIController::destroy()

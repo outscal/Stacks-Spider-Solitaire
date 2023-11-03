@@ -11,14 +11,13 @@ namespace UIElement
 		throw std::logic_error("Un-implemented function: AnimatedImageView::initialize()");
 	}
 
-	void AnimatedImageView::initialize(sf::String texture_path, float image_width,
-									   float image_height, sf::Vector2f position)
+	void AnimatedImageView::initialize(sf::String texture_path, float image_width, float image_height,
+									   sf::Vector2f position)
 	{
 		ImageView::initialize(texture_path, image_width, image_height, position);
 	}
 
-	void AnimatedImageView::registerCallbackFuntion(
-		CallbackFunction animation_end_callback)
+	void AnimatedImageView::registerCallbackFuntion(CallbackFunction animation_end_callback)
 	{
 		callback_function = animation_end_callback;
 	}
@@ -40,8 +39,7 @@ namespace UIElement
 		ImageView::render();
 	}
 
-	void AnimatedImageView::playAnimation(AnimationType type, float duration,
-										  CallbackFunction animation_end_callback)
+	void AnimatedImageView::playAnimation(AnimationType type, float duration, CallbackFunction animation_end_callback)
 	{
 		ImageView::show();
 		reset();
@@ -90,16 +88,13 @@ namespace UIElement
 	void AnimatedImageView::fadeIn()
 	{
 		float alpha = std::min(1.0f, elapsed_duration / animation_duration);
-		image_sprite.setColor(
-			sf::Color(255, 255, 255, static_cast<sf::Uint8>(alpha * 255)));
+		image_sprite.setColor(sf::Color(255, 255, 255, static_cast<sf::Uint8>(alpha * 255)));
 	}
 
 	void AnimatedImageView::fadeOut()
 	{
-		float alpha =
-			std::max(0.0f, 1.0f - (elapsed_duration / animation_duration));
-		image_sprite.setColor(
-			sf::Color(255, 255, 255, static_cast<sf::Uint8>(alpha * 255)));
+		float alpha = std::max(0.0f, 1.0f - (elapsed_duration / animation_duration));
+		image_sprite.setColor(sf::Color(255, 255, 255, static_cast<sf::Uint8>(alpha * 255)));
 	}
 
 	void AnimatedImageView::reset()

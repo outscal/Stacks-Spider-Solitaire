@@ -17,7 +17,7 @@ namespace Card
 		void update();
 		void render();
 
-		CardController* generateCard(CardTypeEnum card_type, Rank rank, Suit suit);
+		CardController* generateCard(Type card_type, Rank rank, Suit suit);
 
 		ArrayStack::Stack<CardController*>* generateRandomizedCardDeck(int number_of_decks = 1);
 

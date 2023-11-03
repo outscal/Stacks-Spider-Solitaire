@@ -7,9 +7,8 @@ namespace Card
 	constexpr int number_of_suits = 2;
 	constexpr auto number_of_wildcards = 4;
 
-	// TODO (Tejveer): Fully implement special cards
 	// Come up with a better name for this
-	enum class CardTypeEnum
+	enum class Type
 	{
 		SORT,
 		VISION,

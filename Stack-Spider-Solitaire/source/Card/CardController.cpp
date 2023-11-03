@@ -11,9 +11,9 @@ namespace Card
 {
 	using namespace Global;
 
-	CardController::CardController(CardTypeEnum card_type, Rank rank, Suit suit)
+	CardController::CardController(Type type, Rank rank, Suit suit)
 	{
-		card_model = new CardModel(card_type, rank, suit);
+		card_model = new CardModel(type, rank, suit);
 		card_view = new CardView();
 	}
 
@@ -23,8 +23,7 @@ namespace Card
 		delete card_view;
 	}
 
-	void CardController::initialize(float card_width, float card_height,
-									[[maybe_unused]] float hide_duration)
+	void CardController::initialize(float card_width, float card_height, [[maybe_unused]] float hide_duration)
 	{
 		card_view->initialize(card_width, card_height, this);
 		card_model->setCardVisibility(CardVisibility::HIDDEN);
@@ -39,19 +38,19 @@ namespace Card
 
 	bool CardController::shouldFollowMouse()
 	{
-		return this->card_follow_mouse;
+		return card_follow_mouse;
 	}
 
 	void CardController::followMouse()
 	{
 		// Save the prev position of the card for later use
-		// in the this->stopFollowingMouse() function.
-		this->card_follow_mouse = true;
+		// in the stopFollowingMouse() function.
+		card_follow_mouse = true;
 	}
 
 	void CardController::stopFollowingMouse()
 	{
-		this->card_follow_mouse = false;
+		card_follow_mouse = false;
 	}
 
 	void CardController::render()
@@ -69,8 +68,7 @@ namespace Card
 		{
 			card_model->setCardVisibility(CardVisibility::HIDDEN);
 
-			float delta_time =
-				ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+			float delta_time = ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 			card_model->setHideDuration(card_model->getHideDuration() - delta_time);
 		}
 	}
@@ -96,7 +94,7 @@ namespace Card
 			break;
 
 		case Card::State::SELECTED: {
-			if (card_model->getCardType()->rank != Rank::DEFAULT || card_model->getCardType()->type != CardTypeEnum::DEFAULT)
+			if (card_model->getCardType()->rank != Rank::DEFAULT || card_model->getCardType()->type != Type::DEFAULT)
 			{
 				card_view->selectCard();
 			}
@@ -124,8 +122,8 @@ namespace Card
 
 	void CardController::moveCardPosition(const sf::Vector2f& step)
 	{
-		sf::Vector2f pos = this->getCardPosition();
-		this->setCardPosition({pos.x + step.x, pos.y + step.y});
+		sf::Vector2f pos = getCardPosition();
+		setCardPosition({pos.x + step.x, pos.y + step.y});
 	}
 
 	CardVisibility CardController::getCardVisibility()

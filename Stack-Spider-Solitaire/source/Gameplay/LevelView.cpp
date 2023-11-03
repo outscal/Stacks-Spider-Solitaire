@@ -33,7 +33,7 @@ namespace Gameplay
 		level_controller = controller;
 		initializeImage();
 		calculateCardExtents();
-		this->game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+		game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 	}
 
 	void LevelView::createImage()
@@ -45,17 +45,15 @@ namespace Gameplay
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 
-		background_image->initialize(Config::level_background_texture_path,
-									 game_window->getSize().x,
-									 game_window->getSize().y,
-									 sf::Vector2f(0, 0));
+		background_image->initialize(Config::level_background_texture_path, game_window->getSize().x,
+									 game_window->getSize().y, sf::Vector2f(0, 0));
 	}
 
 	void LevelView::update()
 	{
 		// Get the mouse position
-		this->mouse_position = sf::Mouse::getPosition(*game_window);
-		this->current_mouse_coord = game_window->mapPixelToCoords(mouse_position);
+		mouse_position = sf::Mouse::getPosition(*game_window);
+		current_mouse_coord = game_window->mapPixelToCoords(mouse_position);
 
 		background_image->update();
 		updatePlayStacksView();
@@ -103,27 +101,30 @@ namespace Gameplay
 
 		while (!temp_stack.empty())
 		{
-			float x_position = play_deck_left_offset + (stack_position * card_width) + ((stack_position + 1) * cards_horrizontal_spacing);
+			float x_position = play_deck_left_offset + (stack_position * card_width) +
+							   ((stack_position + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset + vertical_spacing;
 
 			CardController* card_controller = temp_stack.pop();
 
 			if (card_controller->shouldFollowMouse())
 			{
-				sf::Vector2f mouse_delta = current_mouse_coord - this->prev_mouse_pos;
+				sf::Vector2f mouse_delta = current_mouse_coord - prev_mouse_pos;
 
 				// Apply acceleration
-				this->velocity += 0.08f * static_cast<sf::Vector2f>(mouse_delta);
+				velocity += 0.08f * static_cast<sf::Vector2f>(mouse_delta);
 
 				// Calculate the new card position with or without vertical spacing
-
-				sf::Vector2f cardpos = sf::Vector2f{current_mouse_coord.x, (num_selected_cards <= 1) ? (current_mouse_coord.y) : (current_mouse_coord.y + vertical_spacing - play_deck_top_offset)};
+				sf::Vector2f cardpos = sf::Vector2f{
+					current_mouse_coord.x, (num_selected_cards <= 1)
+											   ? (current_mouse_coord.y)
+											   : (current_mouse_coord.y + vertical_spacing - play_deck_top_offset)};
 				cardpos += velocity;
 
 				// Apply acceleration to card position
 				card_controller->setCardPosition(cardpos);
 
-				this->prev_mouse_pos = current_mouse_coord;
+				prev_mouse_pos = current_mouse_coord;
 				velocity *= 0.99f;
 			}
 			else
@@ -168,14 +169,15 @@ namespace Gameplay
 			auto target_position = sf::Vector2f(x_position, y_position);
 
 			// Don't do this more than once (at the start)
-			if (this->initial_draw)
+			if (initial_draw)
 			{
 				// Update sprite position for animation
 				sf::Vector2f currentPosition = card_controller->getCardPosition();
 				sf::Vector2f direction = target_position - currentPosition;
 
 				// Calculate the distance to move this frame based on animationSpeed
-				float distance_to_move = this->animation_speed * ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+				float distance_to_move =
+					animation_speed * ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
 				// If the sprite hasn't reached the target position yet, move it
 				if (direction != sf::Vector2f(0, 0))
@@ -192,7 +194,7 @@ namespace Gameplay
 				}
 				else
 				{
-					this->initial_draw = false;
+					initial_draw = false;
 				}
 			}
 			else
@@ -286,7 +288,8 @@ namespace Gameplay
 
 	float LevelView::getCardVerticalSpacing(Card::State state, int number_of_open_cards)
 	{
-		float vertical_spacing_adjustment_ratio = static_cast<float>(max_number_of_open_cards) / static_cast<float>(number_of_open_cards);
+		float vertical_spacing_adjustment_ratio =
+			static_cast<float>(max_number_of_open_cards) / static_cast<float>(number_of_open_cards);
 
 		switch (state)
 		{
@@ -301,7 +304,22 @@ namespace Gameplay
 
 	void LevelView::destroy()
 	{
-		this->initial_draw = true;
+		initial_draw = true;
 		delete (background_image);
+	}
+
+	float length(const sf::Vector2f& vector)
+	{
+		return std::sqrt(vector.x * vector.x + vector.y * vector.y);
+	}
+
+	sf::Vector2f normalize(const sf::Vector2f& vector)
+	{
+		float length = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+		if (length != 0)
+		{
+			return sf::Vector2f(vector.x / length, vector.y / length);
+		}
+		return vector; // Avoid division by zero
 	}
 } // namespace Gameplay

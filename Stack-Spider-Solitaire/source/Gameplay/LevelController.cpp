@@ -101,39 +101,54 @@ namespace Gameplay
 		if (previously_selected_card_controller == nullptr)
 			return;
 		else if (isValidMove(selected_card_controller))
-		{
 			moveCards(selected_card_controller);
-		}
 		else
 			unselectCards(previously_selected_card_controller);
 	}
 
 	void LevelController::handleSpecialCardMove(Card::CardController* special_card_controller)
 	{
-		// Get the special card's type and the stack that it will be placed on
-		auto special_card_type = special_card_controller->getCardType()->type;
-		auto target_stack = level_model->findPlayStack(special_card_controller);
-
-		// Empty stack check
-		if (target_stack->empty())
+		if (special_card_controller == nullptr)
 		{
 			return;
 		}
 
+		// Get the special card's type and the stack that it will be placed on
+		auto special_card_type = special_card_controller->getCardType()->type;
+		auto target_stack = level_model->findPlayStack(previously_selected_card_controller);
+
+		// Empty stack check
+		if (target_stack->empty())
+			return;
+
+		std::cout << "wtf" << static_cast<int>(special_card_type) << std::endl;
 		// switch case for type of special card
 		switch (special_card_type)
 		{
 		case CardTypeEnum::SORT: {
+			std::cout << "Sort card" << std::endl;
 			sortStack(target_stack);
-
 			break;
 		}
-		case CardTypeEnum::SWAP:
+		case CardTypeEnum::VISION: {
+			std::cout << "Vision card" << std::endl;
+			revealAllCards(target_stack);
 			break;
-		case CardTypeEnum::TIME:
+		}
+		case CardTypeEnum::SWAP: {
+			std::cout << "Time card" << std::endl;
+			if (target_stack->size() >= 2)
+			{
+				swapTopTwoCards(target_stack);
+			}
 			break;
-		case CardTypeEnum::VISION:
+		}
+		case CardTypeEnum::TIME: {
+			// Reset the time
+			std::cout << "Time card" << std::endl;
+			elapsed_time = 0.0f;
 			break;
+		}
 		case CardTypeEnum::DEFAULT:
 			break;
 		default:
@@ -142,6 +157,38 @@ namespace Gameplay
 
 		// remove the special card afterwards
 		delete target_stack->pop();
+	}
+
+	void LevelController::swapTopTwoCards(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		// Check if there are at least two cards in the stack
+		if (stack->size() >= 2)
+		{
+			// Pop the top two cards
+			Card::CardController* card1 = stack->pop();
+			Card::CardController* card2 = stack->pop();
+
+			// Push them back in reverse order
+			stack->push(card1);
+			stack->push(card2);
+		}
+	}
+
+	void LevelController::revealAllCards(LinkedListStack::Stack<Card::CardController*>* stack)
+	{
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
+
+		// Pop all cards from the stack and reveal them
+		while (!stack->empty())
+		{
+			Card::CardController* card = stack->pop();
+			card->setCardState(Card::State::OPEN);
+			temp_stack.push(card);
+		}
+
+		// Push the revealed cards back onto the stack
+		while (!temp_stack.empty())
+			stack->push(temp_stack.pop());
 	}
 
 	void LevelController::sortStack(LinkedListStack::Stack<Card::CardController*>* stack)
@@ -253,10 +300,8 @@ namespace Gameplay
 		openTopCardOfStack(previously_selected_card_stack);
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
 
-		if (isSpecialCard(card_controller))
-		{
-			handleSpecialCardMove(card_controller);
-		}
+		if (isSpecialCard(this->previously_selected_card_controller))
+			handleSpecialCardMove(this->previously_selected_card_controller);
 
 		previously_selected_card_controller = nullptr;
 		reduceScore(1);
@@ -287,11 +332,16 @@ namespace Gameplay
 			CardController* card_controller = currently_selected_card_stack->pop();
 			temp_stack.push(card_controller);
 
+			// or the bottom card is special, then you can't move the current one on it
+			if (isSpecialCard(this->previously_selected_card_controller))
+			{
+				break;
+			}
+
 			// If the card isn't in order
 			// or the suits don't match
-			// or the bottom card is special, then you can't move the current one on it
 			if (static_cast<int>(card_controller->getCardType()->rank) != ++previous_card_rank ||
-				card_controller->getCardType()->suit != card_suit || !isSpecialCard(card_controller))
+				card_controller->getCardType()->suit != card_suit)
 			{
 				// invalidate the selection
 				is_valid_selection = false;
@@ -311,10 +361,8 @@ namespace Gameplay
 	{
 		// Special cards are rebels,
 		// they don't follow no rules.
-		if (isSpecialCard(selected_card_controller))
-		{
+		if (isSpecialCard(this->previously_selected_card_controller))
 			return true;
-		}
 
 		// LinkedListStack::Stack<Card::CardController*>* previously_selected_card_stack =
 		// level_model->findPlayStack(previously_selected_card_controller);
@@ -332,10 +380,11 @@ namespace Gameplay
 
 	bool LevelController::isSpecialCard(Card::CardController* selected_card_controller)
 	{
+		if (!selected_card_controller)
+			return false;
+
 		if (selected_card_controller->getCardType()->type != CardTypeEnum::DEFAULT)
-		{
 			return true;
-		}
 
 		return false;
 	}

@@ -69,6 +69,9 @@ namespace Gameplay
 		std::vector<LinkedListStack::Stack<Card::CardController*>*> getPlayStacks();
 		std::vector<ArrayStack::Stack<Card::CardController*>*> getSolutionStacks();
 		ArrayStack::Stack<Card::CardController*>* getDrawingStack();
+
 		void sortStack(LinkedListStack::Stack<Card::CardController*>* stack);
+		void revealAllCards(LinkedListStack::Stack<Card::CardController*>* stack);
+		void swapTopTwoCards(LinkedListStack::Stack<Card::CardController*>* stack);
 	};
 } // namespace Gameplay

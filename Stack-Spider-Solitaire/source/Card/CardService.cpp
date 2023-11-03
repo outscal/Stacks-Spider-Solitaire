@@ -60,12 +60,15 @@ namespace Card
 		std::default_random_engine rng;
 		std::uniform_int_distribution<int> special_card_distribution(0, 3);
 
-		auto random_special_card = 0;
-		// add a random special card
-		CardController* special_card =
-			generateCard(static_cast<CardTypeEnum>(random_special_card), Rank::DEFAULT, Suit::DEFAULT);
+		for (auto i = 0; i < 2; i++)
+		{
+			auto random_special_card = special_card_distribution(rng);
+			// add a random special card
+			CardController* special_card =
+				generateCard(static_cast<CardTypeEnum>(random_special_card), Rank::DEFAULT, Suit::DEFAULT);
 
-		card_deck->push(special_card);
+			card_deck->push(special_card);
+		}
 
 		return card_deck;
 	}

@@ -22,8 +22,9 @@ namespace Gameplay
         void update();
         void render();
 
-        float getCardWidth();
-        float getCardHeight();
+        void populateCardPiles();
+        float getTotalSpacingWidth();
+        int getNumberOfPlaystacks();
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();

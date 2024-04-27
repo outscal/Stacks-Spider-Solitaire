@@ -20,7 +20,8 @@ namespace Gameplay
 		void update();
 		void render();
 
-		float getCardWidth();
-		float getCardHeight();
+		void populateCardPiles();
+		float getTotalSpacingWidth();
+		int getNumberOfPlaystacks();
 	};
 }

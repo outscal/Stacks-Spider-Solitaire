@@ -6,6 +6,7 @@
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Card/CardController.h"
 #include <vector>
+#include <iostream>
 
 namespace Gameplay
 {
@@ -27,7 +28,6 @@ namespace Gameplay
 	{
 		level_controller = controller;
 		initializeBackgroudImage();
-		calculateCardExtents();
 	}
 
 	void LevelView::createImage()
@@ -69,7 +69,7 @@ namespace Gameplay
 		{
 			if (level_controller->getPlayStacks()[i]->empty()) continue;
 
-			float x_position = (i * card_width) + ((i + 1) * cards_horrizontal_spacing);
+			float x_position = (i * ServiceLocator::getInstance()->getCardService()->getCardWidth()) + ((i + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset;
 
 			CardController* card_controller = level_controller->getPlayStacks()[i]->peek();
@@ -109,6 +109,9 @@ namespace Gameplay
 			if (level_controller->getPlayStacks()[i]->empty()) continue;
 
 			CardController* card_controller = level_controller->getPlayStacks()[i]->peek();
+
+			std::cout << (int)card_controller->getCardType()->suit << " " << (int)card_controller->getCardType()->rank << "\n";
+
 			card_controller->render();
 		}
 	}
@@ -132,25 +135,9 @@ namespace Gameplay
 		card_controller->render();
 	}
 
-	float LevelView::getCardWidth()
+	float LevelView::getTotalSpacingWidth()
 	{
-		return card_width;
-	}
-
-	float LevelView::getCardHeight()
-	{
-		return card_height;
-	}
-
-	void LevelView::calculateCardExtents()
-	{
-		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-
-		float total_width = game_window->getSize().x;
-		float total_spacing_width = (LevelModel::number_of_play_stacks + 1) * cards_horrizontal_spacing;
-
-		card_width = (total_width - total_spacing_width) / LevelModel::number_of_play_stacks;
-		card_height = card_width * height_to_width_ratio;
+		return (LevelModel::number_of_play_stacks + 1)* cards_horrizontal_spacing;
 	}
 
 	void LevelView::destroy()

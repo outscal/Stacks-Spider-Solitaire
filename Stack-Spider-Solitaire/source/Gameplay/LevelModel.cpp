@@ -44,27 +44,24 @@ namespace Gameplay
 		drawing_stack = new ArrayStack::Stack<CardController*>();
 	}
 
-	void LevelModel::initialize() 
-	{
-		initializeStacks();
-	}
+	void LevelModel::initialize() { }
 
-	void LevelModel::initializeStacks()
+	void LevelModel::populateCardPiles()
 	{
-		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
+		IStack<CardController*>* temp_card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
 
 		// Adding one card in play stacks for visualization purpose. 
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{
-			addCardInPlayStack(i, card_deck->pop());
+			addCardInPlayStack(i, temp_card_deck->pop());
 		}
 
-		while (!card_deck->empty())
+		while (!temp_card_deck->empty())
 		{
-			addCardInDrawingStack(card_deck->pop());
+			addCardInDrawingStack(temp_card_deck->pop());
 		}
 
-		delete (card_deck);
+		delete (temp_card_deck);
 	}
 
 	void LevelModel::addCardInPlayStack(int stack_index, CardController* card_controller)

@@ -32,14 +32,19 @@ namespace Gameplay
 		level_view->render();
 	}
 
-	float LevelController::getCardWidth()
+	void LevelController::populateCardPiles()
 	{
-		return level_view->getCardWidth();
+		level_model->populateCardPiles();
 	}
 
-	float LevelController::getCardHeight()
+	float LevelController::getTotalSpacingWidth()
 	{
-		return level_view->getCardHeight();
+		return level_view->getTotalSpacingWidth();
+	}
+
+	int LevelController::getNumberOfPlaystacks()
+	{
+		return level_model->number_of_play_stacks;
 	}
 
 	std::vector<IStack<CardController*>*> LevelController::getPlayStacks()

@@ -33,14 +33,19 @@ namespace Gameplay
 		level_controller->render();
 	}
 
-	float GameplayService::getCardWidth()
+	void GameplayService::populateCardPiles()
 	{
-		return level_controller->getCardWidth();
+		level_controller->populateCardPiles();
 	}
 
-	float GameplayService::getCardHeight()
+	float GameplayService::getTotalSpacingWidth()
 	{
-		return level_controller->getCardHeight();
+		return level_controller->getTotalSpacingWidth();
+	}
+
+	int GameplayService::getNumberOfPlaystacks() 
+	{
+		return level_controller->getNumberOfPlaystacks();
 	}
 
 	void GameplayService::destroy()

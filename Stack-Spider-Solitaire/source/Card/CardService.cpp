@@ -1,10 +1,10 @@
 #include "../../header/Card/CardService.h"
 #include "../../header/Card/CardController.h"
 #include "../../header/Card/CardConfig.h"
-#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <ctime>
+#include <iostream>
 
 namespace Card
 {
@@ -15,11 +15,40 @@ namespace Card
 
 	CardService::~CardService() = default;
 
-	void CardService::initialize() { }
+	void CardService::initialize() 
+	{
+		gameplay_service = ServiceLocator::getInstance()->getGameplayService();
+		calculateCardExtends();
+		gameplay_service->populateCardPiles();
+	}
 
 	void CardService::update() { }
 
 	void CardService::render() { }
+
+	float CardService::getCardWidth() { return card_width; }
+
+	float CardService::getCardHeight() { return card_height; }
+
+	void CardService::calculateCardExtends()
+	{
+		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+		float total_width = game_window->getSize().x;
+
+		float total_spacing_width = gameplay_service->getTotalSpacingWidth();
+
+		card_width = calculateCardWidth(total_width-total_spacing_width);
+		card_height = card_width * card_height_to_width_ratio;
+		
+		std::cout << card_width << "\n";
+ 		std::cout << card_height << "\n";
+	}
+
+	float CardService::calculateCardWidth(float width_space_for_cards) 
+	{
+		int number_of_playstacks = gameplay_service->getNumberOfPlaystacks();
+		return width_space_for_cards / number_of_playstacks;
+	}
 
 	CardController* CardService::generateCard(Rank rank, Suit suit)
 	{
@@ -28,9 +57,6 @@ namespace Card
 
 	IStack<CardController*>* CardService::generateSequentialCardDeck()
 	{
-		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
-		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
-
 		IStack<CardController*>* card_deck = new ArrayStack::Stack<CardController*>();
 
 		for (int rank = 0; rank < static_cast<int>(number_of_ranks); rank++)

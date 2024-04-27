@@ -17,7 +17,6 @@ namespace Gameplay
         void createPlayStacks();
         void createSolutionStacks();
         void createDrawingStack();
-        void initializeStacks();
         void destroy();
 
     public:
@@ -29,6 +28,7 @@ namespace Gameplay
 
         void initialize();
 
+        void populateCardPiles();
         void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);

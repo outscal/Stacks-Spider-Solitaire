@@ -101,7 +101,7 @@ namespace Stack
         {
             while (!empty())
             {
-                pop();
+                delete(pop());
             }
         }
     }

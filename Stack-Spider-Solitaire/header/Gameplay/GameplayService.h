@@ -1,8 +1,11 @@
 #pragma once
 #include "../../header/Gameplay/LevelController.h"
+#include "../Card/CardController.h"
 
 namespace Gameplay
 {
+	using namespace Card;
+
 	class GameplayService
 	{
 	private:
@@ -20,7 +23,7 @@ namespace Gameplay
 		void update();
 		void render();
 
-		void populateCardPiles();
+		void populateCardPiles(IStack<CardController*>* temp_card_deck);
 		float getTotalSpacingWidth();
 		int getNumberOfPlaystacks();
 	};

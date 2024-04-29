@@ -32,9 +32,9 @@ namespace Gameplay
 		level_view->render();
 	}
 
-	void LevelController::populateCardPiles()
+	void LevelController::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
-		level_model->populateCardPiles();
+		level_model->populateCardPiles(temp_card_deck);
 	}
 
 	float LevelController::getTotalSpacingWidth()

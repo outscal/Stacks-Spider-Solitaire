@@ -1,6 +1,8 @@
+#pragma once
 #include "../../header/Card/CardView.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Card/CardController.h"
+#include "../../header/Card/CardConfig.h"
 
 namespace Card
 {
@@ -34,7 +36,20 @@ namespace Card
 
 	void CardView::render()
 	{
+		card_button_view->setTexture(getCardTexturePath(card_controller->getCardType()));
 		card_button_view->render();
+	}
+
+	sf::String CardView::getCardTexturePath(CardType* card_type)
+	{
+		if (card_type->state == State::CLOSE)
+		{
+			return sf::String("assets/textures/cards/closed_card.png");
+		}
+
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks);
+		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
+		return path;
 	}
 
 	void CardView::updateCardView()

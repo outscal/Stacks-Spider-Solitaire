@@ -3,10 +3,12 @@
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Gameplay/LevelView.h"
 #include "../../header/Stack/IStack.h"
+#include "../Card/CardController.h"
 
 namespace Gameplay
 {
     using namespace Stack;
+    using namespace Card;
 
     class LevelController
     {
@@ -22,7 +24,7 @@ namespace Gameplay
         void update();
         void render();
 
-        void populateCardPiles();
+        void populateCardPiles(IStack<CardController*>* temp_card_deck);
         float getTotalSpacingWidth();
         int getNumberOfPlaystacks();
 

@@ -1,4 +1,5 @@
 #include "../../header/UI/UIElement/ImageView.h"
+#include <iostream>
 
 namespace UI
 {
@@ -36,6 +37,10 @@ namespace UI
             if (image_texture.loadFromFile(texture_path))
             {
                 image_sprite.setTexture(image_texture);
+            }
+            else
+            {
+                std::cout << "No texture available at the path: " << texture_path.toAnsiString();
             }
         }
 

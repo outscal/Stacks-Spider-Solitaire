@@ -1,7 +1,10 @@
+#pragma once
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Card/CardService.h"
+#include "../../header/Card/CardController.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
+#include "../../header/Stack/IStack.h"
 
 namespace Gameplay
 {
@@ -46,10 +49,8 @@ namespace Gameplay
 
 	void LevelModel::initialize() { }
 
-	void LevelModel::populateCardPiles()
+	void LevelModel::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
-		IStack<CardController*>* temp_card_deck = ServiceLocator::getInstance()->getCardService()->generateSequentialCardDeck();
-
 		// Adding one card in play stacks for visualization purpose. 
 		for (int i = 0; i < number_of_play_stacks; i++)
 		{

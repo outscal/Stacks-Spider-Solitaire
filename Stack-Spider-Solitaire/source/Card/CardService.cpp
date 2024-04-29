@@ -1,3 +1,4 @@
+#pragma once
 #include "../../header/Card/CardService.h"
 #include "../../header/Card/CardController.h"
 #include "../../header/Card/CardConfig.h"
@@ -19,7 +20,7 @@ namespace Card
 	{
 		gameplay_service = ServiceLocator::getInstance()->getGameplayService();
 		calculateCardExtends();
-		gameplay_service->populateCardPiles();
+		gameplay_service->populateCardPiles(generateSequentialCardDeck());
 	}
 
 	void CardService::update() { }

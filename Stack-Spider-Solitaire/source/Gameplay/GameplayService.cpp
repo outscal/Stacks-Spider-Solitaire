@@ -33,9 +33,9 @@ namespace Gameplay
 		level_controller->render();
 	}
 
-	void GameplayService::populateCardPiles()
+	void GameplayService::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
-		level_controller->populateCardPiles();
+		level_controller->populateCardPiles(temp_card_deck);
 	}
 
 	float GameplayService::getTotalSpacingWidth()

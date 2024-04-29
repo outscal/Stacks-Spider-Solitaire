@@ -47,7 +47,7 @@ namespace Card
 			return sf::String("assets/textures/cards/closed_card.png");
 		}
 
-		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks);
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks) + 1;
 		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
 		return path;
 	}

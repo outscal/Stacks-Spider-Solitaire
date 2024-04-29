@@ -4,7 +4,7 @@ namespace Card
 {
 	CardModel::CardModel(Rank rank, Suit suit)
 	{
-		card_type = new CardType(rank, suit, State::CLOSE);
+		card_type = new CardType(rank, suit, State::OPEN);
 	}
 
 	CardModel::~CardModel()

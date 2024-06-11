@@ -25,11 +25,13 @@ namespace Gameplay
         void render();
 
         void populateCardPiles(IStack<CardController*>* temp_card_deck);
-        float getTotalCardSpacingWidth();
-        int getNumberOfPlaystacks();
+        void processCard(CardController* card_to_process);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();
+
+        float getTotalCardSpacingWidth();
+        int getNumberOfPlaystacks();
     };
 }

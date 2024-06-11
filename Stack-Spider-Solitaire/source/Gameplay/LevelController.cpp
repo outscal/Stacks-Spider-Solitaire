@@ -37,6 +37,11 @@ namespace Gameplay
 		level_model->populateCardPiles(temp_card_deck);
 	}
 
+	void LevelController::processCard(CardController* card_to_process)
+	{
+		level_model->drawCard();
+	}
+
 	float LevelController::getTotalCardSpacingWidth()
 	{
 		return level_view->getTotalCardSpacingWidth();

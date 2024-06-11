@@ -17,6 +17,9 @@ namespace Card
         UI::UIElement::ButtonView* card_button_view;
 
         sf::String getCardTexturePath(CardData* card_type);
+        void initializeButton();
+        void registerButtonCallback();
+        void cardButtonCallback();
 
     public:
         CardView();

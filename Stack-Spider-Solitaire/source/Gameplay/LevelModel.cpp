@@ -86,6 +86,11 @@ namespace Gameplay
 		drawing_stack->push(card_controller);
 	}
 
+	void LevelModel::drawCard()
+	{
+		drawing_stack->pop();
+	}
+
 	std::vector<IStack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
 	{
 		return play_stacks;

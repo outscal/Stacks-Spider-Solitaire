@@ -9,7 +9,6 @@ namespace Gameplay
 	class GameplayService
 	{
 	private:
-		GameplayService* gameplay_service;
 		LevelController* level_controller;
 
 		void createLevelController();
@@ -24,6 +23,8 @@ namespace Gameplay
 		void render();
 
 		void populateCardPiles(IStack<CardController*>* temp_card_deck);
+		void processCard(CardController* card_to_process);
+
 		float getTotalCardSpacingWidth();
 		int getNumberOfPlaystacks();
 	};

@@ -37,9 +37,9 @@ namespace Gameplay
 		level_model->populateCardPiles(temp_card_deck);
 	}
 
-	float LevelController::getTotalSpacingWidth()
+	float LevelController::getTotalCardSpacingWidth()
 	{
-		return level_view->getTotalSpacingWidth();
+		return level_view->getTotalCardSpacingWidth();
 	}
 
 	int LevelController::getNumberOfPlaystacks()

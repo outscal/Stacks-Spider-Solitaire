@@ -4,9 +4,9 @@
 
 namespace Card
 {
-    struct CardType
+    struct CardData
     {
-        CardType(Rank card_rank, Suit card_suit, State card_state)
+        CardData(Rank card_rank, Suit card_suit, State card_state)
         {
             rank = card_rank;
             suit = card_suit;
@@ -21,7 +21,7 @@ namespace Card
     class CardModel
     {
     private:
-        CardType* card_type;
+        CardData* card_data;
         sf::Vector2f position;
 
     public:
@@ -31,6 +31,6 @@ namespace Card
         void setPosition(sf::Vector2f card_position);
         sf::Vector2f getPosition();
 
-        CardType* getCardType();
+        CardData* getCardData();
     };
 }

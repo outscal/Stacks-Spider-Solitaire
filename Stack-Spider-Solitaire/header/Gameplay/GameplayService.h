@@ -24,7 +24,7 @@ namespace Gameplay
 		void render();
 
 		void populateCardPiles(IStack<CardController*>* temp_card_deck);
-		float getTotalSpacingWidth();
+		float getTotalCardSpacingWidth();
 		int getNumberOfPlaystacks();
 	};
 }

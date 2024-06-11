@@ -18,7 +18,7 @@ namespace Card
         void update();
         void render();
 
-        CardType* getCardType();
+        CardData* getCardData();
 
         sf::Vector2f getCardPosition();
         void setCardPosition(sf::Vector2f card_position);

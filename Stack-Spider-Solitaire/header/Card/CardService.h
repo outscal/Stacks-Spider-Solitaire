@@ -7,7 +7,6 @@ namespace Card
 {
 	using namespace Stack;
 	using namespace Gameplay;
-	using namespace Card;
 
 	class CardService
 	{
@@ -21,6 +20,7 @@ namespace Card
 		void shuffleDeck(IStack<CardController*>* card_deck);
 		void calculateCardExtends();
 		float calculateCardWidth(float width_space_for_cards);
+		float calculateCardHeight(float card_width);
 
 	public:
 		CardService();
@@ -33,8 +33,8 @@ namespace Card
 		float getCardWidth();
 		float getCardHeight();
 
-		CardController* generateCard(Rank rank, Suit suit);
 		IStack<CardController*>* generateRandomizedCardDeck();
 		IStack<CardController*>* generateSequentialCardDeck();
+		CardController* generateCard(Rank rank, Suit suit);
 	};
 }

@@ -57,7 +57,7 @@ namespace Gameplay
 			addCardInPlayStack(i, temp_card_deck->pop());
 		}
 
-		while (!temp_card_deck->empty())
+		while (!temp_card_deck->isEmpty())
 		{
 			addCardInDrawingStack(temp_card_deck->pop());
 		}

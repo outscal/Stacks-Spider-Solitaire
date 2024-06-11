@@ -67,7 +67,7 @@ namespace Gameplay
 	{ 
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
-			if (level_controller->getPlayStacks()[i]->empty()) continue;
+			if (level_controller->getPlayStacks()[i]->isEmpty()) continue;
 
 			float x_position = (i * ServiceLocator::getInstance()->getCardService()->getCardWidth()) + ((i + 1) * cards_horrizontal_spacing);
 			float y_position = play_deck_top_offset;
@@ -82,7 +82,7 @@ namespace Gameplay
 	{
 		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+			if (level_controller->getSolutionStacks()[i]->isEmpty()) continue;
 
 			float x_position = solution_deck_left_offset + (i * solution_deck_spacing);
 			float y_position = solution_deck_top_offset;
@@ -95,7 +95,7 @@ namespace Gameplay
 
 	void LevelView::updateDrawingStackView() 
 	{ 
-		if (level_controller->getDrawingStack()->empty()) return;
+		if (level_controller->getDrawingStack()->isEmpty()) return;
 
 		CardController* card_controller = level_controller->getDrawingStack()->peek();
 		card_controller->setCardPosition(sf::Vector2f(drawing_deck_left_offset, drawing_deck_top_offset));
@@ -106,11 +106,9 @@ namespace Gameplay
 	{
 		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
-			if (level_controller->getPlayStacks()[i]->empty()) continue;
+			if (level_controller->getPlayStacks()[i]->isEmpty()) continue;
 
 			CardController* card_controller = level_controller->getPlayStacks()[i]->peek();
-
-			std::cout << (int)card_controller->getCardType()->suit << " " << (int)card_controller->getCardType()->rank << "\n";
 
 			card_controller->render();
 		}
@@ -120,7 +118,7 @@ namespace Gameplay
 	{
 		for (int i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+			if (level_controller->getSolutionStacks()[i]->isEmpty()) continue;
 
 			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->render();
@@ -129,13 +127,13 @@ namespace Gameplay
 
 	void LevelView::renderDrawnigStack()
 	{
-		if (level_controller->getDrawingStack()->empty()) return;
+		if (level_controller->getDrawingStack()->isEmpty()) return;
 
 		CardController* card_controller = level_controller->getDrawingStack()->peek();
 		card_controller->render();
 	}
 
-	float LevelView::getTotalSpacingWidth()
+	float LevelView::getTotalCardSpacingWidth()
 	{
 		return (LevelModel::number_of_play_stacks + 1)* cards_horrizontal_spacing;
 	}

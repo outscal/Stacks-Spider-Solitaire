@@ -2,7 +2,7 @@
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Card/CardController.h"
 #include <vector>

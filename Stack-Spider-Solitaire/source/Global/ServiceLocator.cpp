@@ -3,6 +3,7 @@
 
 namespace Global
 {
+	using namespace Main;
 	using namespace Graphics;
 	using namespace Event;
 	using namespace Sound;

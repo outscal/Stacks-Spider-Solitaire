@@ -1,5 +1,5 @@
 #pragma once
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 #include "../../header/Event/EventService.h"
 #include "../../header/UI/UIService.h"
 #include "../../header/Sound/SoundService.h"
@@ -10,7 +10,7 @@ namespace Global
     {
     private:
         Event::EventService* event_service;
-        Main::GraphicService* graphic_service;
+        Graphics::GraphicService* graphic_service;
         Sound::SoundService* sound_service;
         UI::UIService* ui_service;
 
@@ -28,7 +28,7 @@ namespace Global
         void render();
 
         Event::EventService* getEventService();
-        Main::GraphicService* getGraphicService();
+        Graphics::GraphicService* getGraphicService();
         Sound::SoundService* getSoundService();
         UI::UIService* getUIService();
         void deleteServiceLocator();

@@ -1,6 +1,6 @@
 #include "../../header/UI/SplashScreen/SplashScreenUIController.h"
 #include "../../header/Main/GameService.h"
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"

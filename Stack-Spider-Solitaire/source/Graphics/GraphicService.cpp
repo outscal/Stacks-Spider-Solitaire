@@ -1,6 +1,6 @@
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 
-namespace Main
+namespace Graphics
 {
 	GraphicService::GraphicService()
 	{

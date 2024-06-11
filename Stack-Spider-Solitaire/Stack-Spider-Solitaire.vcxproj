@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\Time\TimeService.cpp" />
     <ClCompile Include="source\UI\UIElement\AnimatedImageView.cpp" />
     <ClCompile Include="source\UI\UIElement\ButtonView.cpp" />
     <ClCompile Include="source\Global\Config.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="source\UI\UIElement\UIView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\Time\TimeService.h" />
     <ClInclude Include="header\UI\UIElement\AnimatedImageView.h" />
     <ClInclude Include="header\UI\UIElement\ButtonView.h" />
     <ClInclude Include="header\Global\Config.h" />

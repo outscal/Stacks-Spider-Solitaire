@@ -1,7 +1,7 @@
+#pragma once
 #include "../../header/Card/CardService.h"
 #include "../../header/Card/CardController.h"
 #include "../../header/Card/CardConfig.h"
-#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <ctime>
@@ -16,11 +16,44 @@ namespace Card
 
 	CardService::~CardService() = default;
 
-	void CardService::initialize() { }
+	void CardService::initialize() 
+	{
+		gameplay_service = ServiceLocator::getInstance()->getGameplayService();
+
+		calculateCardExtends();
+
+		gameplay_service->populateCardPiles(generateSequentialCardDeck());
+	}
 
 	void CardService::update() { }
 
 	void CardService::render() { }
+
+	float CardService::getCardWidth() { return card_width; }
+
+	float CardService::getCardHeight() { return card_height; }
+
+	void CardService::calculateCardExtends()
+	{
+		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+		float total_width = game_window->getSize().x;
+
+		float total_spacing_width = gameplay_service->getTotalCardSpacingWidth();
+
+		card_width = calculateCardWidth(total_width-total_spacing_width);
+		card_height = calculateCardHeight(card_width);
+	}
+
+	float CardService::calculateCardWidth(float width_space_for_cards) 
+	{
+		int number_of_playstacks = gameplay_service->getNumberOfPlaystacks();
+		return width_space_for_cards / number_of_playstacks;
+	}
+
+	float CardService::calculateCardHeight(float card_width)
+	{
+		return card_width * card_height_to_width_ratio;
+	}
 
 	CardController* CardService::generateCard(Rank rank, Suit suit)
 	{
@@ -29,16 +62,13 @@ namespace Card
 
 	IStack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
-		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
-		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
-
 		IStack<CardController*>* card_deck = new ArrayStack::Stack<CardController*>();
 
 		for (int i = 0; i < number_of_decks; i++)
 		{
-			for (int rank = 1; rank <= static_cast<int>(number_of_ranks); rank++)
+			for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 			{
-				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
+				for (int rank = 0; rank < static_cast<int>(number_of_ranks); rank++)
 				{
 					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
 
@@ -63,7 +93,7 @@ namespace Card
 	{
 		std::vector<CardController*> card_deck_to_shuffle;
 
-		while (!card_deck->empty())
+		while (!card_deck->isEmpty())
 		{
 			card_deck_to_shuffle.push_back(card_deck->pop());
 		}

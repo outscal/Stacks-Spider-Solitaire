@@ -2,11 +2,12 @@
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Card/CardController.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <vector>
+#include <iostream>
 
 namespace Gameplay
 {
@@ -29,7 +30,6 @@ namespace Gameplay
 	{
 		level_controller = controller;
 		initializeBackgroudImage();
-		calculateCardExtents();
 	}
 
 	void LevelView::createImage()
@@ -102,7 +102,7 @@ namespace Gameplay
 	{
 		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+			if (level_controller->getSolutionStacks()[i]->isEmpty()) continue;
 
 			float x_position = solution_deck_left_offset + (i * solution_deck_horizontal_spacing);
 			float y_position = solution_deck_top_offset;
@@ -165,7 +165,7 @@ namespace Gameplay
 	{
 		for (int i = 0; i < LevelModel::number_of_solution_stacks; i++)
 		{
-			if (level_controller->getSolutionStacks()[i]->empty()) continue;
+			if (level_controller->getSolutionStacks()[i]->isEmpty()) continue;
 
 			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->render();
@@ -190,25 +190,9 @@ namespace Gameplay
 		}
 	}
 
-	float LevelView::getCardWidth()
+	float LevelView::getTotalCardSpacingWidth()
 	{
-		return card_width;
-	}
-
-	float LevelView::getCardHeight()
-	{
-		return card_height;
-	}
-
-	void LevelView::calculateCardExtents()
-	{
-		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-
-		float total_width = game_window->getSize().x;
-		float total_spacing_width = (LevelModel::number_of_play_stacks + 1) * cards_horrizontal_spacing;
-
-		card_width = (total_width - total_spacing_width) / LevelModel::number_of_play_stacks;
-		card_height = card_width * height_to_width_ratio;
+		return (LevelModel::number_of_play_stacks + 1)* cards_horrizontal_spacing;
 	}
 
 	void LevelView::destroy()

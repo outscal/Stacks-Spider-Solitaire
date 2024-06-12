@@ -46,14 +46,27 @@ namespace Gameplay
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 	}
 
-	float LevelController::getCardWidth()
+	void LevelController::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
-		return level_view->getCardWidth();
+		level_model->populateCardPiles(temp_card_deck);
 	}
 
-	float LevelController::getCardHeight()
+	void LevelController::processCard(CardController* card_to_process)
 	{
-		return level_view->getCardHeight();
+		IStack<CardController*>* drawingDeck = level_model->getDrawingStack();
+		
+		if (drawingDeck->peek() == card_to_process)
+			drawingDeck->pop();
+	}
+
+	float LevelController::getTotalCardSpacingWidth()
+	{
+		return level_view->getTotalCardSpacingWidth();
+	}
+
+	int LevelController::getNumberOfPlaystacks()
+	{
+		return level_model->number_of_play_stacks;
 	}
 
 	float LevelController::getElapsedTime()

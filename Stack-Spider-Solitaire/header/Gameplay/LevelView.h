@@ -11,7 +11,6 @@ namespace Gameplay
     class LevelView
     {
     private:
-        const float height_to_width_ratio = 1.45f;
         const float cards_horrizontal_spacing = 40.f;
         const float cards_vertical_spacing = 25.f;
 
@@ -26,9 +25,6 @@ namespace Gameplay
         const float solution_deck_horizontal_spacing = 40.f;
 
         const float background_alpha = 85.f;
-
-        float card_width;
-        float card_height;
 
         LevelController* level_controller;
         UI::UIElement::ImageView* background_image;
@@ -48,7 +44,6 @@ namespace Gameplay
         void renderSolutionStacks();
         void renderDrawnigStack();
 
-        void calculateCardExtents();
         void destroy();
 
     public:
@@ -59,7 +54,6 @@ namespace Gameplay
         void update();
         void render();
 
-        float getCardWidth();
-        float getCardHeight();
+        float getTotalCardSpacingWidth();
     };
 }

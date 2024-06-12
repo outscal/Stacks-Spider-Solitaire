@@ -1,9 +1,10 @@
+#pragma once
 #include "../../header/Card/CardView.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Card/CardController.h"
+#include "../../header/Card/CardConfig.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Sound/SoundService.h"
-#include "../../header/Card/CardTexture.h"
 
 namespace Card
 {
@@ -27,24 +28,43 @@ namespace Card
 		card_width = width;
 		card_height = height;
 
-		card_button_view->initialize("Card", getCardTexturePath(), card_width, card_height, sf::Vector2f(30, 30));
-		registerButtonCallback();
+		initializeButton();
+	}
+
+	void CardView::initializeButton()
+	{
+		card_button_view->initialize("Card", Config::closed_card_texture_path, card_width, card_height, sf::Vector2f(30,30));
+		card_button_view->registerCallbackFuntion(std::bind(&CardView::cardButtonCallback, this));
 	}
 
 	void CardView::update()
 	{
-		updateCardView();
+		card_button_view->setPosition(card_controller->getCardPosition());
 		card_button_view->update();
 	}
 
 	void CardView::render()
 	{
+		card_button_view->setTexture(getCardTexturePath(card_controller->getCardData()));
 		card_button_view->render();
 	}
 
-	void CardView::updateCardView()
+	sf::String CardView::getCardTexturePath(CardData* card_type)
 	{
-		card_button_view->setPosition(card_controller->getCardPosition());
+		if (card_type->state == State::CLOSE)
+		{
+			return sf::String("assets/textures/cards/closed_card.png");
+		}
+
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks) + 1;
+		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
+		return path;
+	}
+
+	void CardView::cardButtonCallback()
+	{
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+		ServiceLocator::getInstance()->getGameplayService()->processCard(card_controller);
 	}
 
 	void CardView::updateCardTexture()

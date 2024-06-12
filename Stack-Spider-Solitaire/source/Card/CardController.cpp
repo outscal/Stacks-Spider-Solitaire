@@ -29,9 +29,9 @@ namespace Card
 		card_view->render();
 	}
 
-	CardType* CardController::getCardType()
+	CardData* CardController::getCardData()
 	{
-		return card_model->getCardType();
+		return card_model->getCardData();
 	}
 
 	void CardController::setCardState(State card_state)

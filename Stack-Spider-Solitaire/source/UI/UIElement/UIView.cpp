@@ -1,13 +1,13 @@
 #include "../../header/UI/UIElement/UIView.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 
 namespace UI
 {
 	namespace UIElement
 	{
 		using namespace Global;
-		using namespace Main;
+		using namespace Graphics;
 
 		UIView::UIView() = default;
 

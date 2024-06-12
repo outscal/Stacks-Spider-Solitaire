@@ -38,14 +38,24 @@ namespace Gameplay
 		level_controller->startLevel();
 	}
 
-	float GameplayService::getCardWidth()
+	void GameplayService::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
-		return level_controller->getCardWidth();
+		level_controller->populateCardPiles(temp_card_deck);
 	}
 
-	float GameplayService::getCardHeight()
+	void GameplayService::processCard(CardController* card_to_process)
 	{
-		return level_controller->getCardHeight();
+		level_controller->processCard(card_to_process);
+	}
+
+	float GameplayService::getTotalCardSpacingWidth()
+	{
+		return level_controller->getTotalCardSpacingWidth();
+	}
+
+	int GameplayService::getNumberOfPlaystacks() 
+	{
+		return level_controller->getNumberOfPlaystacks();
 	}
 
 	float GameplayService::getElapsedTime()

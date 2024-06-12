@@ -4,12 +4,12 @@ namespace Card
 {
 	CardModel::CardModel(Rank rank, Suit suit)
 	{
-		card_type = new CardType(rank, suit, State::CLOSE);
+		card_data = new CardData(rank, suit, State::OPEN);
 	}
 
 	CardModel::~CardModel()
 	{
-		delete (card_type);
+		delete (card_data);
 	}
 
 	void CardModel::setPosition(sf::Vector2f card_position)
@@ -27,8 +27,8 @@ namespace Card
 		card_type->state = card_state;
 	}
 
-	CardType* CardModel::getCardType()
+	CardData* CardModel::getCardData()
 	{
-		return card_type;
+		return card_data;
 	}
 }

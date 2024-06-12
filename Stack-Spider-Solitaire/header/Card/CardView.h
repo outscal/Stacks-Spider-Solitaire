@@ -4,6 +4,7 @@
 namespace Card
 {
     class CardController;
+    class CardData;
 
     class CardView
     {
@@ -15,10 +16,10 @@ namespace Card
 
         UI::UIElement::ButtonView* card_button_view;
 
-        void updateCardView();
+        sf::String getCardTexturePath(CardData* card_type);
+        void initializeButton();
         void registerButtonCallback();
         void cardButtonCallback();
-        sf::String getCardTexturePath();
 
     public:
         CardView();

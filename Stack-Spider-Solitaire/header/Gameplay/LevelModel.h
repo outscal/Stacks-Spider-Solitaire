@@ -1,11 +1,12 @@
 #pragma once
+#include <vector>
 #include "../../header/Stack/IStack.h"
 #include "../../header/Card/CardController.h"
-#include <vector>
 
 namespace Gameplay
 {
     using namespace Stack;
+    using namespace Card;
 
     class LevelModel
     {
@@ -36,6 +37,7 @@ namespace Gameplay
         void initialize();
         void reset();
 
+        void populateCardPiles(IStack<CardController*>* temp_card_deck);
         void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);

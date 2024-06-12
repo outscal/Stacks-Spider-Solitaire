@@ -1,7 +1,6 @@
 #pragma once
 #include "../../header/Stack/IStack.h"
 #include <array>
-#include <cstdio>
 
 namespace Stack
 {
@@ -23,8 +22,8 @@ namespace Stack
             void push(T data) override;
             T pop() override;
             T peek() override;
-            bool empty() override;
-            int size() override;
+            bool isEmpty() override;
+            int getSize() override;
             void clear() override;
         };
     }
@@ -59,7 +58,7 @@ namespace Stack
         template <class T>
         T Stack<T>::pop()
         {
-            if (!empty())
+            if (!isEmpty())
             {
                 return array_stack[--top];
             }
@@ -73,7 +72,7 @@ namespace Stack
         template <class T>
         T Stack<T>::peek()
         {
-            if (!empty())
+            if (!isEmpty())
             {
                 return array_stack[top - 1];
             }
@@ -85,13 +84,13 @@ namespace Stack
         }
 
         template <class T>
-        bool Stack<T>::empty()
+        bool Stack<T>::isEmpty()
         {
             return top == 0;
         }
 
         template <class T>
-        int Stack<T>::size()
+        int Stack<T>::getSize()
         {
             return top;
         }
@@ -99,10 +98,11 @@ namespace Stack
         template <class T>
         void Stack<T>::clear()
         {
-            while (!empty())
+            while (!isEmpty())
             {
-                pop();
+                delete(pop());
             }
         }
     }
+    
 }

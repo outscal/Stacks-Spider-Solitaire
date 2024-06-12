@@ -34,8 +34,6 @@ namespace Gameplay
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
 
-        void drawCard();
-
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();

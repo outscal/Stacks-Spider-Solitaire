@@ -39,7 +39,10 @@ namespace Gameplay
 
 	void LevelController::processCard(CardController* card_to_process)
 	{
-		level_model->drawCard();
+		IStack<CardController*>* drawingDeck = level_model->getDrawingStack();
+		
+		if (drawingDeck->peek() == card_to_process)
+			drawingDeck->pop();
 	}
 
 	float LevelController::getTotalCardSpacingWidth()

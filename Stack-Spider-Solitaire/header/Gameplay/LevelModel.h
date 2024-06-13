@@ -11,7 +11,6 @@ namespace Gameplay
     class LevelModel
     {
     private:
-        const int number_of_decks = 4;
         const int drawing_deck_stack_size = 50;
 
         std::vector<IStack<Card::CardController*>*> play_stacks;
@@ -21,15 +20,33 @@ namespace Gameplay
         void createPlayStacks();
         void createSolutionStacks();
         void createDrawingStack();
-        void initializeStacks();
         void openPlayStacksTopCard();
         void destroy();
         void deleteAllStackElemets();
         void deleteStackElements(IStack<Card::CardController*>* stack);
 
+        void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
+        void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
+        void addCardInDrawingStack(Card::CardController* card_controller);
+
     public:
         static const int number_of_play_stacks = 10;
         static const int number_of_solution_stacks = 8;
+
+        // Spacings:
+        static constexpr float cards_horrizontal_spacing = 40.f;
+        static constexpr float cards_vertical_spacing = 25.f;
+
+        // Offsets:
+        static constexpr float play_deck_top_offset = 90.f;
+
+        static constexpr float drawing_deck_top_offset = 770.f;
+        static constexpr float drawing_deck_left_offset = 1670.f;
+        static constexpr float drawing_deck_horizontal_spacing = 40.f;
+
+        static constexpr float solution_deck_top_offset = 700.f;
+        static constexpr float solution_deck_left_offset = 200.f;
+        static constexpr float solution_deck_horizontal_spacing = 40.f;
 
         LevelModel();
         ~LevelModel();
@@ -38,9 +55,6 @@ namespace Gameplay
         void reset();
 
         void populateCardPiles(IStack<CardController*>* temp_card_deck);
-        void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
-        void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
-        void addCardInDrawingStack(Card::CardController* card_controller);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();

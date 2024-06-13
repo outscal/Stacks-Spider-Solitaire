@@ -43,9 +43,9 @@ namespace Gameplay
 		level_controller->populateCardPiles(temp_card_deck);
 	}
 
-	void GameplayService::processCard(CardController* card_to_process)
+	void GameplayService::processCardClick(CardController* card_to_process)
 	{
-		level_controller->processCard(card_to_process);
+		level_controller->processCardClick(card_to_process);
 	}
 
 	float GameplayService::getTotalCardSpacingWidth()

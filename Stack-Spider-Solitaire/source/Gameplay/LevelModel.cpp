@@ -51,7 +51,8 @@ namespace Gameplay
 
 	void LevelModel::initialize() 
 	{
-		initializeStacks();
+		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
+		populateCardPiles(card_deck);
 		openPlayStacksTopCard();
 	}
 
@@ -63,11 +64,11 @@ namespace Gameplay
 
 	void LevelModel::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
-		while (temp_card_deck->size() > drawing_deck_stack_size)
+		while (temp_card_deck->getSize() > drawing_deck_stack_size)
 		{
 			for (int i = 0; i < number_of_play_stacks; i++)
 			{
-				if (temp_card_deck->size() <= drawing_deck_stack_size) break;
+				if (temp_card_deck->getSize() <= drawing_deck_stack_size) break;
 				addCardInPlayStack(i, temp_card_deck->pop());
 			}
 		}
@@ -141,7 +142,7 @@ namespace Gameplay
 
 	void LevelModel::deleteStackElements(IStack<Card::CardController*>* stack)
 	{
-		while (!stack->empty())
+		while (!stack->isEmpty())
 		{
 			CardController* card_controller = stack->pop();
 			delete card_controller;

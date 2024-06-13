@@ -36,7 +36,7 @@ namespace Gameplay
         float getElapsedTime();
         
         void populateCardPiles(IStack<CardController*>* temp_card_deck);
-        void processCard(CardController* card_to_process);
+        void processCardClick(CardController* card_to_process);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
@@ -44,5 +44,6 @@ namespace Gameplay
 
         float getTotalCardSpacingWidth();
         int getNumberOfPlaystacks();
+        sf::Vector2f calculatePlayCardPosition(int stack_index, int stack_size, int card_stack_position);
     };
 }

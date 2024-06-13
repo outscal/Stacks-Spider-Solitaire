@@ -21,8 +21,8 @@ namespace Stack
             void push(T data) override;
             T pop() override;
             T peek() override;
-            bool empty() override;
-            int size() override;
+            bool isEmpty() override;
+            int getSize() override;
             void clear() override;
         };
     }
@@ -51,7 +51,7 @@ namespace Stack
         template <class T>
         T Stack<T>::pop()
         {
-            if (!empty())
+            if (!isEmpty())
             {
                 T data = linked_list_stack.front();
                 linked_list_stack.pop_front();
@@ -68,7 +68,7 @@ namespace Stack
         template <class T>
         T Stack<T>::peek()
         {
-            if (!empty())
+            if (!isEmpty())
             {
                 return linked_list_stack.front();
             }
@@ -80,13 +80,13 @@ namespace Stack
         }
 
         template <class T>
-        bool Stack<T>::empty()
+        bool Stack<T>::isEmpty()
         {
             return linked_list_stack.empty();
         }
 
         template <class T>
-        int Stack<T>::size()
+        int Stack<T>::getSize()
         {
             return stack_size;
         }
@@ -94,7 +94,7 @@ namespace Stack
         template <class T>
         void Stack<T>::clear()
         {
-            while (!empty())
+            while (!isEmpty())
             {
                 pop();
             }

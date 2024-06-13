@@ -1,6 +1,6 @@
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 
 namespace Gameplay
 {
@@ -51,7 +51,7 @@ namespace Gameplay
 		level_model->populateCardPiles(temp_card_deck);
 	}
 
-	void LevelController::processCard(CardController* card_to_process)
+	void LevelController::processCardClick(CardController* card_to_process)
 	{
 		IStack<CardController*>* drawingDeck = level_model->getDrawingStack();
 		
@@ -61,12 +61,24 @@ namespace Gameplay
 
 	float LevelController::getTotalCardSpacingWidth()
 	{
-		return level_view->getTotalCardSpacingWidth();
+		return (level_model->number_of_play_stacks + 1) * level_model->cards_horrizontal_spacing;
 	}
 
 	int LevelController::getNumberOfPlaystacks()
 	{
 		return level_model->number_of_play_stacks;
+	}
+
+	sf::Vector2f LevelController::calculatePlayCardPosition(int stack_index, int stack_size, int card_stack_position)
+	{
+		float card_width_offset = (stack_index * ServiceLocator::getInstance()->getCardService()->getCardWidth());
+		float card_spacing_offset = ((stack_index + 1) * level_model->cards_horrizontal_spacing);
+		float x_position = +card_width_offset + card_spacing_offset;
+
+		float card_position_offset = ((stack_size - card_stack_position) * level_model->cards_vertical_spacing);
+		float y_position = level_model->play_deck_top_offset + card_position_offset;
+
+		return sf::Vector2f(x_position, y_position);
 	}
 
 	float LevelController::getElapsedTime()

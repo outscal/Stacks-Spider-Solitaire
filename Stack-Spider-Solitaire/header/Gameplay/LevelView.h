@@ -11,18 +11,6 @@ namespace Gameplay
     class LevelView
     {
     private:
-        const float cards_horrizontal_spacing = 40.f;
-        const float cards_vertical_spacing = 25.f;
-
-        const float play_deck_top_offset = 90.f;
-
-        const float drawing_deck_top_offset = 770.f;
-        const float drawing_deck_left_offset = 1670.f;
-        const float drawing_deck_horizontal_spacing = 40.f;
-
-        const float solution_deck_top_offset = 700.f;
-        const float solution_deck_left_offset = 200.f;
-        const float solution_deck_horizontal_spacing = 40.f;
 
         const float background_alpha = 85.f;
 
@@ -33,7 +21,7 @@ namespace Gameplay
         void initializeBackgroudImage();
 
         void updatePlayStacksView();
-        void updatePlayStackCards(IStack<Card::CardController*>& stack, int stack_position);
+        void updateSinglePlayStackView(IStack<Card::CardController*>& stack, int stack_position);
 
         void updateSolutionStacksView();      
         void updateDrawingStackView();
@@ -53,7 +41,5 @@ namespace Gameplay
         void initialize(LevelController* controller);
         void update();
         void render();
-
-        float getTotalCardSpacingWidth();
     };
 }

@@ -4,7 +4,7 @@ namespace Card
 {
 	CardModel::CardModel(Rank rank, Suit suit)
 	{
-		card_data = new CardData(rank, suit, State::OPEN);
+		card_data = new CardData(rank, suit, State::CLOSE);
 	}
 
 	CardModel::~CardModel()
@@ -24,7 +24,7 @@ namespace Card
 
 	void CardModel::setCardState(State card_state)
 	{
-		card_type->state = card_state;
+		card_data->state = card_state;
 	}
 
 	CardData* CardModel::getCardData()

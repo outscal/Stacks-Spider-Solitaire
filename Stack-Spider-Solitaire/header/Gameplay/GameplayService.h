@@ -28,7 +28,7 @@ namespace Gameplay
 		float getElapsedTime();
 
 		void populateCardPiles(IStack<CardController*>* temp_card_deck);
-		void processCard(CardController* card_to_process);
+		void processCardClick(CardController* card_to_process);
 
 		float getTotalCardSpacingWidth();
 		int getNumberOfPlaystacks();

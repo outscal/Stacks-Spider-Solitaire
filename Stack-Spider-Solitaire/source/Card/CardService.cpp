@@ -19,10 +19,7 @@ namespace Card
 	void CardService::initialize() 
 	{
 		gameplay_service = ServiceLocator::getInstance()->getGameplayService();
-
 		calculateCardExtends();
-
-		gameplay_service->populateCardPiles(generateSequentialCardDeck());
 	}
 
 	void CardService::update() { }

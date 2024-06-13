@@ -18,7 +18,6 @@ namespace Card
 
         sf::String getCardTexturePath(CardData* card_type);
         void initializeButton();
-        void registerButtonCallback();
         void cardButtonCallback();
 
     public:

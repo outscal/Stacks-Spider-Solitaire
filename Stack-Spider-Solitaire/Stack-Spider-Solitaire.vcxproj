@@ -50,10 +50,8 @@
     <ClInclude Include="header\Card\CardController.h" />
     <ClInclude Include="header\Card\CardModel.h" />
     <ClInclude Include="header\Card\CardService.h" />
-    <ClInclude Include="header\Card\CardTexture.h" />
     <ClInclude Include="header\Card\CardView.h" />
     <ClInclude Include="header\UI\Gameplay\GameplayUIController.h" />
-    <ClInclude Include="header\Global\TimeService.h" />
     <ClInclude Include="header\Stack\ArrayStack\ArrayStack.h" />
     <ClInclude Include="header\Gameplay\LevelController.h" />
     <ClInclude Include="header\Gameplay\LevelModel.h" />

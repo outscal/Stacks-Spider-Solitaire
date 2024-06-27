@@ -230,6 +230,11 @@ namespace Gameplay
 		Card::Rank previous_card_rank = previously_selected_card_controller->getCardType()->rank;
 		Card::Rank current_card_rank = selected_card_controller->getCardType()->rank;
 
+
+		if (current_card_rank == Card::Rank::DEFAULT) {
+			return true;
+		}
+
 		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
 	}
 

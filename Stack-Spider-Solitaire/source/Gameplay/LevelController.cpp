@@ -82,8 +82,13 @@ namespace Gameplay
 
 	void LevelController::processCardDraw(CardController* selected_card_controller)
 	{
-		if (previously_selected_card_controller) unselectCards(previously_selected_card_controller);
-		if (getDrawingStack()->contains(selected_card_controller)) drawCards();
+		
+		if (getDrawingStack()->contains(selected_card_controller))
+		{
+			drawCards();
+
+			if (previously_selected_card_controller) unselectCards(previously_selected_card_controller); 
+		}
 	}
 
 	void LevelController::processCardMove(Card::CardController* selected_card_controller)
@@ -342,7 +347,12 @@ namespace Gameplay
 
 	void LevelController::setCardToProcessInput(Card::CardController* selected_card_controller)
 	{
-		flagged_card_to_process_input = selected_card_controller;
+		if (selected_card_controller->getCardState() == Card::State::OPEN || getDrawingStack()->contains(selected_card_controller))
+		{
+			flagged_card_to_process_input = selected_card_controller;
+
+		}
+		
 	}
 
 	float LevelController::getCardWidth()

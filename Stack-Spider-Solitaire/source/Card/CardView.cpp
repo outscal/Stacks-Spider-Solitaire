@@ -7,6 +7,7 @@
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Event/EventService.h"
 
+
 namespace Card
 {
 	using namespace UI::UIElement;
@@ -90,7 +91,6 @@ namespace Card
 	{
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
 		ServiceLocator::getInstance()->getGameplayService()->setCardToProcessInput(card_controller);
-		ServiceLocator::getInstance()->getEventService()->setLeftMouseButtonState(ButtonState::HELD);
 	}
 
 	sf::String CardView::getCardTexturePath()

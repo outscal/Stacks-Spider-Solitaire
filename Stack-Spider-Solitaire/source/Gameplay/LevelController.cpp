@@ -347,12 +347,9 @@ namespace Gameplay
 
 	void LevelController::setCardToProcessInput(Card::CardController* selected_card_controller)
 	{
-		if (selected_card_controller->getCardState() == Card::State::OPEN || getDrawingStack()->contains(selected_card_controller))
-		{
-			flagged_card_to_process_input = selected_card_controller;
 
-		}
-		
+			flagged_card_to_process_input = selected_card_controller;
+	
 	}
 
 	float LevelController::getCardWidth()

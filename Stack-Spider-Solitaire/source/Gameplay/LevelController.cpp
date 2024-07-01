@@ -82,12 +82,13 @@ namespace Gameplay
 
 	void LevelController::processCardDraw(CardController* selected_card_controller)
 	{
+		if (previously_selected_card_controller) unselectCards(previously_selected_card_controller);
 		
 		if (getDrawingStack()->contains(selected_card_controller))
 		{
 			drawCards();
 
-			if (previously_selected_card_controller) unselectCards(previously_selected_card_controller); 
+			
 		}
 	}
 
@@ -137,6 +138,8 @@ namespace Gameplay
 			card_controller->hideCard(static_cast<float>(i) * LevelModel::card_hide_duration_multiplyer);
 			card_controller->setCardState(Card::State::OPEN);
 			level_model->addCardInPlayStack(i, card_controller);
+			if (isSuitComplete(level_model->getPlayStacks()[i])) processSuitCompletion(level_model->getPlayStacks()[i]);
+
 		}
 	}
 

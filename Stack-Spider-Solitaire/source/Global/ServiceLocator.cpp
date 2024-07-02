@@ -71,5 +71,5 @@ namespace Global
 
 	UIService* ServiceLocator::getUIService() { return ui_service; }
 
-	void ServiceLocator::deleteServiceLocator() { delete(this); }
+	
 }

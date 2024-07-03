@@ -130,7 +130,13 @@ namespace Gameplay
 		if (level_controller->getDrawingStack()->isEmpty()) return;
 
 		CardController* card_controller = level_controller->getDrawingStack()->peek();
-		card_controller->render();
+
+		
+		if (card_controller->positionSet)
+		{
+			card_controller->render();
+		}
+		
 	}
 
 	float LevelView::getTotalCardSpacingWidth()

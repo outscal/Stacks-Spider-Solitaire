@@ -42,5 +42,7 @@ namespace Card
 	void CardController::setCardPosition(sf::Vector2f card_position)
 	{
 		card_model->setPosition(card_position);
+		card_view->setCardPosition();
+		positionSet = true;
 	}
 }

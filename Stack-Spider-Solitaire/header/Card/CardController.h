@@ -22,5 +22,6 @@ namespace Card
 
         sf::Vector2f getCardPosition();
         void setCardPosition(sf::Vector2f card_position);
+        bool positionSet = false;
     };
 }

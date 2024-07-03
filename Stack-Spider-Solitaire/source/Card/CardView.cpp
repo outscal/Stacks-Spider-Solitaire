@@ -39,7 +39,7 @@ namespace Card
 
 	void CardView::update()
 	{
-		card_button_view->setPosition(card_controller->getCardPosition());
+		
 		card_button_view->update();
 	}
 
@@ -47,6 +47,11 @@ namespace Card
 	{
 		card_button_view->setTexture(getCardTexturePath(card_controller->getCardData()));
 		card_button_view->render();
+	}
+
+	void CardView::setCardPosition()
+	{
+		card_button_view->setPosition(card_controller->getCardPosition());
 	}
 
 	sf::String CardView::getCardTexturePath(CardData* card_type)

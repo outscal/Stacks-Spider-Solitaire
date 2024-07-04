@@ -11,6 +11,7 @@ namespace Global
 		static const sf::String level_background_texture_path;
 		static const sf::String closed_card_texture_path;
 		static const sf::String card_highlight_texture_path;
+		
 
 		static const sf::String play_button_texture_path;
 		static const sf::String instructions_button_texture_path;

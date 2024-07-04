@@ -105,7 +105,7 @@ namespace Global
 
 	CardService* ServiceLocator::getCardService() { return card_service; }
 
+
 	TimeService* ServiceLocator::getTimeService() { return time_service; }
 
-	void ServiceLocator::deleteServiceLocator() { delete(this); }
 }

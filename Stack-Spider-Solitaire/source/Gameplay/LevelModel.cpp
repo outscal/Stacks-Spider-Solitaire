@@ -108,6 +108,7 @@ namespace Gameplay
 	void LevelModel::addCardInDrawingStack(CardController* card_controller)
 	{
 		drawing_stack->push(card_controller);
+		card_controller->setCardState(State::OPEN);
 	}
 
 	std::vector<IStack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
@@ -146,6 +147,14 @@ namespace Gameplay
 		{
 			CardController* card_controller = stack->pop();
 			delete card_controller;
+		}
+	}	
+	void LevelModel::openTopPlayStackCards()
+	{
+		for (int i = 0; i < number_of_play_stacks; i++)
+		{
+			play_stacks[i]->peek()->setCardState(State::OPEN);
+
 		}
 	}
 

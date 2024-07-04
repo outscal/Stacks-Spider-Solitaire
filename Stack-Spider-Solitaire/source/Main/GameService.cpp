@@ -76,6 +76,6 @@ namespace Main
 
 	void GameService::destroy()
 	{
-		service_locator->deleteServiceLocator();
+		
 	}
 }

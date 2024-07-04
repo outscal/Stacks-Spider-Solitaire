@@ -40,6 +40,5 @@ namespace Global
         Gameplay::GameplayService* getGameplayService();
         Card::CardService* getCardService();
         Time::TimeService* getTimeService();
-        void deleteServiceLocator();
     };
 }

@@ -46,15 +46,17 @@ namespace UI
 
         void ImageView::setScale(float width, float height)
         {
-            float scale_x = width / image_sprite.getTexture()->getSize().x;
-            float scale_y = height / image_sprite.getTexture()->getSize().y;
+            sf::Vector2f adjusted_dimentions = getScaleForCurrentResolution(width, height);
+
+            float scale_x = adjusted_dimentions.x / image_sprite.getTexture()->getSize().x;
+            float scale_y = adjusted_dimentions.y / image_sprite.getTexture()->getSize().y;
 
             image_sprite.setScale(scale_x, scale_y);
         }
 
         void ImageView::setPosition(sf::Vector2f position)
         {
-            image_sprite.setPosition(position);
+            image_sprite.setPosition(getPositionForCurrentResolution(position));
         }
 
         void ImageView::setRotation(float rotation_angle)

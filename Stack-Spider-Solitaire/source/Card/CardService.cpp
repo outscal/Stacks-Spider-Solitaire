@@ -16,11 +16,7 @@ namespace Card
 
 	CardService::~CardService() = default;
 
-	void CardService::initialize() 
-	{
-		gameplay_service = ServiceLocator::getInstance()->getGameplayService();
-		calculateCardExtends();
-	}
+	void CardService::initialize() { }
 
 	void CardService::update() { }
 
@@ -30,21 +26,18 @@ namespace Card
 
 	float CardService::getCardHeight() { return card_height; }
 
-	void CardService::calculateCardExtends()
+	void CardService::calculateCardExtends(float spacing, int play_stack_count)
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 		float total_width = game_window->getSize().x;
 
-		float total_spacing_width = gameplay_service->getTotalCardSpacingWidth();
-
-		card_width = calculateCardWidth(total_width-total_spacing_width);
+		card_width = calculateCardWidth(total_width-spacing, play_stack_count);
 		card_height = calculateCardHeight(card_width);
 	}
 
-	float CardService::calculateCardWidth(float width_space_for_cards) 
+	float CardService::calculateCardWidth(float width_space_for_cards, int play_stack_count)
 	{
-		int number_of_playstacks = gameplay_service->getNumberOfPlaystacks();
-		return width_space_for_cards / number_of_playstacks;
+		return width_space_for_cards / play_stack_count;
 	}
 
 	float CardService::calculateCardHeight(float card_width)

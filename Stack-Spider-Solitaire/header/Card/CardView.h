@@ -1,5 +1,6 @@
 #pragma once
 #include "../../header/UI/UIElement/ButtonView.h"
+#include <SFML/Graphics.hpp>
 
 namespace Card
 {
@@ -29,5 +30,7 @@ namespace Card
         void render();
 
         void updateCardTexture();
+        void setCardPosition(sf::Vector2f card_position);
+
     };
 }

@@ -48,5 +48,13 @@ namespace Card
 	void CardController::setCardPosition(sf::Vector2f card_position)
 	{
 		card_model->setPosition(card_position);
+		card_view->setCardPosition(card_position);
+		positionSet = true; //to stop flickering 
+	}
+
+	void CardController::setCardState(State card_state)
+	{
+		card_model->setCardState(card_state);
+		card_view->updateCardTexture();
 	}
 }

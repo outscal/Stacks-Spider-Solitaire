@@ -46,7 +46,7 @@ namespace Gameplay
 									game_window->getSize().y, 
 									sf::Vector2f(0,0));
 
-		background_image->setImageAlpha(background_alpha);
+		background_image->setImageAlpha(LevelModel::background_alpha);
 	}
 
 	void LevelView::update()
@@ -67,6 +67,8 @@ namespace Gameplay
 
 	void LevelView::updatePlayStacksView() 
 	{ 
+		float card_width = ServiceLocator::getInstance()->getCardService()->getCardWidth();
+
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
 			updateSinglePlayStackView(*(level_controller->getPlayStacks()[i]), i);
@@ -103,7 +105,7 @@ namespace Gameplay
 		{
 			if (level_controller->getSolutionStacks()[i]->isEmpty()) continue;
 
-			float x_position = LevelModel::solution_deck_left_offset + (i * LevelModel::solution_deck_horizontal_spacing);
+			float x_position = LevelModel::solution_deck_left_offset + (i * LevelModel::solution_deck_spacing);
 			float y_position = LevelModel::solution_deck_top_offset;
 
 			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
@@ -186,6 +188,20 @@ namespace Gameplay
 		{
 			level_controller->getDrawingStack()->push(temp_stack.pop());
 		}
+
+		CardController* card_controller = level_controller->getDrawingStack()->peek();
+		
+		if (card_controller->positionSet)
+		{
+			card_controller->render();
+		}
+		
+	}
+
+	float LevelView::getTotalCardSpacingWidth()
+	{
+		return (LevelModel::number_of_play_stacks + 1)* LevelModel::cards_horrizontal_spacing;
+
 	}
 
 	void LevelView::destroy()

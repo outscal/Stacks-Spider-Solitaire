@@ -33,5 +33,6 @@ namespace Card
 
         void setCardState(State card_state);
         CardData* getCardData();
+        void setCardState(State card_state);
     };
 }

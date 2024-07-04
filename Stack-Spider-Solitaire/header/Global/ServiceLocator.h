@@ -37,6 +37,6 @@ namespace Global
         UI::UIService* getUIService();
         Gameplay::GameplayService* getGameplayService();
         Card::CardService* getCardService();
-        void deleteServiceLocator();
+      
     };
 }

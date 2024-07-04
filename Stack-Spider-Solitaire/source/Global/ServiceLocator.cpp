@@ -98,5 +98,5 @@ namespace Global
 
 	CardService* ServiceLocator::getCardService() { return card_service; }
 
-	void ServiceLocator::deleteServiceLocator() { delete(this); }
+	
 }

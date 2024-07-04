@@ -26,9 +26,9 @@ namespace Gameplay
 		//init table with cards
 		CardService* card_service = ServiceLocator::getInstance()->getCardService();
 		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
-		populateCardPiles(card_service->generateSequentialCardDeck());
-		level_model->openTopPlayStackCards();
-
+		populateCardPiles(card_service->generateRandomizedCardDeck());
+		//level_model->openTopPlayStackCards();
+		
 		//init view and model
 		level_view->initialize(this);
 		level_model->initialize();
@@ -65,7 +65,7 @@ namespace Gameplay
 	{
 		IStack<CardController*>* drawingDeck = level_model->getDrawingStack();
 		
-		if (drawingDeck->peek() == card_to_process)
+		if (drawingDeck->contains(card_to_process))
 			drawingDeck->pop();
 	}
 
@@ -120,6 +120,6 @@ namespace Gameplay
 	{
 		elapsed_time = 0;
 		score = 0;
-		level_model->reset();
+		//level_model->reset();
 	}
 }

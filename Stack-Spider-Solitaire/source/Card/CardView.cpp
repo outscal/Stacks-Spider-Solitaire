@@ -60,12 +60,12 @@ namespace Card
 
 	sf::String CardView::getCardTexturePath(CardData* card_type)
 	{
-		if (card_data->state == State::CLOSE)
+		if (card_type->state == State::CLOSE)
 		{
 			return sf::String("assets/textures/cards/closed_card.png");
 		}
 
-		int card_number = static_cast<int>(card_data->rank) + (static_cast<int>(card_data->suit) * number_of_ranks) + 1;
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks) + 1;
 		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
 		return path;
 	}
@@ -73,11 +73,7 @@ namespace Card
 	void CardView::cardButtonCallback()
 	{
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-		ServiceLocator::getInstance()->getGameplayService()->processCardClick(card_controller);
+		ServiceLocator::getInstance()->getGameplayService()->processCard(card_controller);
 	}
 
-	void CardView::updateCardTexture()
-	{
-		card_button_view->setTexture(getCardTexturePath(card_controller->getCardData()));
-	}
 }

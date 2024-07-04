@@ -52,9 +52,4 @@ namespace Card
 		positionSet = true; //to stop flickering 
 	}
 
-	void CardController::setCardState(State card_state)
-	{
-		card_model->setCardState(card_state);
-		card_view->updateCardTexture();
-	}
 }

@@ -2,7 +2,6 @@
 
 namespace Card
 {
-    static const int number_of_decks = 4;
     static const int number_of_ranks = 13;
     static const int number_of_suits = 2;
 

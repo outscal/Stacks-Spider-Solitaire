@@ -1,6 +1,7 @@
 #pragma once
 #include "../../header/Stack/IStack.h"
 #include <array>
+#include <cstdio>
 
 namespace Stack
 {
@@ -24,6 +25,7 @@ namespace Stack
             T peek() override;
             bool isEmpty() override;
             int getSize() override;
+            bool contains(T data) override;
             void clear() override;
         };
     }
@@ -100,9 +102,19 @@ namespace Stack
         {
             while (!isEmpty())
             {
-                delete(pop());
+                pop();
             }
         }
+
+        template<class T>
+        bool Stack<T>::contains(T data)
+        {
+            for (auto iterator = array_stack.begin(); iterator != array_stack.end(); ++iterator)
+            {
+                if (data == *(iterator)) return true;
+            }
+
+            return false;
+        }
     }
-    
 }

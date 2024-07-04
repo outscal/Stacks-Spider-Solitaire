@@ -16,6 +16,11 @@ namespace Gameplay
         LevelModel* level_model;
         LevelView* level_view;
 
+        float elapsed_time;
+        int score;
+
+        void updateElapsedTime();
+        void reset();
 
     public:
         LevelController();

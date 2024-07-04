@@ -30,8 +30,8 @@ namespace Card
 		float getCardWidth();
 		float getCardHeight();
 
-		IStack<CardController*>* generateRandomizedCardDeck(int number_of_decks = 1);
-		IStack<CardController*>* generateSequentialCardDeck(int number_of_decks = 1);
+		IStack<CardController*>* generateRandomizedCardDeck();
+		IStack<CardController*>* generateSequentialCardDeck();
 		CardController* generateCard(Rank rank, Suit suit);
 		void calculateCardExtends(float spacing, int play_stack_count);
 	};

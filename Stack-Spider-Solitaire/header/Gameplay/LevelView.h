@@ -32,6 +32,8 @@ namespace Gameplay
         void renderSolutionStacks();
         void renderDrawnigStack();
 
+        
+
         void destroy();
 
     public:
@@ -41,5 +43,7 @@ namespace Gameplay
         void initialize(LevelController* controller);
         void update();
         void render();
+
+        float getTotalCardSpacingWidth();
     };
 }

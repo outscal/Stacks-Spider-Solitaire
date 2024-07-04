@@ -32,8 +32,4 @@ namespace Card
 		return card_data;
 	}
 
-	void CardModel::setCardState(State card_state)
-	{
-		card_data->state = card_state;
-	}
 }

@@ -15,8 +15,8 @@ namespace UI
 	UIService::UIService()
 	{
 
-		splash_screen_controller = nullptr;
-		main_menu_controller = nullptr;
+		splash_screen_ui_controller = nullptr;
+		main_menu_ui_controller = nullptr;
 		instructions_screen_ui_controller = nullptr;
 		gameplay_ui_controller = nullptr;
 
@@ -27,8 +27,8 @@ namespace UI
 	void UIService::createControllers()
 	{
 
-		splash_screen_controller = new SplashScreenUIController();
-		main_menu_controller = new MainMenuUIController();
+		splash_screen_ui_controller = new SplashScreenUIController();
+		main_menu_ui_controller = new MainMenuUIController();
 		instructions_screen_ui_controller = new InstructionsScreenUIController();
 		gameplay_ui_controller = new GameplayUIController();
 
@@ -66,8 +66,8 @@ namespace UI
 	void UIService::initializeControllers()
 	{
 
-		splash_screen_controller->initialize();
-		main_menu_controller->initialize();
+		splash_screen_ui_controller->initialize();
+		main_menu_ui_controller->initialize();
 		instructions_screen_ui_controller->initialize();
 		gameplay_ui_controller->initialize();
 

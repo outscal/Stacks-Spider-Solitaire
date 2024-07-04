@@ -37,5 +37,8 @@ namespace Gameplay
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();
+
+        void openTopPlayStackCards();
+
     };
 }

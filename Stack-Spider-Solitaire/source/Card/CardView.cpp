@@ -45,7 +45,6 @@ namespace Card
 
 	void CardView::render()
 	{
-		
 		card_button_view->render();
 	}
 

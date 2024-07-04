@@ -1,8 +1,12 @@
 #include "../../header/Gameplay/LevelController.h"
+#include "../../header/Global/ServiceLocator.h"
 
 namespace Gameplay
 {
 	using namespace Card;
+	using namespace Global;
+
+	
 
 	LevelController::LevelController()
 	{
@@ -18,6 +22,13 @@ namespace Gameplay
 
 	void LevelController::initialize()
 	{
+		//init table with cards
+		CardService* card_service = ServiceLocator::getInstance()->getCardService();
+		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
+		populateCardPiles(card_service->generateSequentialCardDeck());
+		level_model->openTopPlayStackCards();
+
+		//init view and model
 		level_view->initialize(this);
 		level_model->initialize();
 	}
@@ -35,6 +46,7 @@ namespace Gameplay
 	void LevelController::populateCardPiles(IStack<CardController*>* temp_card_deck)
 	{
 		level_model->populateCardPiles(temp_card_deck);
+		
 	}
 
 	void LevelController::processCard(CardController* card_to_process)

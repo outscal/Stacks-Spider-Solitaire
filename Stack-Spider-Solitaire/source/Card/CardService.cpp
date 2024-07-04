@@ -17,14 +17,7 @@ namespace Card
 
 	CardService::~CardService() = default;
 
-	void CardService::initialize() 
-	{
-		gameplay_service = ServiceLocator::getInstance()->getGameplayService();
-
-		calculateCardExtends();
-
-		gameplay_service->populateCardPiles(generateSequentialCardDeck());
-	}
+	void CardService::initialize() { }
 
 	void CardService::update() { }
 
@@ -34,21 +27,18 @@ namespace Card
 
 	float CardService::getCardHeight() { return card_height; }
 
-	void CardService::calculateCardExtends()
+	void CardService::calculateCardExtends(float spacing, int play_stack_count)
 	{
 		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
 		float total_width = game_window->getSize().x;
 
-		float total_spacing_width = gameplay_service->getTotalCardSpacingWidth();
-
-		card_width = calculateCardWidth(total_width-total_spacing_width);
+		card_width = calculateCardWidth(total_width-spacing, play_stack_count);
 		card_height = calculateCardHeight(card_width);
 	}
 
-	float CardService::calculateCardWidth(float width_space_for_cards) 
+	float CardService::calculateCardWidth(float width_space_for_cards, int play_stack_count)
 	{
-		int number_of_playstacks = gameplay_service->getNumberOfPlaystacks();
-		return width_space_for_cards / number_of_playstacks;
+		return width_space_for_cards / play_stack_count;
 	}
 
 	float CardService::calculateCardHeight(float card_width)
@@ -89,7 +79,6 @@ namespace Card
 
 	void CardService::shuffleDeck(IStack<CardController*>* card_deck)
 	{
-		srand(static_cast<unsigned>(time(nullptr))); 
 		std::vector<CardController*> card_deck_to_shuffle;
 
 		while (!card_deck->isEmpty())
@@ -97,11 +86,9 @@ namespace Card
 			card_deck_to_shuffle.push_back(card_deck->pop());
 		}
 
-		for (int i = card_deck->getSize() - 1; i > 0; i--)
-		{
-			int j = rand() % (i + 1);
-			std::swap(card_deck_to_shuffle[i], card_deck_to_shuffle[j]);
-		}
+		std::random_device device;
+		std::mt19937 random_engine(device());
+		std::shuffle(card_deck_to_shuffle.begin(), card_deck_to_shuffle.end(), random_engine);
 
 		card_deck->clear();
 		for (CardController* card : card_deck_to_shuffle)

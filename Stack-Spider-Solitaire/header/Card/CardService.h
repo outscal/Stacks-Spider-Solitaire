@@ -15,11 +15,8 @@ namespace Card
 		float card_width;
 		float card_height;
 
-		GameplayService* gameplay_service;
-
 		void shuffleDeck(IStack<CardController*>* card_deck);
-		void calculateCardExtends();
-		float calculateCardWidth(float width_space_for_cards);
+		float calculateCardWidth(float width_space_for_cards, int play_stack_count);
 		float calculateCardHeight(float card_width);
 
 	public:
@@ -36,5 +33,6 @@ namespace Card
 		IStack<CardController*>* generateRandomizedCardDeck();
 		IStack<CardController*>* generateSequentialCardDeck();
 		CardController* generateCard(Rank rank, Suit suit);
+		void calculateCardExtends(float spacing, int play_stack_count);
 	};
 }

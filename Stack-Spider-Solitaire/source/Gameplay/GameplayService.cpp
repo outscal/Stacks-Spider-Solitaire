@@ -33,24 +33,9 @@ namespace Gameplay
 		level_controller->render();
 	}
 
-	void GameplayService::populateCardPiles(IStack<CardController*>* temp_card_deck)
-	{
-		level_controller->populateCardPiles(temp_card_deck);
-	}
-
 	void GameplayService::processCard(CardController* card_to_process)
 	{
 		level_controller->processCard(card_to_process);
-	}
-
-	float GameplayService::getTotalCardSpacingWidth()
-	{
-		return level_controller->getTotalCardSpacingWidth();
-	}
-
-	int GameplayService::getNumberOfPlaystacks() 
-	{
-		return level_controller->getNumberOfPlaystacks();
 	}
 
 	void GameplayService::destroy()

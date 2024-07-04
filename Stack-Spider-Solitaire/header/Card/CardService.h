@@ -11,7 +11,7 @@ namespace Card
 	class CardService
 	{
 	private:
-		const float card_height_to_width_ratio = 1.37f;
+		const float card_height_to_width_ratio = 1.45f;
 		float card_width;
 		float card_height;
 

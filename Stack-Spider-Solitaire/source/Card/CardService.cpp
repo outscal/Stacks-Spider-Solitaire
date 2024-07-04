@@ -5,6 +5,7 @@
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <ctime>
+#include <random>
 #include <iostream>
 
 namespace Card

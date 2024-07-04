@@ -28,6 +28,7 @@ namespace Card
         void update();
         void render();
 
-        void setCardPosition();
+        void updateCardTexture();
+        void setCardPosition(sf::Vector2f card_position);
     };
 }

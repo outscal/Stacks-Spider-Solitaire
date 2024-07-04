@@ -45,13 +45,18 @@ namespace Card
 
 	void CardView::render()
 	{
-		card_button_view->setTexture(getCardTexturePath(card_controller->getCardData()));
+		
 		card_button_view->render();
 	}
 
-	void CardView::setCardPosition()
+	void CardView::updateCardTexture()
 	{
-		card_button_view->setPosition(card_controller->getCardPosition());
+		card_button_view->setTexture(getCardTexturePath(card_controller->getCardData()));
+	}
+
+	void CardView::setCardPosition(sf::Vector2f card_position)
+	{
+		card_button_view->setPosition(card_position);
 	}
 
 	sf::String CardView::getCardTexturePath(CardData* card_type)

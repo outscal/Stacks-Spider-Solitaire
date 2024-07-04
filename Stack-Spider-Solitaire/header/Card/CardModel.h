@@ -32,5 +32,6 @@ namespace Card
         sf::Vector2f getPosition();
 
         CardData* getCardData();
+        void setCardState(State card_state);
     };
 }

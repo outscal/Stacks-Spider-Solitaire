@@ -39,5 +39,6 @@ namespace Event
 		bool pressedRightMouseButton();
 
 		void setLeftMouseButtonState(ButtonState button_state);
+
 	};
 }

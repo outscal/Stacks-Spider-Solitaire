@@ -1,6 +1,6 @@
 #include "../../header/UI/MainMenu/MainMenuUIController.h"
 #include "../../header/Main/GameService.h"
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Event/EventService.h"
 #include "../../header/Global/Config.h"
@@ -14,6 +14,7 @@ namespace UI
         using namespace Main;
         using namespace UIElement;
         using namespace Sound;
+        using namespace Graphics;
 
         MainMenuUIController::MainMenuUIController()
         {
@@ -47,9 +48,9 @@ namespace UI
 
         void MainMenuUIController::initializeBackgroundImage()
         {
-            sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+            GraphicService* graphic_service = ServiceLocator::getInstance()->getGraphicService();
 
-            background_image->initialize(Config::background_texture_path, game_window->getSize().x, game_window->getSize().y, sf::Vector2f(0, 0));
+            background_image->initialize(Config::background_texture_path, graphic_service->getReferenceResolution().x, graphic_service->getReferenceResolution().y, sf::Vector2f(0, 0));
             background_image->setImageAlpha(background_alpha);
         }
 
@@ -75,12 +76,13 @@ namespace UI
         {
             ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
             GameService::setGameState(GameState::GAMEPLAY);
-            ServiceLocator::getInstance()->getGameplayService()->startLevel();
+        
         }
 
         void MainMenuUIController::instructionsButtonCallback()
         {
             ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            GameService::setGameState(GameState::INSTRUCTIONS);
         }
 
         void MainMenuUIController::quitButtonCallback()

@@ -4,10 +4,11 @@
 
 namespace Gameplay
 {
+	using namespace Card;
+
 	class GameplayService
 	{
 	private:
-		GameplayService* gameplay_service;
 		LevelController* level_controller;
 
 		void createLevelController();
@@ -24,9 +25,10 @@ namespace Gameplay
 		void startLevel();
 		void setCardToProcessInput(Card::CardController* selected_card_controller);
 
-		float getCardWidth();
-		float getCardHeight();
-		float getElapsedTime();
 		int getScore();
+		float getElapsedTime();
+
+		void processCard(CardController* card_to_process);
+
 	};
 }

@@ -50,9 +50,11 @@ namespace Card
 		}
 	}
 
-	CardType* CardController::getCardType()
+
+
+	CardData* CardController::getCardData()
 	{
-		return card_model->getCardType();
+		return card_model->getCardData();
 	}
 
 	State CardController::getCardState()
@@ -88,7 +90,10 @@ namespace Card
 	void CardController::setCardPosition(sf::Vector2f card_position)
 	{
 		card_model->setPosition(card_position);
+		card_view->setCardPosition(card_position);
+		positionSet = true; //to stop flickering 
 	}
+
 
 	CardVisibility CardController::getCardVisibility()
 	{
@@ -99,4 +104,5 @@ namespace Card
 	{
 		card_model->setHideDuration(duration);
 	}
+
 }

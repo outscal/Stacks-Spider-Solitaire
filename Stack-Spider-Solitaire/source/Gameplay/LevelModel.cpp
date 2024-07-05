@@ -1,8 +1,11 @@
+#pragma once
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Card/CardService.h"
+#include "../../header/Card/CardController.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include "../../header/Stack/LinkedListStack/LinkedListStack.h"
+#include "../../header/Stack/IStack.h"
 
 namespace Gameplay
 {
@@ -11,7 +14,7 @@ namespace Gameplay
 	using namespace Card;
 	using namespace Global;
 
-	const float LevelModel::card_hide_duration_multiplyer = 0.1f;
+	const float LevelModel::card_hide_duration_multiplyer = 0.15f;
 
 	LevelModel::LevelModel()
 	{
@@ -50,8 +53,8 @@ namespace Gameplay
 
 	void LevelModel::initialize() 
 	{
-		initializeStacks();
-		openPlayStacksTopCard();
+		populateCardPiles();
+		openTopPlayStackCards();
 	}
 
 	void LevelModel::reset()
@@ -60,33 +63,25 @@ namespace Gameplay
 		initialize();
 	}
 
-	void LevelModel::initializeStacks()
+	void LevelModel::populateCardPiles()
 	{
 		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
 
-		while (card_deck->size() > drawing_deck_stack_size)
+		while (card_deck->getSize() > drawing_deck_stack_size)
 		{
 			for (int i = 0; i < number_of_play_stacks; i++)
 			{
-				if (card_deck->size() < drawing_deck_stack_size) break;
+				if (card_deck->getSize() <= drawing_deck_stack_size) break;
 				addCardInPlayStack(i, card_deck->pop());
 			}
 		}
 
-		while (!card_deck->empty())
+		while (!card_deck->isEmpty())
 		{
 			addCardInDrawingStack(card_deck->pop());
 		}
 
 		delete (card_deck);
-	}
-
-	void LevelModel::openPlayStacksTopCard()
-	{
-		for (int i = 0; i < number_of_play_stacks; i++)
-		{
-			play_stacks[i]->peek()->setCardState(State::OPEN);
-		}
 	}
 
 	void LevelModel::addCardInPlayStack(int stack_index, CardController* card_controller)
@@ -155,10 +150,18 @@ namespace Gameplay
 
 	void LevelModel::deleteStackElements(IStack<Card::CardController*>* stack)
 	{
-		while (!stack->empty())
+		while (!stack->isEmpty())
 		{
 			CardController* card_controller = stack->pop();
 			delete card_controller;
+		}
+	}	
+	void LevelModel::openTopPlayStackCards()
+	{
+		for (int i = 0; i < number_of_play_stacks; i++)
+		{
+			play_stacks[i]->peek()->setCardState(State::OPEN);
+
 		}
 	}
 

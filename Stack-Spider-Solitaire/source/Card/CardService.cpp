@@ -1,7 +1,7 @@
+#pragma once
 #include "../../header/Card/CardService.h"
 #include "../../header/Card/CardController.h"
 #include "../../header/Card/CardConfig.h"
-#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Stack/ArrayStack/ArrayStack.h"
 #include <ctime>
@@ -22,6 +22,29 @@ namespace Card
 
 	void CardService::render() { }
 
+	float CardService::getCardWidth() { return card_width; }
+
+	float CardService::getCardHeight() { return card_height; }
+
+	void CardService::calculateCardExtends(float spacing, int play_stack_count)
+	{
+		sf::RenderWindow* game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+		float total_width = game_window->getSize().x;
+
+		card_width = calculateCardWidth(total_width-spacing, play_stack_count);
+		card_height = calculateCardHeight(card_width);
+	}
+
+	float CardService::calculateCardWidth(float width_space_for_cards, int play_stack_count)
+	{
+		return width_space_for_cards / play_stack_count;
+	}
+
+	float CardService::calculateCardHeight(float card_width)
+	{
+		return card_width * card_height_to_width_ratio;
+	}
+
 	CardController* CardService::generateCard(Rank rank, Suit suit)
 	{
 		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
@@ -34,6 +57,7 @@ namespace Card
 
 	IStack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
+
 		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
 		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
 		
@@ -46,10 +70,14 @@ namespace Card
 				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 				{
 					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
+
+					card->initialize(card_width, card_height);
+
 					card_deck->push(card);
 				}
 			}
 		}
+		
 
 		return card_deck;
 	}
@@ -66,7 +94,7 @@ namespace Card
 	{
 		std::vector<CardController*> card_deck_to_shuffle;
 
-		while (!card_deck->empty())
+		while (!card_deck->isEmpty())
 		{
 			card_deck_to_shuffle.push_back(card_deck->pop());
 		}

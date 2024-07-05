@@ -22,6 +22,7 @@ namespace Card
 
         CardType* getCardType();
         State getCardState();
+        CardData* getCardData();
         void setCardState(State card_state);
 
         sf::Vector2f getCardPosition();
@@ -29,5 +30,7 @@ namespace Card
 
         CardVisibility getCardVisibility();
         void hideCard(float duration);
+        bool positionSet = false;
+
     };
 }

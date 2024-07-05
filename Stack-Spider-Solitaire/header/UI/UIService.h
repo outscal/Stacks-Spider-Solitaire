@@ -9,8 +9,8 @@ namespace UI
 	class UIService
 	{
 	private:
-		SplashScreen::SplashScreenUIController* splash_screen_controller;
-		MainMenu::MainMenuUIController* main_menu_controller;
+		SplashScreen::SplashScreenUIController* splash_screen_ui_controller;
+		MainMenu::MainMenuUIController* main_menu_ui_controller;
 		Instructions::InstructionsScreenUIController* instructions_screen_ui_controller;
 
 		void createControllers();

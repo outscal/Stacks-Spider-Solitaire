@@ -1,6 +1,6 @@
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 #include "../../header/Card/CardConfig.h"
 #include "../../header/Stack/LinkedListStack/LinkedListStack.h"
 
@@ -28,6 +28,7 @@ namespace Gameplay
 	{
 		CardService* card_service = ServiceLocator::getInstance()->getCardService();
 		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
+		level_view->setCardDimensions(card_service->getCardHeight(), card_service->getCardWidth());
 		
 		//init view and model
 		level_view->initialize(this);
@@ -113,7 +114,7 @@ namespace Gameplay
 
 		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
-			if (card_deck->empty()) return;
+			if (card_deck->isEmpty()) return;
 			CardController* card_controller = card_deck->pop();
 			
 			card_controller->hideCard(static_cast<float>(i) * LevelModel::card_hide_duration_multiplyer);
@@ -128,14 +129,14 @@ namespace Gameplay
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 		card_controller->setCardState(Card::State::SELECTED);
 
-		while (!stack->empty() && stack->peek() != card_controller)
+		while (!stack->isEmpty() && stack->peek() != card_controller)
 		{
 			CardController* card_controller = stack->pop();
 			card_controller->setCardState(Card::State::SELECTED);
 			temp_stack.push(card_controller);
 		}
 
-		while (!temp_stack.empty())
+		while (!temp_stack.isEmpty())
 		{
 			stack->push(temp_stack.pop());
 		}
@@ -146,14 +147,14 @@ namespace Gameplay
 		IStack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
-		while (!stack->empty() && stack->peek()->getCardState() == Card::State::SELECTED)
+		while (!stack->isEmpty() && stack->peek()->getCardState() == Card::State::SELECTED)
 		{
 			CardController* card_controller = stack->pop();
 			card_controller->setCardState(Card::State::OPEN);
 			temp_stack.push(card_controller);
 		}
 
-		while (!temp_stack.empty())
+		while (!temp_stack.isEmpty())
 		{
 			stack->push(temp_stack.pop());
 		}
@@ -176,7 +177,7 @@ namespace Gameplay
 		}
 
 		temp_stack.push(previously_selected_card_stack->pop());
-		while (!temp_stack.empty()) currently_selected_card_stack->push(temp_stack.pop());
+		while (!temp_stack.isEmpty()) currently_selected_card_stack->push(temp_stack.pop());
 		
 		openTopCardOfStack(previously_selected_card_stack);
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
@@ -186,7 +187,7 @@ namespace Gameplay
 
 	void LevelController::openTopCardOfStack(IStack<Card::CardController*>* stack)
 	{
-		if (stack->empty())
+		if (stack->isEmpty())
 		{
 			addEmptyCard(stack);
 		}
@@ -199,8 +200,8 @@ namespace Gameplay
 		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
-		Card::Suit card_suit = selected_card_controller->getCardType()->suit;
-		int previous_card_rank = static_cast<int>(currently_selected_card_stack->peek()->getCardType()->rank) - 1;
+		Card::Suit card_suit = selected_card_controller->getCardData()->suit;
+		int previous_card_rank = static_cast<int>(currently_selected_card_stack->peek()->getCardData()->rank) - 1;
 		bool is_valid_selection = true;
 
 		while (currently_selected_card_stack->peek() != selected_card_controller)
@@ -208,15 +209,15 @@ namespace Gameplay
 			CardController* card_controller = currently_selected_card_stack->pop();
 			temp_stack.push(card_controller);
 
-			if (static_cast<int>(card_controller->getCardType()->rank) != ++previous_card_rank
-				|| card_controller->getCardType()->suit != card_suit)
+			if (static_cast<int>(card_controller->getCardData()->rank) != ++previous_card_rank
+				|| card_controller->getCardData()->suit != card_suit)
 			{
 				is_valid_selection = false;
 				break;
 			}
 		}
 
-		while (!temp_stack.empty())
+		while (!temp_stack.isEmpty())
 		{
 			currently_selected_card_stack->push(temp_stack.pop());
 		}
@@ -231,8 +232,8 @@ namespace Gameplay
 
 		if (currently_selected_card_stack->peek() != selected_card_controller) return false;
 
-		Card::Rank previous_card_rank = previously_selected_card_controller->getCardType()->rank;
-		Card::Rank current_card_rank = selected_card_controller->getCardType()->rank;
+		Card::Rank previous_card_rank = previously_selected_card_controller->getCardData()->rank;
+		Card::Rank current_card_rank = selected_card_controller->getCardData()->rank;
 
 		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
 	}
@@ -274,14 +275,14 @@ namespace Gameplay
 	{
 		LinkedListStack::Stack<CardController*> temp_stack;
 
-		while (!stack->empty())
+		while (!stack->isEmpty())
 		{
 			CardController* card_controller = stack->pop();
 			card_controller->update();
 			temp_stack.push(card_controller);
 		}
 
-		while (!temp_stack.empty())
+		while (!temp_stack.isEmpty())
 		{
 			stack->push(temp_stack.pop());
 		}
@@ -327,7 +328,7 @@ namespace Gameplay
 		float card_spacing_offset = ((stack_index + 1) * level_model->cards_horrizontal_spacing);
 		float x_position = +card_width_offset + card_spacing_offset;
 
-		float card_position_offset = ((stack_size - card_stack_position) * level_model->cards_vertical_spacing);
+		float card_position_offset = ((stack_size - card_stack_position) * level_model->open_cards_vertical_spacing);
 		float y_position = level_model->play_deck_top_offset + card_position_offset;
 
 		return sf::Vector2f(x_position, y_position);
@@ -366,7 +367,7 @@ namespace Gameplay
 
 	void LevelController::removeEmptyCard(IStack<Card::CardController*>* stack)
 	{
-		if (stack->peek()->getCardType()->rank == Card::Rank::DEFAULT)
+		if (stack->peek()->getCardData()->rank == Card::Rank::DEFAULT)
 		{
 			CardController* card_controller = stack->pop();
 			delete (card_controller);

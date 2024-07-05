@@ -61,12 +61,9 @@ namespace Gameplay
         void startLevel();
 
         void setCardToProcessInput(Card::CardController* selected_card_controller);
-        float getCardWidth();
-        float getCardHeight();
+        
         float getElapsedTime();
-
         int getScore();
-        float getElapsedTime();
         
         void processCardClick(CardController* card_to_process);
 

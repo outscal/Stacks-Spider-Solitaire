@@ -5,7 +5,6 @@
 #include "../../header/Card/CardConfig.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Sound/SoundService.h"
-#include "../../header/Card/CardTexture.h"
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Event/EventService.h"
 

@@ -1,6 +1,6 @@
 #include "../../header/Card/CardController.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 
 namespace Card
 {
@@ -59,7 +59,7 @@ namespace Card
 
 	State CardController::getCardState()
 	{
-		return card_model->getCardType()->state;
+		return card_model->getCardData()->state;
 	}
 
 	void CardController::setCardState(State card_state)
@@ -72,7 +72,7 @@ namespace Card
 			card_view->setCardHighLight(false);
 			break;
 		case Card::State::SELECTED:
-			if(card_model->getCardType()->rank != Rank::DEFAULT) card_view->setCardHighLight(true);
+			if(card_model->getCardData()->rank != Rank::DEFAULT) card_view->setCardHighLight(true);
 			break;
 		case Card::State::CLOSE:
 			card_view->setCardHighLight(false);

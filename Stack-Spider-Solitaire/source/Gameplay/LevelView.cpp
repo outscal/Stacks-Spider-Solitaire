@@ -80,43 +80,23 @@ namespace Gameplay
 	void LevelView::updatePlayStackCardsView(IStack<CardController*>& stack, int stack_position)
 	{
 		ArrayStack::Stack<CardController*> temp_stack;
-		float stack_size = stack.size();
+		float stack_size = stack.getSize();
 		float card_stack_position = 0;
 		float vertical_spacing = 0;
 		int number_of_open_cards = 0;
 
-			updateSinglePlayStackView(*(level_controller->getPlayStacks()[i]), i);
-		}
-	}
-
-	void LevelView::updateSinglePlayStackView(IStack<CardController*>& stack_to_update, int stack_index)
-	{
-		ArrayStack::Stack<CardController*> temp_stack;
-		int stack_size = stack_to_update.getSize();
-		int card_stack_position = 0;
-
-		while (!stack_to_update.isEmpty())
+		while (!stack.isEmpty())
 		{
+			if (stack.peek()->getCardState() == Card::State::OPEN ||
+				stack.peek()->getCardState() == Card::State::SELECTED) number_of_open_cards++;
 
-			if (stack.peek()->getCardState() == Card::State::OPEN) number_of_open_cards++;
 			temp_stack.push(stack.pop());
-
-			sf::Vector2f card_position = level_controller->calculatePlayCardPosition(stack_index, stack_size, card_stack_position);
-
-			CardController* card_controller = stack_to_update.pop();
-			temp_stack.push(card_controller);
-
-			card_controller->setCardPosition(card_position);
-			card_controller->update();
-			card_stack_position++;
-
 		}
 
 		while (!temp_stack.isEmpty())
 		{
-
-			float x_position = (stack_position * card_width) + ((stack_position + 1) * cards_horrizontal_spacing);
-			float y_position = play_deck_top_offset + vertical_spacing;
+			float x_position = (stack_position * card_width) + ((stack_position + 1) * LevelModel::cards_horrizontal_spacing);
+			float y_position = LevelModel::play_deck_top_offset + vertical_spacing;
 
 			CardController* card_controller = temp_stack.pop();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
@@ -124,10 +104,8 @@ namespace Gameplay
 			stack.push(card_controller);
 			card_stack_position++;
 			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState(), number_of_open_cards);
-
-			stack_to_update.push(temp_stack.pop());
-
 		}
+		
 	}
 
 	void LevelView::updateSolutionStacksView() 
@@ -238,18 +216,24 @@ namespace Gameplay
 
 	}
 
+	void LevelView::setCardDimensions(float height, float width)
+	{
+		card_height = height;
+		card_width = card_width;
+	}
+
 	float LevelView::getCardVerticalSpacing(Card::State state, int number_of_open_cards)
 	{
-		float vertical_spacing_adjustment_ratio = static_cast<float>(max_number_of_open_cards) / static_cast<float>(number_of_open_cards);
+		float vertical_spacing_adjustment_ratio = static_cast<float>(LevelModel::max_number_of_open_cards) / static_cast<float>(number_of_open_cards);
 
 		switch (state)
 		{
 		case::Card::State::OPEN:
-			return open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
+			return LevelModel::open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
 		case::Card::State::CLOSE:
-			return closed_cards_vertical_spacing;
+			return LevelModel::closed_cards_vertical_spacing;
 		case::Card::State::SELECTED:
-			return open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
+			return LevelModel::open_cards_vertical_spacing * std::min(1.f, vertical_spacing_adjustment_ratio);
 		}
 	}
 

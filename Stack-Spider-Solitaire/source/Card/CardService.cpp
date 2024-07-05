@@ -47,8 +47,6 @@ namespace Card
 
 	CardController* CardService::generateCard(Rank rank, Suit suit)
 	{
-		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
-		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
 
 		CardController* card = new CardController(rank, suit);
 		card->initialize(card_width, card_height);
@@ -57,9 +55,6 @@ namespace Card
 
 	IStack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
-
-		float card_width = ServiceLocator::getInstance()->getGameplayService()->getCardWidth();
-		float card_height = ServiceLocator::getInstance()->getGameplayService()->getCardHeight();
 		
 		IStack<CardController*>* card_deck = new ArrayStack::Stack<CardController*>();
 		

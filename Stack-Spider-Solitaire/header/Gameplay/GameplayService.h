@@ -23,7 +23,6 @@ namespace Gameplay
 		void render();
 
 		void startLevel();
-		void setCardToProcessInput(Card::CardController* selected_card_controller);
 
 		int getScore();
 		float getElapsedTime();

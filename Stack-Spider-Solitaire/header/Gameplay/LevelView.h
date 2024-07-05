@@ -9,6 +9,8 @@ namespace Gameplay
     {
     private:
 
+        const float background_alpha = 85.f;
+
         LevelController* level_controller;
         UI::UIElement::ImageView* background_image;
 
@@ -34,5 +36,7 @@ namespace Gameplay
         void render();
 
         float getTotalCardSpacingWidth();
+
+        
     };
 }

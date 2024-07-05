@@ -44,7 +44,7 @@ namespace Gameplay
 									game_window->getSize().y, 
 									sf::Vector2f(0,0));
 
-		background_image->setImageAlpha(LevelModel::background_alpha);
+		background_image->setImageAlpha(background_alpha);
 	}
 
 	void LevelView::update()

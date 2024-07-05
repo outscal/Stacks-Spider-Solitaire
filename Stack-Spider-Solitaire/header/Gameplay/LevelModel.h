@@ -50,7 +50,7 @@ namespace Gameplay
         static constexpr float solution_deck_left_offset = 200.f;
         static constexpr float solution_deck_spacing = 40.f;
 
-        static constexpr float background_alpha = 85.f;
+        
 
     };
 }

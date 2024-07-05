@@ -37,14 +37,13 @@ namespace Global
 		ui_service = new UIService();
 		gameplay_service = new GameplayService();
 		card_service = new CardService();
-		time_service = new TimeService();
+
 
 	}
 
 	void ServiceLocator::initialize()
 	{
 		graphic_service->initialize();
-		time_service->initialize();
 		sound_service->initialize();
 		time_service->initialize();
 		event_service->initialize();
@@ -59,7 +58,6 @@ namespace Global
 		time_service->update();
 		event_service->update();
 		ui_service->update();
-		time_service->update();
 		graphic_service->update();
 
 		if (GameService::getGameState() == GameState::GAMEPLAY)

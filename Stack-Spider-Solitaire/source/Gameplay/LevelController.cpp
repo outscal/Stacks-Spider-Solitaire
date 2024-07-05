@@ -26,7 +26,7 @@ namespace Gameplay
 		//init table with cards
 		CardService* card_service = ServiceLocator::getInstance()->getCardService();
 		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
-		populateCardPiles(card_service->generateRandomizedCardDeck());
+		populateCardPiles(card_service->generateRandomizedCardDeck(level_model->number_of_decks));
 		//level_model->openTopPlayStackCards();
 		
 		//init view and model

@@ -50,29 +50,30 @@ namespace Card
 		return new CardController(rank, suit);
 	}
 
-	IStack<CardController*>* CardService::generateSequentialCardDeck()
+	IStack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
 	{
 		IStack<CardController*>* card_deck = new ArrayStack::Stack<CardController*>();
 
 	
-			for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
+		for (int i = 0; i < number_of_decks; i++)
+		{
+			for (int rank = 1; rank <= static_cast<int>(number_of_ranks); rank++)
 			{
-				for (int rank = 0; rank < static_cast<int>(number_of_ranks); rank++)
+				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 				{
 					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
-
-					card->initialize(card_width, card_height);
 					card_deck->push(card);
 				}
 			}
+		}
 		
 
 		return card_deck;
 	}
 
-	IStack<CardController*>* CardService::generateRandomizedCardDeck()
+	IStack<CardController*>* CardService::generateRandomizedCardDeck(int number_of_decks)
 	{
-		IStack<CardController*>* card_deck = generateSequentialCardDeck();
+		IStack<CardController*>* card_deck = generateSequentialCardDeck(number_of_decks);
 
 		shuffleDeck(card_deck);
 		return card_deck;

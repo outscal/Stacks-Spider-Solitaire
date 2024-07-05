@@ -45,5 +45,7 @@ namespace Gameplay
         void render();
 
         float getTotalCardSpacingWidth();
+
+        
     };
 }

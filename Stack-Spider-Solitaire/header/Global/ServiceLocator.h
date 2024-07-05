@@ -2,10 +2,10 @@
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Graphics/GraphicService.h"
 #include "../../header/Event/EventService.h"
+#include "../../header/Time/TimeService.h"
 #include "../../header/UI/UIService.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Card/CardService.h"
-#include "../../header/Time/TimeService.h"
 
 namespace Global
 {
@@ -19,6 +19,7 @@ namespace Global
         Gameplay::GameplayService* gameplay_service;
         Card::CardService* card_service;
         Time::TimeService* time_service;
+
 
         ServiceLocator();
         ~ServiceLocator();
@@ -40,5 +41,6 @@ namespace Global
         Gameplay::GameplayService* getGameplayService();
         Card::CardService* getCardService();
         Time::TimeService* getTimeService();
+
     };
 }

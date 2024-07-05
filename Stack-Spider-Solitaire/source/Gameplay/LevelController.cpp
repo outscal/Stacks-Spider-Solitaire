@@ -27,7 +27,7 @@ namespace Gameplay
 		CardService* card_service = ServiceLocator::getInstance()->getCardService();
 		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
 		populateCardPiles(card_service->generateRandomizedCardDeck(level_model->number_of_decks));
-		//level_model->openTopPlayStackCards();
+		level_model->openTopPlayStackCards();
 		
 		//init view and model
 		level_view->initialize(this);
@@ -48,6 +48,9 @@ namespace Gameplay
 	void LevelController::startLevel()
 	{
 		reset();
+		CardService* card_service = ServiceLocator::getInstance()->getCardService();;
+		populateCardPiles(card_service->generateRandomizedCardDeck(level_model->number_of_decks));
+		level_model->openTopPlayStackCards();
 	}
 
 	void LevelController::updateElapsedTime()
@@ -120,6 +123,6 @@ namespace Gameplay
 	{
 		elapsed_time = 0;
 		score = 0;
-		//level_model->reset();
+		level_model->reset();
 	}
 }

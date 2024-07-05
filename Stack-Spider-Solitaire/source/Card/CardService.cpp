@@ -62,6 +62,7 @@ namespace Card
 				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 				{
 					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
+					card->initialize(card_width, card_height);
 					card_deck->push(card);
 				}
 			}

@@ -37,5 +37,7 @@ namespace Event
 		bool pressedEscapeKey();
 		bool pressedLeftMouseButton();
 		bool pressedRightMouseButton();
+
+		void setLeftMouseButtonState(ButtonState state);
 	};
 }

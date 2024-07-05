@@ -30,6 +30,8 @@ namespace Gameplay
 	{
 		level_controller = controller;
 		initializeBackgroudImage();
+		
+		
 	}
 
 	void LevelView::createImage()
@@ -175,27 +177,32 @@ namespace Gameplay
 	void LevelView::renderDrawnigStack()
 	{
 		ArrayStack::Stack<CardController*> temp_stack;
-		int number_of_draws = level_controller->getDrawingStack()->getSize() / LevelModel::number_of_play_stacks;
+		int number_of_draws = getNumberOfDrawsRemaining();
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
 			CardController* card_controller = level_controller->getDrawingStack()->pop();
 			temp_stack.push(card_controller);
-			card_controller->render();
+			if (card_controller->positionSet)
+			{
+				card_controller->render();
+			}
+			
 		}
 
 		while (!temp_stack.isEmpty())
 		{
 			level_controller->getDrawingStack()->push(temp_stack.pop());
 		}
+		
+	}
 
-		CardController* card_controller = level_controller->getDrawingStack()->peek();
-		
-		if (card_controller->positionSet)
-		{
-			card_controller->render();
-		}
-		
+	int LevelView::getNumberOfDrawsRemaining()
+	{
+		float drawing_stack_size = static_cast<float>(level_controller->getDrawingStack()->getSize());
+		float play_stacks_count = static_cast<float>(LevelModel::number_of_play_stacks);
+
+		return static_cast<int>(std::ceil(drawing_stack_size / play_stacks_count));
 	}
 
 	float LevelView::getTotalCardSpacingWidth()

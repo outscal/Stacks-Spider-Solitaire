@@ -29,6 +29,7 @@ namespace Gameplay
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
 
+
     public:
         static const int number_of_play_stacks = 10;
         static const int number_of_solution_stacks = 8;
@@ -42,7 +43,7 @@ namespace Gameplay
         void initialize();
         void reset();
 
-        void populateCardPiles(IStack<CardController*>* temp_card_deck);
+        void populateCardPiles();
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();

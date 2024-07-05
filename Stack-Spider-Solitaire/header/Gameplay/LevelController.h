@@ -35,7 +35,6 @@ namespace Gameplay
         int getScore();
         float getElapsedTime();
         
-        void populateCardPiles(IStack<CardController*>* temp_card_deck);
         void processCardClick(CardController* card_to_process);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();

@@ -41,6 +41,7 @@ namespace Gameplay
 	void GameplayService::processCard(CardController* card_to_process)
 	{
 		level_controller->processCardClick(card_to_process);
+
 	}
 
 

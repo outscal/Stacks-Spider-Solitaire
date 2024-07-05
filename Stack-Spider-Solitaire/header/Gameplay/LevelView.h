@@ -32,6 +32,8 @@ namespace Gameplay
         void renderSolutionStacks();
         void renderDrawnigStack();
 
+        int getNumberOfDrawsRemaining();
+
         
 
         void destroy();

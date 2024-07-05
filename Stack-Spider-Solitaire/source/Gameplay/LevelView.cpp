@@ -119,7 +119,7 @@ namespace Gameplay
 	void LevelView::updateDrawingStackView() 
 	{ 
 		ArrayStack::Stack<CardController*> temp_stack;
-		int number_of_draws = level_controller->getDrawingStack()->getSize() / LevelModel::number_of_play_stacks;
+		int number_of_draws = getNumberOfDrawsRemaining();
 
 		for (int i = 0; i < number_of_draws; i++)
 		{

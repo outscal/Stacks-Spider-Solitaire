@@ -55,10 +55,20 @@ namespace Gameplay
 
 	void LevelController::processCardClick(CardController* card_to_process)
 	{
-		IStack<CardController*>* drawingDeck = level_model->getDrawingStack();
+		IStack<Card::CardController*>* card_deck = level_model->getDrawingStack();
 		
-		if (drawingDeck->contains(card_to_process))
-			drawingDeck->pop();
+		if (card_deck->contains(card_to_process))
+		{
+			for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+			{
+				if (card_deck->isEmpty()) return;
+				CardController* card_controller = card_deck->pop();
+
+				card_controller->setCardState(Card::State::OPEN);
+
+			}
+		}
+	
 	}
 
 	float LevelController::getTotalCardSpacingWidth()

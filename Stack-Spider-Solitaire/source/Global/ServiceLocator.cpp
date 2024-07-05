@@ -60,6 +60,7 @@ namespace Global
 		delete(graphic_service);
 		delete(sound_service);
 		delete(event_service);
+		delete(time_service);
 	}
 
 	ServiceLocator* ServiceLocator::getInstance()

@@ -18,7 +18,8 @@ namespace UI
 			const float menu_button_y_position = 800.f;
 			const float background_alpha = 85.f;
 
-			static const int number_of_instructions = 7;
+			static const int number_of_instructions = 6;
+
 			const float top_offset = 90.f;
 			const float text_spacing = 95.f;
 			const int font_size = 50;
@@ -30,8 +31,8 @@ namespace UI
 																"Click the 'Deal' button to add new cards.",
 																"Click on a 'Card' to select it.",
 																"Click on the 'Stack' where you want to move the selected card.",
-																"You can move 'King' to 'Empty slot' only.",
-																"If you successfully arrange all cards in both suits, you 'Win' the game." };
+																"If you successfully arrange all cards in both suits, you 'Win' the game." 
+			};
 
 			UIElement::ImageView* background_image;
 			UIElement::ButtonView* menu_button;
@@ -60,4 +61,6 @@ namespace UI
 			void show() override;
 		};
 	}
+
 }
+

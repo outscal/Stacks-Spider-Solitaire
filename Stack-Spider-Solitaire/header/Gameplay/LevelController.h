@@ -3,10 +3,12 @@
 #include "../../header/Gameplay/LevelModel.h"
 #include "../../header/Gameplay/LevelView.h"
 #include "../../header/Stack/IStack.h"
+#include "../Card/CardController.h"
 
 namespace Gameplay
 {
     using namespace Stack;
+    using namespace Card;
 
     class LevelController
     {
@@ -43,9 +45,14 @@ namespace Gameplay
         bool isValidSelection(Card::CardController* selected_card_controller);
         bool isValidMove(Card::CardController* selected_card_controller);
         bool isSequential(IStack<Card::CardController*>* stack, Card::CardController* last_card_to_check);
+
         bool isSuitComplete(IStack<Card::CardController*>* stack);
         bool isLevelComplete();
         bool isGameOver();
+
+        void addEmptyCard(IStack<Card::CardController*>* stack);
+        void removeEmptyCard(IStack<Card::CardController*>* stack);
+
 
         void reduceScore(int val);
         void increaseScore(int val);
@@ -63,13 +70,18 @@ namespace Gameplay
         void startLevel();
 
         void setCardToProcessInput(Card::CardController* selected_card_controller);
-        float getCardWidth();
-        float getCardHeight();
+        
         float getElapsedTime();
         int getScore();
+        
+        void processCardClick(CardController* card_to_process);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();
+
+        float getTotalCardSpacingWidth();
+        int getNumberOfPlaystacks();
+        sf::Vector2f calculatePlayCardPosition(int stack_index, int stack_size, int card_stack_position);
     };
 }

@@ -1,15 +1,23 @@
 #pragma once
-#include "../../header/Card/CardController.h"
+#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Stack/IStack.h"
+#include "../../header/Card/CardController.h"
 
 namespace Card
 {
 	using namespace Stack;
+	using namespace Gameplay;
 
 	class CardService
 	{
 	private:
+		const float card_height_to_width_ratio = 1.45f;
+		float card_width;
+		float card_height;
+
 		void shuffleDeck(IStack<CardController*>* card_deck);
+		float calculateCardWidth(float width_space_for_cards, int play_stack_count);
+		float calculateCardHeight(float card_width);
 
 	public:
 		CardService();
@@ -19,8 +27,12 @@ namespace Card
 		void update();
 		void render();
 
+		float getCardWidth();
+		float getCardHeight();
+
+		IStack<CardController*>* generateRandomizedCardDeck(int number_of_decks);
+		IStack<CardController*>* generateSequentialCardDeck(int number_of_decks);
 		CardController* generateCard(Rank rank, Suit suit);
-		IStack<CardController*>* generateRandomizedCardDeck(int number_of_decks = 1);
-		IStack<CardController*>* generateSequentialCardDeck(int number_of_decks = 1);
+		void calculateCardExtends(float spacing, int play_stack_count);
 	};
 }

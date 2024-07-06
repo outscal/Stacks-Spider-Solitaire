@@ -119,6 +119,7 @@ namespace UI
         {
             ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
             GameService::setGameState(GameState::MAIN_MENU);
+            ServiceLocator::getInstance()->getGameplayService()->startLevel();
         }
 
         void GameplayUIController::registerButtonCallback()

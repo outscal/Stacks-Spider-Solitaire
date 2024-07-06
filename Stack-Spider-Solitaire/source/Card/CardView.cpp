@@ -1,9 +1,10 @@
+#pragma once
 #include "../../header/Card/CardView.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Card/CardController.h"
+#include "../../header/Card/CardConfig.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Sound/SoundService.h"
-#include "../../header/Card/CardTexture.h"
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Event/EventService.h"
 
@@ -37,9 +38,15 @@ namespace Card
 		initializeImage();
 	}
 
+	void CardView::initializeButton()
+	{
+		card_button_view->initialize("Card", Config::closed_card_texture_path, card_width, card_height, sf::Vector2f(30,30));
+		card_button_view->registerCallbackFuntion(std::bind(&CardView::cardButtonCallback, this));
+	}
+
 	void CardView::update()
 	{
-		updateCardView();
+		
 		card_button_view->update();
 		card_highlight->update();
 	}
@@ -53,27 +60,16 @@ namespace Card
 		}
 	}
 
-	void CardView::initializeButton()
-	{
-		card_button_view->initialize("Card", getCardTexturePath(), card_width, card_height, sf::Vector2f(0, 0));
-		registerButtonCallback();
-	}
-
 	void CardView::initializeImage()
 	{
 		card_highlight->initialize(Config::card_highlight_texture_path, card_width, card_height, sf::Vector2f(0, 0));
 		card_highlight->hide();
 	}
 
-	void CardView::updateCardView()
-	{
-		card_button_view->setPosition(card_controller->getCardPosition());
-		card_highlight->setPosition(card_controller->getCardPosition());
-	}
 
 	void CardView::updateCardTexture()
 	{
-		card_button_view->setTexture(getCardTexturePath());
+		card_button_view->setTexture(getCardTexturePath(card_controller->getCardData()));
 	}
 
 	void CardView::setCardHighLight(bool b_highlight)
@@ -82,9 +78,28 @@ namespace Card
 		else card_highlight->hide();
 	}
 
-	void CardView::registerButtonCallback()
+	void CardView::setCardPosition(sf::Vector2f card_position)
 	{
-		card_button_view->registerCallbackFuntion(std::bind(&CardView::cardButtonCallback, this));
+		card_button_view->setPosition(card_position);
+		card_highlight->setPosition(card_position);
+	}
+
+	sf::String CardView::getCardTexturePath(CardData* card_type)
+	{
+		if (card_type->state == State::CLOSE)
+		{
+			return sf::String("assets/textures/cards/closed_card.png");
+		}
+
+		if (card_type->rank == Rank::DEFAULT)
+		{
+			return sf::String("assets/textures/cards/frame.png");
+		}
+
+		// Calculate card number based on rank and suit
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * Card::number_of_ranks);
+		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
+		return path;
 	}
 
 	void CardView::cardButtonCallback()
@@ -94,12 +109,7 @@ namespace Card
 		
 		//set the button state to held on the same frame so only top button is pressed
 		ServiceLocator::getInstance()->getEventService()->setLeftMouseButtonState(ButtonState::HELD); 
+
 	}
 
-	sf::String CardView::getCardTexturePath()
-	{
-		CardType* card = card_controller->getCardType();
-		sf::String texture_path = CardTexture::getCardTexturePath(card->rank, card->suit, card->state);
-		return texture_path;
-	}
 }

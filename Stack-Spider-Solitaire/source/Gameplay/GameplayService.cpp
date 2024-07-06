@@ -40,20 +40,12 @@ namespace Gameplay
 		level_controller->startLevel();
 	}
 
-	void GameplayService::setCardToProcessInput(CardController* selected_card_controller)
+	void GameplayService::processCard(CardController* card_to_process)
 	{
-		level_controller->setCardToProcessInput(selected_card_controller);
+		level_controller->setCardToProcessInput(card_to_process);
+
 	}
 
-	float GameplayService::getCardWidth()
-	{
-		return level_controller->getCardWidth();
-	}
-
-	float GameplayService::getCardHeight()
-	{
-		return level_controller->getCardHeight();
-	}
 
 	float GameplayService::getElapsedTime()
 	{

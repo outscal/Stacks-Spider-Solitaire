@@ -1,6 +1,6 @@
 #include "../../header/Card/CardController.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 
 namespace Card
 {
@@ -50,14 +50,11 @@ namespace Card
 		}
 	}
 
-	CardType* CardController::getCardType()
-	{
-		return card_model->getCardType();
-	}
 
-	State CardController::getCardState()
+
+	CardData* CardController::getCardData()
 	{
-		return card_model->getCardType()->state;
+		return card_model->getCardData();
 	}
 
 	void CardController::setCardState(State card_state)
@@ -70,7 +67,7 @@ namespace Card
 			card_view->setCardHighLight(false);
 			break;
 		case Card::State::SELECTED:
-			if(card_model->getCardType()->rank != Rank::DEFAULT) card_view->setCardHighLight(true);
+			if(card_model->getCardData()->rank != Rank::DEFAULT) card_view->setCardHighLight(true);
 			break;
 		case Card::State::CLOSE:
 			card_view->setCardHighLight(false);
@@ -88,7 +85,10 @@ namespace Card
 	void CardController::setCardPosition(sf::Vector2f card_position)
 	{
 		card_model->setPosition(card_position);
+		card_view->setCardPosition(card_position);
+		positionSet = true; //to stop flickering 
 	}
+
 
 	CardVisibility CardController::getCardVisibility()
 	{
@@ -99,4 +99,5 @@ namespace Card
 	{
 		card_model->setHideDuration(duration);
 	}
+
 }

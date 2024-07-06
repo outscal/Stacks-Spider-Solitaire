@@ -7,7 +7,7 @@ namespace Sound
 
 	void SoundService::initialize()
 	{
-		loadBackgroundMusicFromFile();
+		//loadBackgroundMusicFromFile();
 		loadSoundFromFile();
 	}
 

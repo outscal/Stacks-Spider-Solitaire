@@ -1,6 +1,6 @@
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 
-namespace Global
+namespace Time
 {
 	void TimeService::initialize()
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-namespace Main
+namespace Graphics
 {
 	class GraphicService
 	{
@@ -12,9 +12,11 @@ namespace Main
 
 		const int game_window_width = 1920;
 		const int game_window_height = 1080;
+		sf::Vector2f reference_resolution;
 
 		const sf::Color window_color = sf::Color(200, 200, 0, 255);
 
+		void setReferenceResolution();
 		sf::VideoMode video_mode;
 		sf::RenderWindow* game_window;
 
@@ -32,6 +34,7 @@ namespace Main
 		void render();
 		bool isGameWindowOpen();
 		void setFrameRate(int);
+		sf::Vector2f getReferenceResolution();
 		sf::RenderWindow* getGameWindow();
 	};
 }

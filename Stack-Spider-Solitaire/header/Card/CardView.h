@@ -1,10 +1,13 @@
 #pragma once
 #include "../../header/UI/UIElement/ButtonView.h"
 #include "../../header/UI/UIElement/ImageView.h"
+#include <SFML/Graphics.hpp>
+
 
 namespace Card
 {
     class CardController;
+    class CardData;
 
     class CardView
     {
@@ -20,10 +23,10 @@ namespace Card
         void initializeButton();
         void initializeImage();
         
-        void updateCardView();
-        void registerButtonCallback();
+        sf::String getCardTexturePath(CardData* card_type);
+
         void cardButtonCallback();
-        sf::String getCardTexturePath();
+
 
     public:
         CardView();
@@ -35,5 +38,9 @@ namespace Card
 
         void updateCardTexture();
         void setCardHighLight(bool b_highlight);
+        void setCardPosition(sf::Vector2f card_position);
+
+        
+
     };
 }

@@ -105,7 +105,7 @@ namespace Card
 	void CardView::cardButtonCallback()
 	{
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-		ServiceLocator::getInstance()->getGameplayService()->setCardToProcessInput(card_controller);
+		ServiceLocator::getInstance()->getGameplayService()->processCard(card_controller);
 		
 		//set the button state to held on the same frame so only top button is pressed
 		ServiceLocator::getInstance()->getEventService()->setLeftMouseButtonState(ButtonState::HELD); 

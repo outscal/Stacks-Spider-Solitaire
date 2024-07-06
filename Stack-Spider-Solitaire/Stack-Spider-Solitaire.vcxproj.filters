@@ -87,7 +87,13 @@
     <ClCompile Include="source\Graphics\GraphicService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\UI\Instructions\InstructionsScreenUiController.cpp">
+    <ClCompile Include="source\UI\Gameplay\GameplayUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\Credits\CreditsScreenUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\Instructions\InstructionsScreenUIController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,9 +152,6 @@
     <ClInclude Include="header\Gameplay\LevelView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Stack\ArrayStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\Card\CardService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -163,14 +166,26 @@
     </ClInclude>
     <ClInclude Include="header\Card\CardConfig.h">
       <Filter>Header Files</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="header\Time\TimeService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Graphics\GraphicService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\UI\Instructions\InstructionsScreenUIController.h">
+    <ClInclude Include="header\UI\Gameplay\GameplayUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Stack\ArrayStack\ArrayStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\Credits\CreditsScreenUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Stack\LinkedListStack\LinkedListStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Stack\IStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

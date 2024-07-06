@@ -38,7 +38,6 @@ namespace Gameplay
 
         int getNumberOfDrawsRemaining();
         float getCardVerticalSpacing(Card::State state, int number_of_open_cards);
-        int getNumberOfDrawsRemaining();
 
         void destroy();
 

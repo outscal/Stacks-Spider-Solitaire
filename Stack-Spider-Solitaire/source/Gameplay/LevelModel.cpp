@@ -126,7 +126,7 @@ namespace Gameplay
 	{
 		for (int i = 0; i < number_of_solution_stacks; i++)
 		{
-			if (solution_stacks[i]->size() == 0) return solution_stacks[i];
+			if (solution_stacks[i]->getSize() == 0) return solution_stacks[i];
 		}
 
 		return nullptr;
@@ -153,9 +153,9 @@ namespace Gameplay
 
 	void LevelModel::removeEmptyCard(IStack<Card::CardController*>* stack)
 	{
-		if (stack->empty()) return;
+		if (stack->isEmpty()) return;
 
-		if (stack->peek()->getCardType()->rank == Card::Rank::DEFAULT)
+		if (stack->peek()->getCardData()->rank == Card::Rank::DEFAULT)
 		{
 			CardController* card_controller = stack->pop();
 			delete (card_controller);

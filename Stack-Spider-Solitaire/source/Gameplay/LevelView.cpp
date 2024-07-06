@@ -218,14 +218,6 @@ namespace Gameplay
 
 	}
 
-	int LevelView::getNumberOfDrawsRemaining()
-	{
-		float drawing_stack_size = static_cast<float>(level_controller->getDrawingStack()->size());
-		float play_stacks_count = static_cast<float>(LevelModel::number_of_play_stacks);
-		
-		return static_cast<int>(std::ceil(drawing_stack_size / play_stacks_count));
-	}
-
 
 	void LevelView::setCardDimensions(float height, float width)
 	{

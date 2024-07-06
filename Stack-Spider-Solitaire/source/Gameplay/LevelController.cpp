@@ -33,6 +33,7 @@ namespace Gameplay
 		CardService* card_service = ServiceLocator::getInstance()->getCardService();
 		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
 		level_view->setCardDimensions(card_service->getCardHeight(), card_service->getCardWidth());
+		score = LevelModel::initial_score;
 		
 		//init view and model
 		level_view->initialize(this);
@@ -196,7 +197,6 @@ namespace Gameplay
 	{
 		IStack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
 		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(card_controller);
-		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
 		if (!previously_selected_card_stack || !currently_selected_card_stack) return;
 
@@ -222,13 +222,8 @@ namespace Gameplay
 			temp_stack.push(controller);
 		}
 
-		temp_stack.push(previously_selected_card_stack->pop());
-		while (!temp_stack.isEmpty()) currently_selected_card_stack->push(temp_stack.pop());
-		
-		openTopCardOfStack(previously_selected_card_stack);
-		previously_selected_card_controller->setCardState(Card::State::OPEN);
-		previously_selected_card_controller = nullptr;
-		reduceScore(1);
+		temp_stack.push(source_stack->pop());
+		while (!temp_stack.isEmpty()) target_stack->push(temp_stack.pop());
 
 	}
 
@@ -266,11 +261,6 @@ namespace Gameplay
 			return true;
 		}
 
-
-		if (current_card_rank == Card::Rank::DEFAULT) {
-			return true;
-		}
-
 		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
 	}
 
@@ -303,7 +293,7 @@ namespace Gameplay
 
 	bool LevelController::isSuitComplete(IStack<Card::CardController*>* stack)
 	{
-		if (stack->size() + 1 < static_cast<int>(Card::Rank::DEFAULT)) return false;
+		if (stack->getSize() + 1 < static_cast<int>(Card::Rank::DEFAULT)) return false;
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
 		for (int i = 1; i < static_cast<int>(Card::Rank::DEFAULT); i++)
@@ -312,7 +302,7 @@ namespace Gameplay
 		}
 
 		CardController* last_card_to_check = temp_stack.peek();
-		while (!temp_stack.empty()) stack->push(temp_stack.pop());
+		while (!temp_stack.isEmpty()) stack->push(temp_stack.pop());
 
 		return isSequential(stack, last_card_to_check);
 	}

@@ -188,6 +188,7 @@ namespace Gameplay
 		{
 			CardController* card_controller = level_controller->getDrawingStack()->pop();
 			temp_stack.push(card_controller);
+			
 			if (card_controller->positionSet)
 			{
 				card_controller->render();

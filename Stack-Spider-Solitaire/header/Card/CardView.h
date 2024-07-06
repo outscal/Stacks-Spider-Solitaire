@@ -23,7 +23,6 @@ namespace Card
         void initializeButton();
         void initializeImage();
         
-        void updateCardView();
         sf::String getCardTexturePath(CardData* card_type);
 
         void cardButtonCallback();

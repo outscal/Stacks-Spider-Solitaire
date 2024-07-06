@@ -25,8 +25,6 @@ namespace Gameplay
         void updatePlayStacksView();
 
         void updatePlayStackCardsView(IStack<Card::CardController*>& stack, int stack_position);
-        void updateSinglePlayStackView(IStack<Card::CardController*>& stack, int stack_position);
-
 
         void updateSolutionStacksView();      
         void updateDrawingStackView();

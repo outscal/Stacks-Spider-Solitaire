@@ -91,7 +91,13 @@ namespace Card
 			return sf::String("assets/textures/cards/closed_card.png");
 		}
 
-		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks) + 1;
+		if (card_type->rank == Rank::DEFAULT)
+		{
+			return sf::String("assets/textures/cards/frame.png");
+		}
+
+		// Calculate card number based on rank and suit
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * Card::number_of_ranks);
 		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
 		return path;
 	}

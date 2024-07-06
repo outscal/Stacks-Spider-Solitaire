@@ -115,11 +115,12 @@ namespace Gameplay
 		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
 			if (card_deck->isEmpty()) return;
+			
 			CardController* card_controller = card_deck->pop();
 			
-			card_controller->hideCard(static_cast<float>(i) * LevelModel::card_hide_duration_multiplyer);
-			card_controller->setCardState(Card::State::OPEN);
+			card_controller->hideCard(static_cast<float>(i) * LevelModel::card_hide_duration_multiplyer);			
 			level_model->addCardInPlayStack(i, card_controller);
+			card_controller->setCardState(Card::State::OPEN);
 		}
 	}
 
@@ -358,6 +359,8 @@ namespace Gameplay
 
 	void LevelController::removeEmptyCard(IStack<Card::CardController*>* stack)
 	{
+		if (stack->isEmpty()) return;
+
 		if (stack->peek()->getCardData()->rank == Card::Rank::DEFAULT)
 		{
 			CardController* card_controller = stack->pop();

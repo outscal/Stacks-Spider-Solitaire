@@ -48,11 +48,11 @@ namespace Gameplay
 
         static constexpr float play_deck_top_offset = 110.f;
 
-        static constexpr float drawing_deck_top_offset = 800.f;
+        static constexpr float drawing_deck_top_offset = 820.f;
         static constexpr float drawing_deck_left_offset = 1670.f;
         static constexpr float drawing_deck_horizontal_spacing = 40.f;
 
-        static constexpr float solution_deck_top_offset = 770.f;
+        static constexpr float solution_deck_top_offset = 820.f;
         static constexpr float solution_deck_left_offset = 200.f;
         static constexpr float solution_deck_spacing = 40.f;
 

@@ -64,7 +64,7 @@ namespace Gameplay
 
 	void LevelController::processButtonInput(CardController* selected_card_controller)
 	{
-		switch (selected_card_controller->getCardState())
+		switch (selected_card_controller->getCardData()->state)
 		{
 		case::Card::State::OPEN:
 			processCardMove(selected_card_controller);
@@ -147,7 +147,7 @@ namespace Gameplay
 		IStack<Card::CardController*>* stack = level_model->findPlayStack(card_controller);
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
 
-		while (!stack->isEmpty() && stack->peek()->getCardState() == Card::State::SELECTED)
+		while (!stack->isEmpty() && stack->peek()->getCardData()->state == Card::State::SELECTED)
 		{
 			CardController* card_controller = stack->pop();
 			card_controller->setCardState(Card::State::OPEN);
@@ -197,32 +197,10 @@ namespace Gameplay
 
 	bool LevelController::isValidSelection(Card::CardController* selected_card_controller)
 	{
+		if (selected_card_controller->getCardData()->rank == Card::Rank::DEFAULT) return false;
+
 		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
-		LinkedListStack::Stack<Card::CardController*> temp_stack;
-
-		Card::Suit card_suit = selected_card_controller->getCardData()->suit;
-		int previous_card_rank = static_cast<int>(currently_selected_card_stack->peek()->getCardData()->rank) - 1;
-		bool is_valid_selection = true;
-
-		while (currently_selected_card_stack->peek() != selected_card_controller)
-		{
-			CardController* card_controller = currently_selected_card_stack->pop();
-			temp_stack.push(card_controller);
-
-			if (static_cast<int>(card_controller->getCardData()->rank) != ++previous_card_rank
-				|| card_controller->getCardData()->suit != card_suit)
-			{
-				is_valid_selection = false;
-				break;
-			}
-		}
-
-		while (!temp_stack.isEmpty())
-		{
-			currently_selected_card_stack->push(temp_stack.pop());
-		}
-
-		return is_valid_selection;
+		return (currently_selected_card_stack != nullptr) && isSequential(currently_selected_card_stack, selected_card_controller);
 	}
 
 	bool LevelController::isValidMove(Card::CardController* selected_card_controller)
@@ -230,12 +208,43 @@ namespace Gameplay
 		IStack<Card::CardController*>* previously_selected_card_stack = level_model->findPlayStack(previously_selected_card_controller);
 		IStack<Card::CardController*>* currently_selected_card_stack = level_model->findPlayStack(selected_card_controller);
 
+		if (!previously_selected_card_stack || !currently_selected_card_stack) return false;
 		if (currently_selected_card_stack->peek() != selected_card_controller) return false;
 
 		Card::Rank previous_card_rank = previously_selected_card_controller->getCardData()->rank;
 		Card::Rank current_card_rank = selected_card_controller->getCardData()->rank;
 
+		if (current_card_rank == Card::Rank::DEFAULT) {
+			return true;
+		}
+
 		return (static_cast<int>(previous_card_rank) + 1 == static_cast<int>(current_card_rank));
+	}
+
+	bool LevelController::isSequential(IStack<Card::CardController*>* stack, Card::CardController* last_card_to_check)
+	{
+		LinkedListStack::Stack<Card::CardController*> temp_stack;
+
+		Card::Suit card_suit = last_card_to_check->getCardData()->suit;
+		int previous_card_rank = static_cast<int>(stack->peek()->getCardData()->rank) - 1;
+		bool is_sequential = true;
+
+		while (!stack->isEmpty())
+		{
+			Card::CardController* card_controller = stack->pop();
+			temp_stack.push(card_controller);
+
+			if (static_cast<int>(card_controller->getCardData()->rank) != ++previous_card_rank ||
+				card_controller->getCardData()->suit != card_suit)
+			{
+				is_sequential = false;
+			}
+
+			if (card_controller == last_card_to_check) break;
+		}
+
+		while (!temp_stack.isEmpty()) stack->push(temp_stack.pop());
+		return is_sequential;
 	}
 
 	void LevelController::updateElapsedTime()
@@ -293,24 +302,6 @@ namespace Gameplay
 		flagged_card_to_process_input = selected_card_controller;
 	}
 
-
-	void LevelController::processCardClick(CardController* card_to_process)
-	{
-		IStack<Card::CardController*>* card_deck = level_model->getDrawingStack();
-		
-		if (card_deck->contains(card_to_process))
-		{
-			for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
-			{
-				if (card_deck->isEmpty()) return;
-				CardController* card_controller = card_deck->pop();
-
-				card_controller->setCardState(Card::State::OPEN);
-
-			}
-		}
-	
-	}
 
 	float LevelController::getTotalCardSpacingWidth()
 	{

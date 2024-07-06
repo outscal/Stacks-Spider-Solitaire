@@ -87,8 +87,8 @@ namespace Gameplay
 
 		while (!stack.isEmpty())
 		{
-			if (stack.peek()->getCardState() == Card::State::OPEN ||
-				stack.peek()->getCardState() == Card::State::SELECTED) number_of_open_cards++;
+			if (stack.peek()->getCardData()->state == Card::State::OPEN ||
+				stack.peek()->getCardData()->state == Card::State::SELECTED) number_of_open_cards++;
 
 			temp_stack.push(stack.pop());
 		}
@@ -103,7 +103,7 @@ namespace Gameplay
 
 			stack.push(card_controller);
 			card_stack_position++;
-			vertical_spacing += getCardVerticalSpacing(card_controller->getCardState(), number_of_open_cards);
+			vertical_spacing += getCardVerticalSpacing(card_controller->getCardData()->state, number_of_open_cards);
 		}
 		
 	}
@@ -219,7 +219,7 @@ namespace Gameplay
 	void LevelView::setCardDimensions(float height, float width)
 	{
 		card_height = height;
-		card_width = card_width;
+		card_width = width;
 	}
 
 	float LevelView::getCardVerticalSpacing(Card::State state, int number_of_open_cards)

@@ -42,6 +42,7 @@ namespace Gameplay
 
         bool isValidSelection(Card::CardController* selected_card_controller);
         bool isValidMove(Card::CardController* selected_card_controller);
+        bool isSequential(IStack<Card::CardController*>* stack, Card::CardController* last_card_to_check);
 
         void addEmptyCard(IStack<Card::CardController*>* stack);
         void removeEmptyCard(IStack<Card::CardController*>* stack);

@@ -11,6 +11,7 @@ namespace Card
         CardView* card_view;
 
         void updateCardVisibility();
+        
 
     public:
         CardController(Rank rank, Suit suit);
@@ -20,9 +21,8 @@ namespace Card
         void update();
         void render();
 
-        //State getCardState();
+        
         CardData* getCardData();
-        State getCardState();
         void setCardState(State card_state);
 
         sf::Vector2f getCardPosition();

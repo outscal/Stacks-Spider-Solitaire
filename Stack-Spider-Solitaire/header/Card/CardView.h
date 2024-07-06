@@ -24,6 +24,7 @@ namespace Card
         void initializeImage();
         
         void updateCardView();
+        sf::String getCardTexturePath(CardData* card_type);
 
         void cardButtonCallback();
 
@@ -40,7 +41,7 @@ namespace Card
         void setCardHighLight(bool b_highlight);
         void setCardPosition(sf::Vector2f card_position);
 
-        sf::String getCardTexturePath(CardData* card_type);
+        
 
     };
 }

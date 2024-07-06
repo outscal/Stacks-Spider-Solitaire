@@ -57,11 +57,6 @@ namespace Card
 		return card_model->getCardData();
 	}
 
-	State CardController::getCardState()
-	{
-		return card_model->getCardData()->state;
-	}
-
 	void CardController::setCardState(State card_state)
 	{
 		card_model->setCardState(card_state);

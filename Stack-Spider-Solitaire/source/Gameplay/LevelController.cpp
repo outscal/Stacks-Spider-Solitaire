@@ -43,6 +43,7 @@ namespace Gameplay
 	void LevelController::update()
 	{
 		updateElapsedTime();
+		updateDelayTime();
 		level_view->update();
 		updateStacks();
 		processCardControllerInput();
@@ -92,10 +93,9 @@ namespace Gameplay
 	{
 		if (previously_selected_card_controller) unselectCards(previously_selected_card_controller);
 		
-		if (getDrawingStack()->contains(selected_card_controller))
+		if (getDrawStackButtons()->contains(selected_card_controller))
 		{
-			drawCards();
-
+			canDrawCard = true;
 			
 		}
 	}
@@ -136,22 +136,28 @@ namespace Gameplay
 
 	void LevelController::drawCards()
 	{
-		IStack<Card::CardController*>* card_deck = getDrawingStack();
 
-		for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+		if (cards_popped < LevelModel::number_of_play_stacks)
 		{
+			IStack<Card::CardController*>* card_deck = getDrawingStack();
+			
 			if (card_deck->isEmpty()) return;
-			
-			CardController* card_controller = card_deck->pop();
-			
-			card_controller->hideCard(static_cast<float>(i) * LevelModel::card_hide_duration_multiplyer);			
-			level_model->addCardInPlayStack(i, card_controller);
 
-			if (isSuitComplete(level_model->getPlayStacks()[i])) processSuitCompletion(level_model->getPlayStacks()[i]);
+			CardController* card_controller = card_deck->pop();
+			level_model->addCardInPlayStack(cards_popped, card_controller);
+
+			if (isSuitComplete(level_model->getPlayStacks()[cards_popped])) processSuitCompletion(level_model->getPlayStacks()[cards_popped]);
 			card_controller->setCardState(Card::State::OPEN);
 
+			cards_popped++;
+			delay_time = 0;
+		}
+		else {
+			canDrawCard = false;
+			cards_popped = 0;
 		}
 	}
+
 
 	void LevelController::selectCards(Card::CardController* card_controller)
 	{
@@ -323,6 +329,23 @@ namespace Gameplay
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 	}
 
+	void LevelController::updateDelayTime()
+	{
+		delay_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+		if (canDrawCard)
+		{
+			if (delay_time > level_model->card_hide_duration)
+			{
+
+				drawCards();
+				
+			}			
+
+		}
+		
+	}
+
 	void LevelController::updateStacks()
 	{
 		updatePlayStacks();
@@ -348,7 +371,7 @@ namespace Gameplay
 
 	void LevelController::updateDrawingStack()
 	{
-		updateStackCards(getDrawingStack());
+		updateStackCards(getDrawStackButtons());
 	}
 
 	void LevelController::updateStackCards(IStack<Card::CardController*>* stack)
@@ -423,6 +446,11 @@ namespace Gameplay
 		return level_model->getDrawingStack();
 	}
 
+	IStack<Card::CardController*>* LevelController::getDrawStackButtons()
+	{
+		return level_model->getDrawStackButtons();
+	}
+
 	void LevelController::addEmptyCard(IStack<Card::CardController*>* stack)
 	{
 		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
@@ -459,6 +487,7 @@ namespace Gameplay
 	void LevelController::reset()
 	{
 		elapsed_time = 0;
+		delay_time = 0;
 		score = LevelModel::initial_score;
 		previously_selected_card_controller = nullptr;
 		flagged_card_to_process_input = nullptr;

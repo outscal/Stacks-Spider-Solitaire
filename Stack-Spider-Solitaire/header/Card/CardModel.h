@@ -33,7 +33,6 @@ namespace Card
         sf::Vector2f position;
 
         CardVisibility card_visibility;
-        float hide_duration;
 
     public:
         CardModel(Rank rank, Suit suit);
@@ -45,11 +44,9 @@ namespace Card
         CardData* getCardData();
         void setCardState(State card_state);
 
-        void setCardVisibility(CardVisibility visibility);
+        void setCardVisibility(Card::CardVisibility visibility);
         CardVisibility getCardVisibility();
 
-        void setHideDuration(float duration);
-        float getHideDuration();
 
     };
 }

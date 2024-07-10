@@ -18,10 +18,14 @@ namespace Gameplay
         Card::CardController* previously_selected_card_controller;
         Card::CardController* flagged_card_to_process_input;
 
-        float elapsed_time;
+        float elapsed_time = 0.0f;
+        float delay_time = 0.0f;
         int score;
+        bool canDrawCard = false;
+        int cards_popped = 0;
 
         void updateElapsedTime();
+        void updateDelayTime();
         void updateStacks();
         void updatePlayStacks();
         void updateSolutionStacks();
@@ -79,6 +83,7 @@ namespace Gameplay
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();
+        IStack<Card::CardController*>* getDrawStackButtons();
 
         float getTotalCardSpacingWidth();
         int getNumberOfPlaystacks();

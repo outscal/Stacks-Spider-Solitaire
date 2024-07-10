@@ -27,6 +27,7 @@ namespace Card
 
         sf::Vector2f getCardPosition();
         void setCardPosition(sf::Vector2f card_position);
+        void setCardPosition();
 
         CardVisibility getCardVisibility();
         void hideCard(float duration);

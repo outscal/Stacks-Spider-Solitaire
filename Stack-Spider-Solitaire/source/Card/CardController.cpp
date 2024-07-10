@@ -89,6 +89,11 @@ namespace Card
 		positionSet = true; //to stop flickering 
 	}
 
+	void CardController::setCardPosition()
+	{
+		card_view->setCardPosition(card_model->getPosition());
+	}
+
 
 	CardVisibility CardController::getCardVisibility()
 	{

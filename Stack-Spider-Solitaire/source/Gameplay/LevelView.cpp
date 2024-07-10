@@ -140,8 +140,6 @@ namespace Gameplay
 
 		while (!temp_stack.isEmpty())
 		{
-			CardController* card_controller = temp_stack.peek();
-			card_controller->positionSet == false;
 			level_controller->getDrawingStack()->push(temp_stack.pop());
 		}
 	}
@@ -193,7 +191,6 @@ namespace Gameplay
 			
 			if (card_controller->positionSet)
 			{
-				
 				card_controller->render();
 			}
 			

@@ -268,6 +268,7 @@ namespace Gameplay
 		if (stack->isEmpty())
 		{
 			level_model->addEmptyCard(stack);
+
 		}
 
 		stack->peek()->setCardState(Card::State::OPEN);
@@ -483,8 +484,14 @@ namespace Gameplay
 
 	void LevelController::addEmptyCard(IStack<Card::CardController*>* stack)
 	{
-		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
-		stack->push(empty_card);
+		if (stack->isEmpty())
+		{
+			CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+			empty_card->setCardState(State::OPEN);
+			empty_card->setCardVisibility(CardVisibility::VISIBLE);
+			stack->push(empty_card);
+		}
+		
 	}
 
 	void LevelController::removeEmptyCard(IStack<Card::CardController*>* stack)
@@ -502,11 +509,14 @@ namespace Gameplay
 	{
 		if (level_model->moveHistory->isEmpty()) return;
 
+		if (previously_selected_card_controller) unselectCards(previously_selected_card_controller);
 		// Get the last move and remove it from the stack
 		CardMovement* lastMove = level_model->moveHistory->peek();
 		level_model->moveHistory->pop();
 
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+
+		removeEmptyCard(lastMove->sourceStack);
 
 		// Move cards back to the original stack
 		for (auto it = lastMove->movedCards.rbegin(); it != lastMove->movedCards.rend(); ++it) {
@@ -514,10 +524,19 @@ namespace Gameplay
 			lastMove->sourceStack->push(*it);
 		}
 
+		removeEmptyCard(lastMove->targetStack);
+		addEmptyCard(lastMove->targetStack);
+
 		// Close the card that was opened
-		if (lastMove->openedCard  && lastMove->wasTopCardOpen) {
-			lastMove->openedCard->setCardState(Card::State::CLOSE);
+		if (lastMove->openedCard && lastMove->wasTopCardOpen && (lastMove->openedCard->getCardData()->rank != Card::Rank::DEFAULT)) {
+
+				lastMove->openedCard->setCardState(Card::State::CLOSE);
+			
 		}
+
+		
+
+		
 
 		// Delete the dynamically allocated CardMovement object
 		delete lastMove;

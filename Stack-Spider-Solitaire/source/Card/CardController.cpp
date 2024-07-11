@@ -68,7 +68,7 @@ namespace Card
 	{
 		card_model->setPosition(card_position);
 		card_view->setCardPosition(card_position);
-		
+		positionSet = true;
 	}
 
 

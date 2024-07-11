@@ -27,6 +27,6 @@ namespace Card
 
         CardVisibility getCardVisibility();
         void setCardVisibility(Card::CardVisibility visibility);
-
+        bool positionSet = false;
     };
 }

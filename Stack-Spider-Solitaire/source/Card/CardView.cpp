@@ -53,7 +53,7 @@ namespace Card
 
 	void CardView::render()
 	{
-		if (card_controller->getCardVisibility() == CardVisibility::VISIBLE)
+		if (card_controller->getCardVisibility() == CardVisibility::VISIBLE && card_controller->positionSet)
 		{
 			card_button_view->render();
 			card_highlight->render();

@@ -69,8 +69,6 @@ namespace Gameplay
 
 	void LevelView::updatePlayStacksView() 
 	{ 
-		float card_width = ServiceLocator::getInstance()->getCardService()->getCardWidth();
-
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
 			updateSinglePlayStackView(*(level_controller->getPlayStacks()[i]), i);
@@ -112,7 +110,6 @@ namespace Gameplay
 
 			CardController* card_controller = level_controller->getSolutionStacks()[i]->peek();
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
-			card_controller->update();
 		}
 	}
 
@@ -123,19 +120,19 @@ namespace Gameplay
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
-			CardController* card_controller = level_controller->getDrawingStack()->pop();
+			CardController* card_controller = level_controller->getDrawStackButtons()->pop();
 			temp_stack.push(card_controller);
 
 			float x_position = LevelModel::drawing_deck_left_offset - (i * LevelModel::drawing_deck_horizontal_spacing);
 			float y_position = LevelModel::drawing_deck_top_offset;
 
 			card_controller->setCardPosition(sf::Vector2f(x_position, y_position));
-			card_controller->update();
+
 		}
 
 		while (!temp_stack.isEmpty())
 		{
-			level_controller->getDrawingStack()->push(temp_stack.pop());
+			level_controller->getDrawStackButtons()->push(temp_stack.pop());
 		}
 	}
 
@@ -181,18 +178,16 @@ namespace Gameplay
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
-			CardController* card_controller = level_controller->getDrawingStack()->pop();
+			CardController* card_controller = level_controller->getDrawStackButtons()->pop();
 			temp_stack.push(card_controller);
-			if (card_controller->positionSet)
-			{
-				card_controller->render();
-			}
-			
+
+			card_controller->render();
+
 		}
 
 		while (!temp_stack.isEmpty())
 		{
-			level_controller->getDrawingStack()->push(temp_stack.pop());
+			level_controller->getDrawStackButtons()->push(temp_stack.pop());
 		}
 		
 	}
@@ -209,6 +204,12 @@ namespace Gameplay
 	{
 		return (LevelModel::number_of_play_stacks + 1)* LevelModel::cards_horrizontal_spacing;
 
+	}
+
+	void LevelView::setCardDimensions(float height, float width)
+	{
+		card_height = height;
+		card_width = width;
 	}
 
 	void LevelView::destroy()

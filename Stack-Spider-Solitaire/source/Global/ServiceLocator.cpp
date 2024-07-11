@@ -21,7 +21,7 @@ namespace Global
 		ui_service = nullptr;
 		gameplay_service = nullptr;
 		card_service = nullptr;
-		time_service = nullptr;
+
 
 		createServices();
 	}

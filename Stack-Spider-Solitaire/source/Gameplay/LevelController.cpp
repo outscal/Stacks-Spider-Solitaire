@@ -1,11 +1,13 @@
 #include "../../header/Gameplay/LevelController.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Time/TimeService.h"
+#include "../../header/Stack/LinkedListStack/LinkedListStack.h"
 
 namespace Gameplay
 {
 	using namespace Card;
 	using namespace Global;
+	using namespace LinkedListStack;
 
 	
 
@@ -25,6 +27,7 @@ namespace Gameplay
 	{
 		CardService* card_service = ServiceLocator::getInstance()->getCardService();
 		card_service->calculateCardExtends(level_view->getTotalCardSpacingWidth(), level_model->number_of_play_stacks);
+		level_view->setCardDimensions(card_service->getCardHeight(), card_service->getCardWidth());
 		
 		//init view and model
 		level_view->initialize(this);
@@ -35,6 +38,7 @@ namespace Gameplay
 	{
 		updateElapsedTime();
 		level_view->update();
+		updateStacks();
 	}
 
 	void LevelController::render()
@@ -47,6 +51,52 @@ namespace Gameplay
 		reset();		
 	}
 
+	void LevelController::updateStacks()
+	{
+		updatePlayStacks();
+		updateSolutionStacks();
+		updateDrawingStackButtons();
+	}
+
+	void LevelController::updatePlayStacks()
+	{
+		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
+		{
+			updateStackCards(getPlayStacks()[i]);
+		}
+	}
+
+	void LevelController::updateSolutionStacks()
+	{
+		for (float i = 0; i < LevelModel::number_of_solution_stacks; i++)
+		{
+			updateStackCards(getSolutionStacks()[i]);
+		}
+	}
+
+
+	void LevelController::updateDrawingStackButtons()
+	{
+		updateStackCards(getDrawStackButtons());
+	}
+
+	void LevelController::updateStackCards(IStack<Card::CardController*>* stack)
+	{
+		LinkedListStack::Stack<CardController*> temp_stack;
+
+		while (!stack->isEmpty())
+		{
+			CardController* card_controller = stack->pop();
+			card_controller->update();
+			temp_stack.push(card_controller);
+		}
+
+		while (!temp_stack.isEmpty())
+		{
+			stack->push(temp_stack.pop());
+		}
+	}
+
 	void LevelController::updateElapsedTime()
 	{
 		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
@@ -55,14 +105,15 @@ namespace Gameplay
 
 	void LevelController::processCardClick(CardController* card_to_process)
 	{
-		IStack<Card::CardController*>* card_deck = level_model->getDrawingStack();
+		IStack<Card::CardController*>* card_deck = level_model->getDrawStackButtons();
+		IStack<Card::CardController*>* card_deck1 = level_model->getDrawingStack();
 		
 		if (card_deck->contains(card_to_process))
 		{
 			for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
 			{
-				if (card_deck->isEmpty()) return;
-				CardController* card_controller = card_deck->pop();
+				if (card_deck1->isEmpty()) return;
+				CardController* card_controller = card_deck1->pop();
 
 				card_controller->setCardState(Card::State::OPEN);
 
@@ -116,6 +167,11 @@ namespace Gameplay
 	IStack<CardController*>* LevelController::getDrawingStack()
 	{
 		return level_model->getDrawingStack();
+	}
+
+	IStack<Card::CardController*>* LevelController::getDrawStackButtons()
+	{
+		return level_model->getDrawStackButtons();
 	}
 
 	void LevelController::reset()

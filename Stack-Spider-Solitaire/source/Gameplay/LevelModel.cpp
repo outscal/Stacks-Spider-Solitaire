@@ -19,6 +19,7 @@ namespace Gameplay
 		createPlayStacks();
 		createSolutionStacks();
 		createDrawingStack();
+		createDrawStackButtons();
 	}
 
 	LevelModel::~LevelModel()
@@ -49,6 +50,11 @@ namespace Gameplay
 		drawing_stack = new ArrayStack::Stack<CardController*>();
 	}
 
+	void LevelModel::createDrawStackButtons()
+	{
+		draw_stack_buttons = new ArrayStack::Stack<CardController*>();
+	}
+
 	void LevelModel::initialize() 
 	{
 		populateCardPiles();
@@ -63,12 +69,14 @@ namespace Gameplay
 
 	void LevelModel::populateCardPiles()
 	{
-		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
+		ServiceLocator* locator = ServiceLocator::getInstance();
+		IStack<CardController*>* card_deck = locator->getCardService()->generateRandomizedCardDeck(number_of_decks);
 
 		while (card_deck->getSize() > drawing_deck_stack_size)
 		{
 			for (int i = 0; i < number_of_play_stacks; i++)
 			{
+
 				if (card_deck->getSize() <= drawing_deck_stack_size) break;
 				addCardInPlayStack(i, card_deck->pop());
 			}
@@ -80,6 +88,12 @@ namespace Gameplay
 		}
 
 		delete (card_deck);
+
+		for (int i = 0; i < 5; i++)
+		{
+			addDrawStackButtons(locator->getCardService()->generateCard(Card::Rank::ACE, Card::Suit::HEARTS));
+
+		}
 	}
 
 	void LevelModel::addCardInPlayStack(int stack_index, CardController* card_controller)
@@ -103,6 +117,11 @@ namespace Gameplay
 		drawing_stack->push(card_controller);
 	}
 
+	void LevelModel::addDrawStackButtons(Card::CardController* card_controller)
+	{
+		draw_stack_buttons->push(card_controller);
+	}
+
 	std::vector<IStack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
 	{
 		return play_stacks;
@@ -116,6 +135,11 @@ namespace Gameplay
 	IStack<CardController*>* Gameplay::LevelModel::getDrawingStack()
 	{
 		return drawing_stack;
+	}
+
+	IStack<Card::CardController*>* LevelModel::getDrawStackButtons()
+	{
+		return draw_stack_buttons;
 	}
 
 	void LevelModel::deleteAllStackElemets()

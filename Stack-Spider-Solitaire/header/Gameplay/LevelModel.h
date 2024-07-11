@@ -16,10 +16,12 @@ namespace Gameplay
         std::vector<IStack<Card::CardController*>*> play_stacks;
         std::vector<IStack<Card::CardController*>*> solution_stacks;
         IStack<Card::CardController*>* drawing_stack;
+        IStack<Card::CardController*>* draw_stack_buttons;
 
         void createPlayStacks();
         void createSolutionStacks();
         void createDrawingStack();
+        void createDrawStackButtons();
 
         void destroy();
         void deleteAllStackElemets();
@@ -28,6 +30,8 @@ namespace Gameplay
         void addCardInPlayStack(int stack_index, Card::CardController* card_controller);
         void addCardInSolutionStack(int stack_index, Card::CardController* card_controller);
         void addCardInDrawingStack(Card::CardController* card_controller);
+        void addDrawStackButtons(Card::CardController* card_controller);
+
 
 
     public:
@@ -48,6 +52,7 @@ namespace Gameplay
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();
+        IStack<Card::CardController*>* getDrawStackButtons();
 
         void openTopPlayStackCards();
 

@@ -19,6 +19,12 @@ namespace Gameplay
         float elapsed_time;
         int score;
 
+        void updateStacks();
+        void updatePlayStacks();
+        void updateSolutionStacks();
+        void updateDrawingStackButtons();
+        void updateStackCards(IStack<Card::CardController*>* stack);
+
         void updateElapsedTime();
         void reset();
 
@@ -40,6 +46,7 @@ namespace Gameplay
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();
         IStack<Card::CardController*>* getDrawingStack();
+        IStack<Card::CardController*>* getDrawStackButtons();
 
         float getTotalCardSpacingWidth();
         int getNumberOfPlaystacks();

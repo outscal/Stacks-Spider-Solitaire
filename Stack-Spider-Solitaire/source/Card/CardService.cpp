@@ -47,7 +47,9 @@ namespace Card
 
 	CardController* CardService::generateCard(Rank rank, Suit suit)
 	{
-		return new CardController(rank, suit);
+		CardController* card = new CardController(rank, suit);
+		card->initialize(card_width, card_height);
+		return card;
 	}
 
 	IStack<CardController*>* CardService::generateSequentialCardDeck(int number_of_decks)
@@ -62,7 +64,6 @@ namespace Card
 				for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 				{
 					CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
-					card->initialize(card_width, card_height);
 					card_deck->push(card);
 				}
 			}

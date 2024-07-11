@@ -45,7 +45,11 @@ namespace Card
 
 	void CardView::render()
 	{
-		card_button_view->render();
+		if (card_controller->positionSet)
+		{
+			card_button_view->render();
+		}
+		
 	}
 
 	void CardView::updateCardTexture()
@@ -65,7 +69,9 @@ namespace Card
 			return sf::String("assets/textures/cards/closed_card.png");
 		}
 
-		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * number_of_ranks) + 1;
+
+		// Calculate card number based on rank and suit
+		int card_number = static_cast<int>(card_type->rank) + (static_cast<int>(card_type->suit) * Card::number_of_ranks);
 		sf::String path = "assets/textures/cards/card_" + std::to_string(card_number) + ".png";
 		return path;
 	}

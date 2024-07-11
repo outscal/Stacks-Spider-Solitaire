@@ -21,6 +21,7 @@ namespace Gameplay
 		createSolutionStacks();
 		createDrawingStack();
 		createDrawStackButtons();
+		createMoveHistoryStack();
 	}
 
 	LevelModel::~LevelModel()
@@ -54,6 +55,11 @@ namespace Gameplay
 	void LevelModel::createDrawStackButtons()
 	{
 		draw_stack_buttons = new ArrayStack::Stack<CardController*>();
+	}
+
+	void LevelModel::createMoveHistoryStack()
+	{
+		moveHistory = new LinkedListStack::Stack<CardMovement*>();
 	}
 
 	void LevelModel::initialize() 

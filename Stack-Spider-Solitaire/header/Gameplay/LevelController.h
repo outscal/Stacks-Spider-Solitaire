@@ -9,7 +9,7 @@ namespace Gameplay
 {
     using namespace Stack;
     using namespace Card;
-
+    
     class LevelController
     {
     private:
@@ -43,7 +43,7 @@ namespace Gameplay
         void selectCards(Card::CardController* card_controller);
         void unselectCards(Card::CardController* card_controller);
         void moveCards(Card::CardController* selected_card_controller);
-        void moveCardsBetweenStacks(IStack<Card::CardController*>* source_stack, IStack<Card::CardController*>* target_stack);
+        std::vector<Card::CardController*> moveCardsBetweenStacks(IStack<Card::CardController*>* source_stack, IStack<Card::CardController*>* target_stack, Card::CardController*& openedCard);
         void openTopCardOfStack(IStack<Card::CardController*>* stack);
 
         bool isValidSelection(Card::CardController* selected_card_controller);
@@ -57,10 +57,12 @@ namespace Gameplay
         void addEmptyCard(IStack<Card::CardController*>* stack);
         void removeEmptyCard(IStack<Card::CardController*>* stack);
 
+        void undo();
 
         void reduceScore(int val);
         void increaseScore(int val);
         void processGameOver();
+        void clearMoveHistory();
         void reset();
 
     public:
@@ -77,8 +79,6 @@ namespace Gameplay
         
         float getElapsedTime();
         int getScore();
-        
-        void processCardClick(CardController* card_to_process);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
         std::vector<IStack<Card::CardController*>*> getSolutionStacks();

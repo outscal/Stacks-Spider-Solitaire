@@ -5,8 +5,22 @@
 
 namespace Gameplay
 {
+
+   
     using namespace Stack;
     using namespace Card;
+
+    struct CardMovement {
+        IStack<Card::CardController*>* sourceStack;
+        IStack<Card::CardController*>* targetStack;
+        std::vector<Card::CardController*> movedCards;
+        bool wasTopCardOpen;
+        Card::CardController* openedCard;  // Track the card that was opened
+
+        CardMovement(IStack<Card::CardController*>* src, IStack<Card::CardController*>* tgt, std::vector<Card::CardController*> cards, bool topCardOpen, Card::CardController* openedCard)
+            : sourceStack(src), targetStack(tgt), movedCards(cards), wasTopCardOpen(topCardOpen), openedCard(openedCard) {}
+    };
+
 
     class LevelModel
     {
@@ -17,11 +31,13 @@ namespace Gameplay
         std::vector<IStack<Card::CardController*>*> solution_stacks;
         IStack<Card::CardController*>* drawing_stack;
         IStack<Card::CardController*>* draw_stack_buttons;
+        
 
         void createPlayStacks();
         void createSolutionStacks();
         void createDrawingStack();
         void createDrawStackButtons();
+        void createMoveHistoryStack();
 
         void destroy();
         void deleteAllStackElemets();
@@ -58,7 +74,7 @@ namespace Gameplay
         static constexpr float solution_deck_left_offset = 200.f;
         static constexpr float solution_deck_spacing = 40.f;
 
-        
+        IStack<CardMovement*>* moveHistory;
 
         LevelModel();
         ~LevelModel();

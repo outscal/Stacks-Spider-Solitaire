@@ -21,6 +21,8 @@ namespace Event
     {
         updateButtonsState(left_mouse_button_state);
         updateButtonsState(right_mouse_button_state);
+        updateKeyboardButtonsState(Z_button_state, sf::Keyboard::Z);
+        updateKeyboardButtonsState(Ctrl_button_state, sf::Keyboard::LControl);
     }
 
     void EventService::processEvents()
@@ -56,6 +58,26 @@ namespace Event
         }
     }
 
+    void EventService::updateKeyboardButtonsState(ButtonState& current_button_state, sf::Keyboard::Key keyboard_button)
+    {
+        if (sf::Keyboard::isKeyPressed(keyboard_button))
+        {
+            switch (current_button_state)
+            {
+            case ButtonState::RELEASED:
+                current_button_state = ButtonState::PRESSED;
+                break;
+            case ButtonState::PRESSED:
+                current_button_state = ButtonState::HELD;
+                break;
+            }
+        }
+        else
+        {
+            current_button_state = ButtonState::RELEASED;
+        }
+    }
+
     bool EventService::isGameWindowOpen() { return game_window != nullptr; }
 
     bool EventService::gameWindowWasClosed() { return game_event.type == sf::Event::Closed; }
@@ -71,4 +93,13 @@ namespace Event
     bool EventService::pressedRightMouseButton() { return right_mouse_button_state == ButtonState::PRESSED; }
 
     void EventService::setLeftMouseButtonState(ButtonState button_state) { left_mouse_button_state = button_state; }
+
+    bool EventService::pressedZKey() { return Z_button_state == ButtonState::PRESSED; }
+
+    bool EventService::pressedCtrlKey() { return Ctrl_button_state == ButtonState::HELD; }
+    
+    bool EventService::isCtrlZPressed()
+    {
+        return pressedCtrlKey() && pressedZKey();
+    }
 }

@@ -47,6 +47,11 @@ namespace Gameplay
 		level_view->update();
 		updateStacks();
 		processCardControllerInput();
+
+		if (ServiceLocator::getInstance()->getEventService()->isCtrlZPressed())
+		{
+			undo();
+		}
 	}
 
 	void LevelController::render()
@@ -129,6 +134,7 @@ namespace Gameplay
 		}
 
 		openTopCardOfStack(stack);
+		clearMoveHistory();
 		increaseScore(LevelModel::suit_complete_score);
 
 		if (isLevelComplete()) processGameOver();
@@ -155,6 +161,7 @@ namespace Gameplay
 		else {
 			canDrawCard = false;
 			cards_popped = 0;
+			clearMoveHistory();
 		}
 	}
 
@@ -207,7 +214,16 @@ namespace Gameplay
 		if (!previously_selected_card_stack || !currently_selected_card_stack) return;
 
 		level_model->removeEmptyCard(currently_selected_card_stack);
-		moveCardsBetweenStacks(previously_selected_card_stack, currently_selected_card_stack);
+		
+		Card::CardController* openedCard = nullptr;
+		std::vector<Card::CardController*> movedCards = moveCardsBetweenStacks(previously_selected_card_stack, currently_selected_card_stack, openedCard);
+		bool wasTopCardOpen = openedCard && openedCard->getCardData()->state == Card::State::CLOSE;
+
+
+		// Create a new CardMovement object and push its pointer onto the stack
+		CardMovement* move = new CardMovement(previously_selected_card_stack, currently_selected_card_stack, movedCards, wasTopCardOpen, openedCard);
+		level_model->moveHistory->push(move);
+
 		openTopCardOfStack(previously_selected_card_stack);
 
 		previously_selected_card_controller->setCardState(Card::State::OPEN);
@@ -217,20 +233,34 @@ namespace Gameplay
 		reduceScore(1);
 	}
 
-	void LevelController::moveCardsBetweenStacks(IStack<Card::CardController*>* source_stack, IStack<Card::CardController*>* target_stack)
+	std::vector<Card::CardController*> LevelController::moveCardsBetweenStacks(IStack<Card::CardController*>* source_stack, IStack<Card::CardController*>* target_stack, Card::CardController*& openedCard)
 	{
 		LinkedListStack::Stack<Card::CardController*> temp_stack;
+		std::vector<Card::CardController*> movedCards;
+		openedCard = nullptr;
 
 		while (source_stack->peek() != previously_selected_card_controller)
 		{
-			CardController* controller = source_stack->pop();
+			Card::CardController* controller = source_stack->pop();
 			controller->setCardState(Card::State::OPEN);
 			temp_stack.push(controller);
+			movedCards.push_back(controller);
 		}
 
-		temp_stack.push(source_stack->pop());
-		while (!temp_stack.isEmpty()) target_stack->push(temp_stack.pop());
+		Card::CardController* selectedController = source_stack->pop();
+		temp_stack.push(selectedController);
+		movedCards.push_back(selectedController);
 
+		while (!temp_stack.isEmpty()) {
+			target_stack->push(temp_stack.pop());
+		}
+
+		// If there are still cards left in the source stack, the top card needs to be checked for state
+		if (!source_stack->isEmpty()) {
+			openedCard = source_stack->peek();
+		}
+
+		return movedCards;
 	}
 
 	void LevelController::openTopCardOfStack(IStack<Card::CardController*>* stack)
@@ -468,6 +498,29 @@ namespace Gameplay
 		}
 	}
 
+	void LevelController::undo()
+	{
+		if (level_model->moveHistory->isEmpty()) return;
+
+		// Get the last move and remove it from the stack
+		CardMovement* lastMove = level_model->moveHistory->peek();
+		level_model->moveHistory->pop();
+
+		// Move cards back to the original stack
+		for (auto it = lastMove->movedCards.rbegin(); it != lastMove->movedCards.rend(); ++it) {
+			lastMove->targetStack->pop();
+			lastMove->sourceStack->push(*it);
+		}
+
+		// Close the card that was opened
+		if (lastMove->openedCard  && lastMove->wasTopCardOpen) {
+			lastMove->openedCard->setCardState(Card::State::CLOSE);
+		}
+
+		// Delete the dynamically allocated CardMovement object
+		delete lastMove;
+	}
+
 	void LevelController::reduceScore(int val)
 	{
 		score -= val;
@@ -484,6 +537,15 @@ namespace Gameplay
 		GameService::setGameState(GameState::CREDITS);
 	}
 
+	void LevelController::clearMoveHistory()
+	{
+		while (!level_model->moveHistory->isEmpty()) {
+			CardMovement* move = level_model->moveHistory->peek();
+			level_model->moveHistory->pop();
+			delete move;
+		}
+	}
+
 	void LevelController::reset()
 	{
 		elapsed_time = 0;
@@ -491,6 +553,7 @@ namespace Gameplay
 		score = LevelModel::initial_score;
 		previously_selected_card_controller = nullptr;
 		flagged_card_to_process_input = nullptr;
+		clearMoveHistory();
 		level_model->reset();
 	}
 }

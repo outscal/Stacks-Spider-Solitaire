@@ -100,7 +100,14 @@ namespace Gameplay
 		
 		if (getDrawStackButtons()->contains(selected_card_controller))
 		{
-			canDrawCard = true;
+			for (int i = 0; i < LevelModel::number_of_play_stacks; i++)
+			{
+				if (level_model->getPlayStacks()[i]->peek()->getCardData()->rank != Card::Rank::DEFAULT)
+				{
+					canDrawCard = true;
+				}
+			}
+			
 			
 		}
 	}

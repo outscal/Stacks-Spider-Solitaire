@@ -506,6 +506,8 @@ namespace Gameplay
 		CardMovement* lastMove = level_model->moveHistory->peek();
 		level_model->moveHistory->pop();
 
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+
 		// Move cards back to the original stack
 		for (auto it = lastMove->movedCards.rbegin(); it != lastMove->movedCards.rend(); ++it) {
 			lastMove->targetStack->pop();

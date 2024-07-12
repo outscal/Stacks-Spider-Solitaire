@@ -26,7 +26,6 @@ namespace Card
 
 	void CardController::update()
 	{
-		updateCardVisibility();
 		card_view->update();
 	}
 
@@ -34,22 +33,6 @@ namespace Card
 	{
 		card_view->render();
 	}
-
-	void CardController::updateCardVisibility()
-	{
-		if (card_model->getHideDuration() <= 0)
-		{
-			card_model->setCardVisibility(CardVisibility::VISIBLE);
-		}
-		else
-		{
-			card_model->setCardVisibility(CardVisibility::HIDDEN);
-
-			float delta_time = ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-			card_model->setHideDuration(card_model->getHideDuration() - delta_time);
-		}
-	}
-
 
 
 	CardData* CardController::getCardData()
@@ -94,10 +77,10 @@ namespace Card
 	{
 		return card_model->getCardVisibility();
 	}
-
-	void CardController::hideCard(float duration)
+	
+	void CardController::setCardVisibility(Card::CardVisibility visibility)
 	{
-		card_model->setHideDuration(duration);
+		card_model->setCardVisibility(visibility);
 	}
 
 }

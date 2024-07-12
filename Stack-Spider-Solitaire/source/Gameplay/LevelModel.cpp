@@ -14,13 +14,13 @@ namespace Gameplay
 	using namespace Card;
 	using namespace Global;
 
-	const float LevelModel::card_hide_duration_multiplyer = 0.15f;
 
 	LevelModel::LevelModel()
 	{
 		createPlayStacks();
 		createSolutionStacks();
 		createDrawingStack();
+		createDrawStackButtons();
 	}
 
 	LevelModel::~LevelModel()
@@ -51,6 +51,11 @@ namespace Gameplay
 		drawing_stack = new ArrayStack::Stack<CardController*>();
 	}
 
+	void LevelModel::createDrawStackButtons()
+	{
+		draw_stack_buttons = new ArrayStack::Stack<CardController*>();
+	}
+
 	void LevelModel::initialize() 
 	{
 		populateCardPiles();
@@ -65,7 +70,8 @@ namespace Gameplay
 
 	void LevelModel::populateCardPiles()
 	{
-		IStack<CardController*>* card_deck = ServiceLocator::getInstance()->getCardService()->generateRandomizedCardDeck(number_of_decks);
+		ServiceLocator* locator = ServiceLocator::getInstance();
+		IStack<CardController*>* card_deck = locator->getCardService()->generateRandomizedCardDeck(number_of_decks);
 
 		while (card_deck->getSize() > drawing_deck_stack_size)
 		{
@@ -82,6 +88,12 @@ namespace Gameplay
 		}
 
 		delete (card_deck);
+
+		for (int i = 0; i < 5; i++)
+		{
+			addDrawStackButtons(locator->getCardService()->generateCard(Card::Rank::ACE, Card::Suit::HEARTS));
+
+		}
 	}
 
 	void LevelModel::addCardInPlayStack(int stack_index, CardController* card_controller)
@@ -89,6 +101,7 @@ namespace Gameplay
 		if (stack_index >= 0 && stack_index < number_of_play_stacks)
 		{
 			play_stacks[stack_index]->push(card_controller);
+			card_controller->setCardVisibility(CardVisibility::VISIBLE);
 		}
 	}
 
@@ -105,6 +118,12 @@ namespace Gameplay
 		drawing_stack->push(card_controller);
 	}
 
+	void LevelModel::addDrawStackButtons(Card::CardController* card_controller)
+	{
+		draw_stack_buttons->push(card_controller);
+		card_controller->setCardVisibility(CardVisibility::VISIBLE);
+	}
+
 	std::vector<IStack<CardController*>*> Gameplay::LevelModel::getPlayStacks()
 	{
 		return play_stacks;
@@ -118,6 +137,11 @@ namespace Gameplay
 	IStack<CardController*>* Gameplay::LevelModel::getDrawingStack()
 	{
 		return drawing_stack;
+	}
+
+	IStack<Card::CardController*>* LevelModel::getDrawStackButtons()
+	{
+		return draw_stack_buttons;
 	}
 
 	IStack<Card::CardController*>* LevelModel::findPlayStack(Card::CardController* card_controller)
@@ -146,6 +170,7 @@ namespace Gameplay
 		}
 
 		deleteStackElements(drawing_stack);
+		deleteStackElements(draw_stack_buttons);
 	}
 
 	void LevelModel::deleteStackElements(IStack<Card::CardController*>* stack)
@@ -180,5 +205,6 @@ namespace Gameplay
 		}
 
 		delete (drawing_stack);
+		delete (draw_stack_buttons);
 	}
 }

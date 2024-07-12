@@ -46,14 +46,5 @@ namespace Card
 		return card_visibility;
 	}
 
-	void CardModel::setHideDuration(float duration)
-	{
-		hide_duration = duration;
-	}
-
-	float CardModel::getHideDuration()
-	{
-		return hide_duration;
-	}
 
 }

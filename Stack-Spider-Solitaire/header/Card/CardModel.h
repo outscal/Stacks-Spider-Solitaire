@@ -48,8 +48,5 @@ namespace Card
         void setCardVisibility(CardVisibility visibility);
         CardVisibility getCardVisibility();
 
-        void setHideDuration(float duration);
-        float getHideDuration();
-
     };
 }

@@ -129,7 +129,7 @@ namespace Gameplay
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
-			CardController* card_controller = level_controller->getDrawingStack()->pop();
+			CardController* card_controller = level_controller->getDrawStackButtons()->pop();
 			temp_stack.push(card_controller);
 
 			float x_position = LevelModel::drawing_deck_left_offset - (i * LevelModel::drawing_deck_horizontal_spacing);
@@ -140,7 +140,7 @@ namespace Gameplay
 
 		while (!temp_stack.isEmpty())
 		{
-			level_controller->getDrawingStack()->push(temp_stack.pop());
+			level_controller->getDrawStackButtons()->push(temp_stack.pop());
 		}
 	}
 
@@ -186,19 +186,16 @@ namespace Gameplay
 
 		for (int i = 0; i < number_of_draws; i++)
 		{
-			CardController* card_controller = level_controller->getDrawingStack()->pop();
+			CardController* card_controller = level_controller->getDrawStackButtons()->pop();
 			temp_stack.push(card_controller);
-			
-			if (card_controller->positionSet)
-			{
-				card_controller->render();
-			}
-			
+
+			card_controller->render();
+
 		}
 
 		while (!temp_stack.isEmpty())
 		{
-			level_controller->getDrawingStack()->push(temp_stack.pop());
+			level_controller->getDrawStackButtons()->push(temp_stack.pop());
 		}
 		
 	}

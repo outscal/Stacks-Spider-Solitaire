@@ -53,7 +53,7 @@ namespace Card
 
 	void CardView::render()
 	{
-		if (card_controller->getCardVisibility() == CardVisibility::VISIBLE)
+		if (card_controller->getCardVisibility() == CardVisibility::VISIBLE && card_controller->positionSet)
 		{
 			card_button_view->render();
 			card_highlight->render();
@@ -82,6 +82,7 @@ namespace Card
 	{
 		card_button_view->setPosition(card_position);
 		card_highlight->setPosition(card_position);
+
 	}
 
 	sf::String CardView::getCardTexturePath(CardData* card_type)

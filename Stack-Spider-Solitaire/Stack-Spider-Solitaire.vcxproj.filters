@@ -188,5 +188,8 @@
     <ClInclude Include="header\Stack\IStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\UI\Instructions\InstructionsScreenUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

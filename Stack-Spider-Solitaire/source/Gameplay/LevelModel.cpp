@@ -155,6 +155,7 @@ namespace Gameplay
 		}
 
 		deleteStackElements(drawing_stack);
+		deleteStackElements(draw_stack_buttons);
 	}
 
 	void LevelModel::deleteStackElements(IStack<Card::CardController*>* stack)
@@ -189,5 +190,6 @@ namespace Gameplay
 		}
 
 		delete (drawing_stack);
+		delete (draw_stack_buttons);
 	}
 }

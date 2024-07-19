@@ -6,7 +6,6 @@ namespace Card
 	{
 
 		card_data = new CardData(rank, suit, State::CLOSE);
-		card_visibility = CardVisibility::VISIBLE;
 		
 	}
 

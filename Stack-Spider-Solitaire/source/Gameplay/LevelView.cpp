@@ -73,11 +73,11 @@ namespace Gameplay
 
 		for (float i = 0; i < LevelModel::number_of_play_stacks; i++)
 		{
-			updatePlayStackCardsView(*(level_controller->getPlayStacks()[i]), i);
+			updatePlayStackCardsView(*(level_controller->getPlayStacks()[i]), i); //name change for fn
 		}
 	}
 
-	void LevelView::updatePlayStackCardsView(IStack<CardController*>& stack, int stack_position)
+	void LevelView::updatePlayStackCardsView(IStack<CardController*>& stack, int stack_position) //name change + updated to manage card spacing
 	{
 		ArrayStack::Stack<CardController*> temp_stack;
 		float stack_size = stack.getSize();

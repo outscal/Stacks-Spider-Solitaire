@@ -20,7 +20,7 @@ namespace Gameplay
 
         float elapsed_time = 0.0f;
         float delay_time = 0.0f;
-        int score;
+        int score = 0;
         bool canDrawCard = false;
         int cards_popped = 0;
 
@@ -30,7 +30,6 @@ namespace Gameplay
         void updatePlayStacks();
         void updateSolutionStacks();
         void updateDrawingStack();
-        void updateDrawingStackButtons();
         void updateStackCards(IStack<Card::CardController*>* stack);
 
         void processCardControllerInput();

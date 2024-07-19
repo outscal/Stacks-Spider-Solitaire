@@ -1,10 +1,7 @@
 #include "../../header/Card/CardController.h"
-#include "../../header/Global/ServiceLocator.h"
-#include "../../header/Time/TimeService.h"
 
 namespace Card
 {
-	using namespace Global;
 
 	CardController::CardController(Rank rank, Suit suit)
 	{

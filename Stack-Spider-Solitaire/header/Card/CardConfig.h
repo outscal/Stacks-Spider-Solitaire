@@ -8,9 +8,9 @@ namespace Card
     enum class Suit
     {
         HEARTS,
+        SPADES,
         DIAMONDS,
         CLUBS,
-        SPADES
     };
 
     enum class Rank

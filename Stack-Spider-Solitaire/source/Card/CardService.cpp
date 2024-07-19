@@ -57,7 +57,7 @@ namespace Card
 
 		for (int suit = 0; suit < static_cast<int>(number_of_suits); suit++)
 		{
-			for (int rank = 0; rank < static_cast<int>(number_of_ranks); rank++)
+			for (int rank = 1; rank <= static_cast<int>(number_of_ranks); rank++)
 			{
 				CardController* card = generateCard(static_cast<Rank>(rank), static_cast<Suit>(suit));
 				

@@ -326,7 +326,11 @@ namespace Gameplay
 		while (!stack->isEmpty())
 		{
 			CardController* card_controller = stack->pop();
-			card_controller->update();
+			if (card_controller->getCardVisibility() == CardVisibility::VISIBLE)
+			{
+				card_controller->update();
+			}
+			
 			temp_stack.push(card_controller);
 		}
 

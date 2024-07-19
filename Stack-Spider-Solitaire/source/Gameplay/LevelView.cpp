@@ -183,13 +183,21 @@ namespace Gameplay
 	{
 		ArrayStack::Stack<CardController*> temp_stack;
 		int number_of_draws = getNumberOfDrawsRemaining();
+		int number_of_total_buttons = 5;
 
-		for (int i = 0; i < number_of_draws; i++)
+		for (int i = 0; i < number_of_total_buttons; i++) //5 times
 		{
 			CardController* card_controller = level_controller->getDrawStackButtons()->pop();
 			temp_stack.push(card_controller);
-
-			card_controller->render();
+			number_of_draws--;
+			if (number_of_draws >= 0)
+			{
+				card_controller->render();
+			}
+			else {
+				card_controller->setCardVisibility(CardVisibility::HIDDEN);
+			}
+			
 
 		}
 

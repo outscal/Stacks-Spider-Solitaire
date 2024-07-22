@@ -154,10 +154,11 @@ namespace Gameplay
 
 	void LevelController::drawCards()
 	{
+		IStack<Card::CardController*>* card_deck = getDrawingStack();
 
 		if (cards_popped < LevelModel::number_of_play_stacks)
 		{
-			IStack<Card::CardController*>* card_deck = getDrawingStack();
+			
 			
 			if (card_deck->isEmpty()) return;
 
@@ -424,7 +425,11 @@ namespace Gameplay
 		while (!stack->isEmpty())
 		{
 			CardController* card_controller = stack->pop();
-			card_controller->update();
+			if (card_controller->getCardVisibility() == CardVisibility::VISIBLE)
+			{
+				card_controller->update();
+			}
+
 			temp_stack.push(card_controller);
 		}
 

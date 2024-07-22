@@ -125,10 +125,11 @@ namespace Gameplay
 
 	void LevelController::drawCards()
 	{
+		IStack<Card::CardController*>* card_deck = getDrawingStack();
+
 		if (cards_popped < LevelModel::number_of_play_stacks)
 		{
-			IStack<Card::CardController*>* card_deck = getDrawingStack();
-
+			
 			if (card_deck->isEmpty()) return;
 
 			CardController* card_controller = card_deck->pop();
@@ -143,6 +144,7 @@ namespace Gameplay
 			canDrawCard = false;
 			cards_popped = 0;
 		}
+
 	}
 
 	void LevelController::selectCards(Card::CardController* card_controller)

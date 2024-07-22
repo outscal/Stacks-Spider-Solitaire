@@ -33,7 +33,6 @@ namespace Card
         sf::Vector2f position;
 
         CardVisibility card_visibility;
-        float hide_duration;
 
     public:
         CardModel(Rank rank, Suit suit);

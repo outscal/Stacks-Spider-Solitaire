@@ -15,7 +15,7 @@ namespace Card
 		delete card_view;
 	}
 
-	void CardController::initialize(float card_width, float card_height, float hide_duration)
+	void CardController::initialize(float card_width, float card_height)
 	{
 		card_view->initialize(card_width, card_height, this);
 		card_model->setCardVisibility(CardVisibility::HIDDEN);

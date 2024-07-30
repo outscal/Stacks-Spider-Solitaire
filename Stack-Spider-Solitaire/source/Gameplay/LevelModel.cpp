@@ -180,9 +180,13 @@ namespace Gameplay
 
 	void LevelModel::addEmptyCard(IStack<Card::CardController*>* stack)
 	{
-		CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
-		empty_card->setCardVisibility(CardVisibility::VISIBLE);
-		stack->push(empty_card);
+		if (stack->isEmpty())
+		{
+			CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+			empty_card->setCardState(State::OPEN);
+			empty_card->setCardVisibility(CardVisibility::VISIBLE);
+			stack->push(empty_card);
+		}
 	}
 
 	void LevelModel::removeEmptyCard(IStack<Card::CardController*>* stack)

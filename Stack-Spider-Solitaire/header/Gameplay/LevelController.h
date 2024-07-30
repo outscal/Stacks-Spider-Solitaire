@@ -54,9 +54,6 @@ namespace Gameplay
         bool isLevelComplete();
         bool isGameOver();
 
-        void addEmptyCard(IStack<Card::CardController*>* stack);
-        void removeEmptyCard(IStack<Card::CardController*>* stack);
-
         void undo();
 
         void reduceScore(int val);

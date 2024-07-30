@@ -499,29 +499,6 @@ namespace Gameplay
 		return level_model->getDrawStackButtons();
 	}
 
-	void LevelController::addEmptyCard(IStack<Card::CardController*>* stack)
-	{
-		if (stack->isEmpty())
-		{
-			CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
-			empty_card->setCardState(State::OPEN);
-			empty_card->setCardVisibility(CardVisibility::VISIBLE);
-			stack->push(empty_card);
-		}
-		
-	}
-
-	void LevelController::removeEmptyCard(IStack<Card::CardController*>* stack)
-	{
-		if (stack->isEmpty()) return;
-
-		if (stack->peek()->getCardData()->rank == Card::Rank::DEFAULT)
-		{
-			CardController* card_controller = stack->pop();
-			delete (card_controller);
-		}
-	}
-
 	void LevelController::undo()
 	{
 		if (level_model->moveHistory->isEmpty()) return;
@@ -533,7 +510,7 @@ namespace Gameplay
 
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
 
-		removeEmptyCard(lastMove->sourceStack);
+		level_model->removeEmptyCard(lastMove->sourceStack);
 
 		// Move cards back to the original stack
 		for (auto it = lastMove->movedCards.rbegin(); it != lastMove->movedCards.rend(); ++it) {
@@ -541,8 +518,8 @@ namespace Gameplay
 			lastMove->sourceStack->push(*it);
 		}
 
-		removeEmptyCard(lastMove->targetStack);
-		addEmptyCard(lastMove->targetStack);
+		level_model->removeEmptyCard(lastMove->targetStack);
+		level_model->addEmptyCard(lastMove->targetStack);
 
 		// Close the card that was opened
 		if (lastMove->openedCard && lastMove->wasTopCardOpen && (lastMove->openedCard->getCardData()->rank != Card::Rank::DEFAULT)) {

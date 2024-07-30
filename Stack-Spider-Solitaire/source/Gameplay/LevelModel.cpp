@@ -157,6 +157,28 @@ namespace Gameplay
 		return nullptr;
 	}
 
+	void LevelModel::addEmptyCard(IStack<Card::CardController*>* stack)
+	{
+		if (stack->isEmpty())
+		{
+			CardController* empty_card = ServiceLocator::getInstance()->getCardService()->generateCard(Card::Rank::DEFAULT, Card::Suit::DEFAULT);
+			empty_card->setCardState(State::OPEN);
+			empty_card->setCardVisibility(CardVisibility::VISIBLE);
+			stack->push(empty_card);
+		}
+	}
+
+	void LevelModel::removeEmptyCard(IStack<Card::CardController*>* stack)
+	{
+		if (stack->isEmpty()) return;
+
+		if (stack->peek()->getCardData()->rank == Card::Rank::DEFAULT)
+		{
+			CardController* card_controller = stack->pop();
+			delete (card_controller);
+		}
+	}
+
 	void LevelModel::deleteAllStackElemets()
 	{
 		for (int i = 0; i < number_of_play_stacks; i++)

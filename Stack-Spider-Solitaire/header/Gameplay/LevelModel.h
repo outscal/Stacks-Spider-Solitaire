@@ -68,6 +68,9 @@ namespace Gameplay
 
         void populateCardPiles();
 
+        void addEmptyCard(IStack<Card::CardController*>* stack);
+        void removeEmptyCard(IStack<Card::CardController*>* stack);
+
         IStack<Card::CardController*>* findPlayStack(Card::CardController* card_controller);
 
         std::vector<IStack<Card::CardController*>*> getPlayStacks();
